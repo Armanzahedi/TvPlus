@@ -1,0 +1,40 @@
+﻿@model TvPlus.Core.Models.SystemParameter
+
+<input type="hidden" id="title" value="ویرایش پارامتر های سیستمی" />
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="InsertDate" type="hidden" />
+    <input asp-for="InsertUser" type="hidden" />
+    <input asp-for="IsDeleted" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="Key" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <input asp-for="Key" class="form-control" />
+            <span asp-validation-for="Key" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Value" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <input asp-for="Value" class="form-control" />
+            <span asp-validation-for="Value" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <textarea asp-for="Description" class="form-control">
+            </textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div style="float:left">
+            <input type="submit" value="ثبت" class="btn btn-primary mr-2" />
+        </div>
+    </div>
+</form>

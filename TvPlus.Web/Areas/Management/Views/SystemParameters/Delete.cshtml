@@ -1,0 +1,33 @@
+﻿@model TvPlus.Core.Models.SystemParameter
+    <input type="hidden" id="title" value="حذف پارامتر های سیستمی" />
+
+    <h4 class="card-label">
+        آیا مطمئن هستید که می خواهید این رکورد را حذف کنید؟
+    </h4>
+    <dl class="row" style="padding-top:10px">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Key)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Key)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+    <div style="float:left">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="حذف" class="btn btn-danger mr-2" />
+        }
+    </div>

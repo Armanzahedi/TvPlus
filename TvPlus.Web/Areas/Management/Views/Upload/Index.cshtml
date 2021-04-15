@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Edit Role Permission";
+}
+
+<div class="col-lg-6">
+    <div class="card card-custom gutter-b">
+        <div class="card-header">
+            <h3 class="card-title">
+                آپلود ویدیو
+            </h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="/management/Upload" method="post" id="form">
+                <input type="file" name="video" id="video" />
+                <button type="submit">upload</button>
+            </form>
+
+            <div class="progress" style="margin-top:50px;display:none">
+                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div id="upload-status"></div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+<script>
+    $("#form").submit(function (e) {
+    console.log("triggered")
+        e.preventDefault();
+        var video = $('#video').get(0).files[0];
+        var formData = new FormData();
+        formData.append('file', video);
+        $.ajax(
+            {
+                url: "/Management/Upload/Video",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var progress = Math.round((evt.loaded / evt.total) * 100);
+                            console.log(progress);
+                            $(".progress").show();
+                            $(".progress-bar").css("width", progress + "%").attr("aria-valuenow", progress);
+                            $(".progress-bar").html(progress + "%");
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function (data) {
+                    console.log(data.message);
+                    $(".progress").hide();
+                    $("#upload-status").html(data.message);
+                    $("#upload-status").show();
+                }
+            }
+        );
+    });
+</script>
+}
