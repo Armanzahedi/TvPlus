@@ -52,6 +52,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             ).AsQueryable();
             var form = Request.Form;
             var parser = new Parser<PostGridViewModel>(Request.Form, posts);
+            var data = parser.Parse();
             return JsonConvert.SerializeObject(parser.Parse());
         }
         [Authorize("Permission")]

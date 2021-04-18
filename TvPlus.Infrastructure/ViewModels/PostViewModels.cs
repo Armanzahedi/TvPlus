@@ -14,6 +14,12 @@ namespace TvPlus.Infrastructure.ViewModels
         public string PublishDate { get; set; }
         public int ViewCount { get; set; }
     }
+    public class SpecialOfferGridViewModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool IsSpecialOffer { get; set; }
+    }
     public class EditPostViewModel
     {
         public int Id { get; set; }

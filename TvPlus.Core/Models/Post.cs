@@ -12,5 +12,6 @@ namespace TvPlus.Core.Models
         public DateTime PublishDate { get; set; }
         public string Context { get; set; }
         public int ViewCount { get; set; }
+        public bool IsSpecialOffer { get; set; }
     }
 }
