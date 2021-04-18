@@ -16,6 +16,8 @@ namespace TvPlus.Core.Models
         public DateTime? UpdateDate { get; set; }
         public string InsertUser { get; set; }
         public string UpdateUser { get; set; }
+        public bool IsTopTen { get; set; }
+        public bool IsTrendTv { get; set; }
         public bool IsDeleted { get; set; }
         public ICollection<CenterCategory> CenterCategories { get; set; }
         public ICollection<Member> Members1 { get; set; }

@@ -13,10 +13,10 @@ using TvPlus.Infrastructure.ViewModels;
 namespace TvPlus.Web.Areas.Management.Controllers
 {
     [Area("Management")]
-    public class SpecialOffersController : Controller
+    public class TopTenPlusController : Controller
     {
         private readonly IPostService _postService;
-        public SpecialOffersController(IPostService postService)
+        public TopTenPlusController(IPostService postService)
         {
             _postService = postService;
         }
