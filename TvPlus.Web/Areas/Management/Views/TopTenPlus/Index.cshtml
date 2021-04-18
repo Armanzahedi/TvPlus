@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "پیشنهاد ویژه";
 }
-<input type="hidden" id="nav_active" value="special_offers">
+<input type="hidden" id="nav_active" value="top_ten_plus">
 
 <div class="card card-custom">
     <div class="card-header flex-wrap border-0 pt-6 pb-0">
@@ -46,13 +46,13 @@
                     { data: "Id" },
                     { data: "Title" },
                     {
-                        data: "IsSpecialOffer",
+                        data: "IsTopTen",
                         render: function (data, type, row) {
                             var content = "";
-                            if (row.IsSpecialOffer === true) {
-                                content = "<span class='label label-lg label-success label-inline'>پیشنهاد ویژه</span>";
+                            if (row.IsTopTen === true) {
+                                content = "<span class='label label-lg label-success label-inline'>Top 10 Plus</span>";
                             } else {
-                                content = "<span class='label label-lg label-danger label-inline'>ویژه نیست</span>";
+                                content = "<span class='label label-lg label-danger label-inline'>Top 10 نیست</span>";
                             }
                             return content;
                         },
@@ -67,15 +67,15 @@
                                 if (await PermissionHelper.UserHasPermission("SpecialOffers", "ToggleStatus"))
                                 {
                                     <text>
-                                        if (row.IsSpecialOffer === true) {
+                                if (row.IsTopTen === true) {
                                         content = `\
-                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/SpecialOffers/ToggleStatus/${row.Id}')">\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/TopTenPlus/ToggleStatus/${row.Id}')">\
                                         <i class='fas fa-times text-danger'></i>\
                                         </a>\
                                         `;
                                         } else {
                                         content = `\
-                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/SpecialOffers/ToggleStatus/${row.Id}')">\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/TopTenPlus/ToggleStatus/${row.Id}')">\
                                         <i class='fas fa-check text-success'></i>\
                                         </a>\
                                         `;

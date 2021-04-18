@@ -1,0 +1,31 @@
+﻿@model TvPlus.Core.Models.Post
+<input type="hidden" id="title" value="Top 10 Plus" />
+
+@{
+    if (Model.IsTopTen)
+    {
+        <h5 class="card-label">
+            آیا مطمئن هستید که می خواهید این پست را از پیشنهاد ویژه حذف کنید؟
+        </h5>
+    }
+    else
+    {
+        <h5 class="card-label">
+            آیا مطمئن هستید که می خواهید این پست به پیشنهاد ویژه اضافه کنید؟
+        </h5>
+    }
+}
+<div style="float:left">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        if (Model.IsTopTen)
+        {
+            <input type="submit" value="حذف از Top 10" class="btn btn-danger mr-2" />
+        }
+        else
+        {
+            <input type="submit" value="افزودن به Top 10" class="btn btn-primary mr-2" />
+        }
+    }
+</div>
