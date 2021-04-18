@@ -13,5 +13,7 @@ namespace TvPlus.Core.Models
         public string Context { get; set; }
         public int ViewCount { get; set; }
         public bool IsSpecialOffer { get; set; }
+        public bool IsTopTen { get; set; }
+        public bool IsTrendTv { get; set; }
     }
 }
