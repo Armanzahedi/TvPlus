@@ -45,7 +45,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
         {
             var post = _postService.GetById(id);
 
-            post.IsSpecialOffer = !post.IsSpecialOffer;
+            post.IsTopTen = !post.IsTopTen;
 
             _postService.Update(post);
             return RedirectToAction(nameof(Index));
