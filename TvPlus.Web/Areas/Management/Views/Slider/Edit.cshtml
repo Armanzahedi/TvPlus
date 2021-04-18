@@ -10,7 +10,7 @@
         <label class="col-label">تصویر</label>
         <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top:20px">
             <div class="image-input image-input-outline" id="slider-image">
-                <div class="image-input-wrapper" style="background-image: url(/UploadedFiles/Images/@Model.Id)"></div>
+                <div class="image-input-wrapper" style="background-image: url(/UploadedFiles/Images/@Model.Image)"></div>
                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="آپلود تصویر">
                     <i class="fa fa-pen icon-sm text-muted"></i>
                     <input type="file" name="SliderImage" id="SliderImage" accept=".png, .jpg, .jpeg" />
@@ -33,7 +33,7 @@
     <div class="form-group">
         <label asp-for="PostId" class="control-label col-md-3"></label>
         <div class="col-md-9">
-            <select asp-for="PostId" asp-items="@ViewData["Posts"] as IEnumerable<SelectListItem>" class="form-control"></select>
+            <select asp-for="PostId" asp-items="@ViewData["Posts"] as IEnumerable<SelectListItem>" class="form-control" sele></select>
             <span asp-validation-for="PostId" class="text-danger"></span>
         </div>
     </div>

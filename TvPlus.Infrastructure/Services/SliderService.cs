@@ -17,6 +17,7 @@ namespace TvPlus.Infrastructure.Services
     public interface ISliderService : ISliderRepository
     {
         Slider Save(Slider model);
+        IQueryable<Slider> GetWithPostNavigation();
     }
     public class SliderService : SliderRepository, ISliderService
     {
@@ -33,6 +34,11 @@ namespace TvPlus.Infrastructure.Services
         {
            var savedSlider =  base.AddOrUpdate(model);
            return savedSlider;
+        }
+
+        public IQueryable<Slider> GetWithPostNavigation()
+        {
+            return _context.Sliders.Include(s => s.Post).Where(s => s.IsDeleted == false).AsQueryable();
         }
     }
 }

@@ -10,18 +10,20 @@ using TvPlus.Core.Models;
 using TvPlus.Infrastructure.Helpers;
 using TvPlus.Infrastructure.Services;
 using TvPlus.Infrastructure.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace TvPlus.Web.Areas.Management.Controllers
 {
     [Area("Management")]
     public class SliderController : Controller
     {
-        private readonly ISliderService _SliderService;
+        private readonly ISliderService _sliderService;
         private readonly IImageService _imageService;
         private readonly IPostService _postService;
-        public SliderController(ISliderService SliderService, IImageService imageService, IPostService postService)
+        public SliderController(ISliderService sliderService, IImageService imageService, IPostService postService)
         {
-            _SliderService = SliderService;
+            _sliderService = sliderService;
             _imageService = imageService;
             _postService = postService;
         }
@@ -35,7 +37,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
         [AllowAnonymous]
         public string LoadGrid()
         {
-            var Slider = _SliderService.GetDefaultQuery().Select(p => new SliderGridViewModel
+            var Slider = _sliderService.GetWithPostNavigation().Select(p => new SliderGridViewModel
             { Id = p.Id, Title = p.Title, PostTitle = p.Post.Title }).AsQueryable();
 
             var form = Request.Form;
@@ -51,7 +53,9 @@ namespace TvPlus.Web.Areas.Management.Controllers
         [Authorize("Permission")]
         public IActionResult Edit(int id)
         {
-            return PartialView(_SliderService.GetById(id));
+            var slider = _sliderService.GetById(id);
+            ViewData["Posts"] = _postService.GetDefaultQuery().Select(p => new SelectListItem() { Text = p.ShortTitle, Value = p.Id.ToString(), Selected = p.Id == slider.PostId});
+            return PartialView(slider);
         }
         [HttpPost]
         [AllowAnonymous]
@@ -65,19 +69,19 @@ namespace TvPlus.Web.Areas.Management.Controllers
                 var imageName = await ImageHelper.SaveImage(SliderImage, 1800, 600, true);
                 model.Image = imageName;
             }
-            var savedSlider = _SliderService.Save(model);
+            var savedSlider = _sliderService.Save(model);
 
             return RedirectToAction(nameof(Index));
         }
         [Authorize("Permission")]
         public ActionResult Delete(int id)
         {
-            return PartialView(_SliderService.GetById(id));
+            return PartialView(_sliderService.GetById(id));
         }
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            _SliderService.Delete(id);
+            _sliderService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
     }
