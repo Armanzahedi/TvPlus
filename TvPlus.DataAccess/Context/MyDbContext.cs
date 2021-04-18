@@ -31,6 +31,7 @@ namespace TvPlus.DataAccess
         public DbSet<RoleMenuPermission> RoleMenuPermission { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CenterCategory> CenterCategories { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

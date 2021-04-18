@@ -1,0 +1,93 @@
+﻿@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
+@{
+    ViewData["Title"] = "اسلایدر";
+}
+<input type="hidden" id="nav_active" value="slider">
+
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                @ViewData["Title"]
+                <span class="d-block text-muted pt-2 font-size-sm">ویرایش @ViewData["Title"]</span>
+            </h3>
+        </div>
+        <validate-permission asp-controller="People" asp-action="Create">
+            <div class="card-toolbar">
+                <a onclick="openModal('/Management/Slider/Create')" class="btn btn-primary font-weight-bolder">
+                    <partial name="SvgIcons/_NewRecordIcon" />
+                </a>
+            </div>
+        </validate-permission>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-borderless" id="datatable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>عنوان</th>
+                    <th>پست</th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(function () {
+            var table = $('#datatable').DataTable({
+                ajax: {
+                    url: '/Management/Slider/LoadGrid',
+                    type: "POST",
+                },
+                order: [0,"desc"], // descending order with first column witch is hidden id
+                columnDefs: [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                columns: [
+                    { data: "Id" },
+                    { data: "Title" },
+                    { data: "PostTitle" },
+                    {
+                        data: "Id",
+                        responsivePriority: -1,
+                        render: function (data, type, row) {
+                            var content = "";
+                            @{
+                                if (await PermissionHelper.UserHasPermission("Slider", "Edit"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon mr-2' onclick="openModal('/Management/Slider/Edit/${row.Id}')">\
+                                        <i class='far fa-edit text-primary'></i>\
+                                        </a>\
+                                        `;
+                                    content += element;
+                                    </text>
+                                }
+                                if (await PermissionHelper.UserHasPermission("Slider", "Delete"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Slider/Delete/${row.Id}')">\
+                                        <i class='far fa-trash-alt text-danger'></i>\
+                                        </a>\
+                                        `;
+                                    content += element;
+                                    </text>
+                                }
+                             }
+                            return content;
+                        },
+                        width:"200px",
+                        orderable: false
+                    },
+
+                ],
+            });
+        });
+    </script>
+}

@@ -1,18 +1,18 @@
-﻿@model TvPlus.Infrastructure.ViewModels.EditPeopleViewModel
+﻿@model TvPlus.Core.Models.Slider
 
-<input type="hidden" id="title" value="افزودن افراد برجسته" />
+<input type="hidden" id="title" value="افزودن اسلایدر" />
 
 <form asp-action="Save" method="post" id="form" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label class="col-label">تصویر</label>
         <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top:20px">
-            <div class="image-input image-input-outline" id="people-image">
+            <div class="image-input image-input-outline" id="slider-image">
                 <div class="image-input-wrapper" style="background-image: url(assets/media/users/100_1.jpg)"></div>
                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="آپلود تصویر">
                     <i class="fa fa-pen icon-sm text-muted"></i>
-                    <input type="file" name="PeopleImage" id="PeopleImage" accept=".png, .jpg, .jpeg" />
-                    <input type="hidden" name="people_image_remove" />
+                    <input type="file" name="SliderImage" id="SliderImage" accept=".png, .jpg, .jpeg" />
+                    <input type="hidden" name="slider_image_remove" />
                 </label>
 
                 <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="حذف تصویر">
@@ -22,25 +22,17 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="FirstName" class="control-label col-md-3"></label>
+        <label asp-for="Title" class="control-label col-md-3"></label>
         <div class="col-md-9">
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="LastName" class="control-label col-md-3"></label>
+        <label asp-for="PostId" class="control-label col-md-3"></label>
         <div class="col-md-9">
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label col-md-3"></label>
-        <div class="col-md-9">
-            <textarea asp-for="Description" class="form-control">
-            </textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
+            <select asp-for="PostId" asp-items="@ViewData["Posts"] as IEnumerable<SelectListItem>" class="form-control" ></select>
+            <span asp-validation-for="PostId" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
@@ -51,11 +43,11 @@
 </form>
 <style>
     .image-input .image-input-wrapper {
-        width: 150px;
+        width: 300px;
         height: 150px;
     }
 </style>
 <script>
     $.validator.unobtrusive.parse("#form");
-    new KTImageInput('people-image');
+    new KTImageInput('slider-image');
 </script>

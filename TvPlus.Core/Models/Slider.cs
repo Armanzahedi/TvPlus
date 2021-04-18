@@ -7,6 +7,7 @@ namespace TvPlus.Core.Models
    public class Slider : IBaseEntity
     {
         public int Id { get; set; }
+        public string Title { get; set; }
         public int PostId { get; set; }
         public Post Post { get; set; }
         public string Image { get; set; }
