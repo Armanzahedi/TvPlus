@@ -1,0 +1,31 @@
+﻿@model TvPlus.Core.Models.Post
+<input type="hidden" id="title" value="پشنهاد ویژه" />
+
+@{
+    if (Model.IsSpecialOffer)
+    {
+        <h5 class="card-label">
+            آیا مطمئن هستید که می خواهید این پست را از پیشنهاد ویژه حذف کنید؟
+        </h5>
+    }
+    else
+    {
+        <h5 class="card-label">
+            آیا مطمئن هستید که می خواهید این پست به پیشنهاد ویژه اضافه کنید؟
+        </h5>
+    }
+}
+<div style="float:left">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        if (Model.IsSpecialOffer)
+        {
+            <input type="submit" value="حذف از پیشنهاد ویژه" class="btn btn-danger mr-2" />
+        }
+        else
+        {
+            <input type="submit" value="افزودن به پیشنهاد ویژه" class="btn btn-primary mr-2" />
+        }
+    }
+</div>

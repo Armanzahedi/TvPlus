@@ -33,13 +33,29 @@ namespace TvPlus.Web.Areas.Management.Controllers
                 {
                     Id = item.Id,
                     Title = item.Title,
-                    IsSpecialOffer = item.IsSpecialOffer,
+                    IsSpecialOffer = item.IsSpecialOffer
                 }
             ).AsQueryable();
             var form = Request.Form;
             var parser = new Parser<SpecialOfferGridViewModel>(Request.Form, posts);
             var data = parser.Parse();
             return JsonConvert.SerializeObject(parser.Parse());
+        }
+        [Authorize("Permission")]
+        public IActionResult ToggleStatus(int id)
+        {
+            var post = _postService.GetById(id);
+            return PartialView(post);
+        }
+        [HttpPost, ActionName("ToggleStatus")]
+        public ActionResult ToggleStatusConfirmed(int id)
+        {
+            var post = _postService.GetById(id);
+
+            post.IsSpecialOffer = !post.IsSpecialOffer;
+
+            _postService.Update(post);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
