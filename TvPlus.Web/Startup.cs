@@ -24,6 +24,7 @@ using TvPlus.DataAccess;
 using TvPlus.Infrastructure;
 using TvPlus.Infrastructure.Dtos.SystemParameter;
 using TvPlus.Infrastructure.Helpers;
+using TvPlus.Infrastructure.ViewModels;
 using TvPlus.Web.Areas.Identity.ViewModels;
 using TvPlus.Web.Helpers;
 
@@ -62,7 +63,7 @@ namespace TvPlus.Web
             {
             })
                 .AddRazorRuntimeCompilation()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EditSystemParameterValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EditPeopleValidator>());
             services.AddRazorPages();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
@@ -73,6 +74,7 @@ namespace TvPlus.Web
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = new PathString("/Identity/Account/AccessDenied");
+                options.LoginPath = new PathString("/Identity/Account/Login");
             });
             services.AddDbContext<MyDbContext>(opt =>
             {

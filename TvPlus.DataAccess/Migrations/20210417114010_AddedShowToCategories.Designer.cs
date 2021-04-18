@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TvPlus.DataAccess;
 
 namespace TvPlus.DataAccess.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210417114010_AddedShowToCategories")]
+    partial class AddedShowToCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,21 +51,21 @@ namespace TvPlus.DataAccess.Migrations
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901447c18",
-                            ConcurrencyStamp = "b32b87db-02c8-4141-af0c-a368a81b91c5",
+                            ConcurrencyStamp = "3a8775b8-2998-4416-adf3-6b0c12abc2bf",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "d7be43da-622c-4cfe-98a9-5a5161120d24",
-                            ConcurrencyStamp = "46da7333-521f-4df8-be04-f1d4f79e5ee8",
+                            ConcurrencyStamp = "097eb437-1144-4bca-9a1a-fc947b1dc998",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901448abd",
-                            ConcurrencyStamp = "2ebcde90-d62f-4f2a-bd73-22c4828e5da9",
+                            ConcurrencyStamp = "58da2bb5-6df9-49c6-ad20-30616661795e",
                             Name = "Superuser",
                             NormalizedName = "SUPERUSER"
                         });
@@ -189,9 +191,6 @@ namespace TvPlus.DataAccess.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Show")
                         .HasColumnType("bit");
 
@@ -205,8 +204,6 @@ namespace TvPlus.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -778,7 +775,7 @@ namespace TvPlus.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211adff",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "65499213-f512-4ce7-8d2b-6b921c7c2096",
+                            ConcurrencyStamp = "6f8739d8-20fe-4fbb-a10b-dff19fde52bd",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -787,7 +784,7 @@ namespace TvPlus.DataAccess.Migrations
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aef3814c-6603-40d4-8743-7391c8675924",
+                            SecurityStamp = "3e9bb49c-7de4-4370-b48e-f8f75ebd76e7",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -796,7 +793,7 @@ namespace TvPlus.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211acmf",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "33f9b423-b750-44c6-80f6-adc2c9264e56",
+                            ConcurrencyStamp = "eea77697-65b4-44cf-bde7-d2a7fac5342b",
                             Email = "Superuser@Superuser.com",
                             EmailConfirmed = false,
                             FirstName = "Superuser",
@@ -804,9 +801,9 @@ namespace TvPlus.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERUSER@SUPERUSER.COM",
                             NormalizedUserName = "SUPERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ1iEKXzhfOu3fshPQJSbgv38rxUQ4UlDHb+tbf9/ECOEpOEnjM4b57L3Duv6VHKMw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHxSjwUYihbI+EMmzNJhMLo0WgbEbGrmhEfsJvyxxuq0QHfq0XzYOZ+FAbFMw09MWQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e60603a5-15ae-4eb3-a183-6553d5eb70aa",
+                            SecurityStamp = "465e3b26-7080-484e-9043-2126f3b941b6",
                             TwoFactorEnabled = false,
                             UserName = "Superuser"
                         });
@@ -992,15 +989,6 @@ namespace TvPlus.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TvPlus.Core.Models.Category", b =>
-                {
-                    b.HasOne("TvPlus.Core.Models.Category", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
-
-                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Center", b =>

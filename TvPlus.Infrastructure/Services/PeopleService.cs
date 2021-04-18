@@ -7,51 +7,53 @@ using Microsoft.AspNetCore.Http;
 using TvPlus.Core.Models;
 using TvPlus.DataAccess;
 using TvPlus.DataAccess.Repositories;
+using TvPlus.Infrastructure.ViewModels;
 using TvPlus.Services.Membership;
 
 namespace TvPlus.Infrastructure.Services
 {
     public interface IPeopleService : IPeopleRepository
     {
-        People Save(People entity);
+        People Save(EditPeopleViewModel model);
+        EditPeopleViewModel GetPeopleForEdit(int id);
         People FindByFirstAndLastName(string search);
     }
     public class PeopleService : PeopleRepository, IPeopleService
     {
-        private readonly IMapper _mapper;
         //private readonly IMembershipManagementBaseService _membershipManagementService;
-        public PeopleService(
-            IMapper mapper, MyDbContext context) : base(context)
+        private readonly IImageService _imageService;
+        public PeopleService(MyDbContext context, IImageService imageService) : base(context)
         {
-            _mapper = mapper;
+            _imageService = imageService;
             //_membershipManagementService = membershipManagementService;
         }
 
 
-        public People Save(People entity)
+        public People Save(EditPeopleViewModel model)
         {
+            var people = new People
+            {
+                Id = model.Id,
+                Firstname = model.FirstName,
+                Lastname = model.LastName,
+                Description = model.Description
+            };
+            var savedPeople = base.AddOrUpdate(people);
+            return savedPeople;
+        }
 
-            var a = base.GetById(entity.Id);
-
-            //save tags
-            
-
-
-            //save persons
-
-            //save specials
-
-
-
-
-
-
-            if (a != null)
-                base.Update(entity);
-            else
-                base.Add(entity);
-
-            return entity;
+        public EditPeopleViewModel GetPeopleForEdit(int id)
+        {
+            var people = base.GetById(id);
+            var image = _imageService.GetByCenterId(id);
+            var vm = new EditPeopleViewModel
+            {
+                FirstName = people.Firstname,
+                LastName = people.Lastname,
+                Description = people.Description,
+                ImageName = image.ImageName
+            };
+            return vm;
         }
 
         public People FindByFirstAndLastName(string search)

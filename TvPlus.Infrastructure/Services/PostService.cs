@@ -36,6 +36,7 @@ namespace TvPlus.Infrastructure.Services
         private readonly IVideoService _videoService;
         private readonly IImageService _imageService;
         private readonly IMembershipManagementBaseService _membershipManagementService;
+        private readonly ICenterService _centerService;
         private readonly MyDbContext _context;
 
         public PostService(
@@ -43,12 +44,13 @@ namespace TvPlus.Infrastructure.Services
             IMembershipManagementBaseService membershipManagementService,
             ITagService tagService,
             IPeopleService peopleService,
-            MyDbContext context, IVideoService videoService, IImageService imageService) : base(context)
+            MyDbContext context, IVideoService videoService, IImageService imageService, ICenterService centerService) : base(context)
         {
             _mapper = mapper;
             _context = context;
             _videoService = videoService;
             _imageService = imageService;
+            _centerService = centerService;
             _membershipManagementService = membershipManagementService;
             _tagService = tagService;
             _peopleService = peopleService;
@@ -196,9 +198,12 @@ namespace TvPlus.Infrastructure.Services
                     var savedPeople = SavePostPeople(savedPost, peopleArr);
                 }
             }
-            //save specials
-
-
+            _centerService.DeleteCenterCategories(savedPost.Id);
+            //save categories
+            if (model.SelectedCategories != null && model.SelectedCategories.Any())
+            {
+                _centerService.SaveCenterCategories(savedPost.Id, model.SelectedCategories);
+            }
             return post;
         }
 
@@ -221,7 +226,7 @@ namespace TvPlus.Infrastructure.Services
 
 
             var post = base.GetById(id);
-            var postDto = _mapper.Map<PostDto>(post);
+            var postCategories = _centerService.GetCenterCategories(id);
             var postTags = GetPostTags(id);
             var postPeople = GetPostPeople(id);
             var postVideo = _videoService.GetByCenterId(id)?.VideoName;
@@ -236,7 +241,8 @@ namespace TvPlus.Infrastructure.Services
                Tags = postTags,
                People = postPeople,
                ImageName = postImage,
-               VideoName = postVideo
+               VideoName = postVideo,
+               SelectedCategories = postCategories.Select(c=>c.Id).ToList()
             };
             return model;
         }

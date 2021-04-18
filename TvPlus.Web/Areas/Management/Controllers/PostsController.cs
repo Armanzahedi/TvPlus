@@ -22,13 +22,16 @@ namespace TvPlus.Web.Areas.Management.Controllers
         private readonly IPeopleService _peopleService;
         private readonly ITagService _tagsService;
         private readonly IImageService _imageService;
-        public PostsController(IPostService postService, IPeopleService peopleService, ITagService tagsService, IImageService imageService)
+        private readonly ICategoryService _categoriesService;
+        public PostsController(IPostService postService, IPeopleService peopleService, ITagService tagsService, IImageService imageService, ICategoryService categoriesService)
         {
             _postService = postService;
             _peopleService = peopleService;
             _tagsService = tagsService;
             _imageService = imageService;
+            _categoriesService = categoriesService;
         }
+        [Authorize("Permission")]
         public IActionResult Index()
         {
             return View();
@@ -51,18 +54,25 @@ namespace TvPlus.Web.Areas.Management.Controllers
             var parser = new Parser<PostGridViewModel>(Request.Form, posts);
             return JsonConvert.SerializeObject(parser.Parse());
         }
+        [Authorize("Permission")]
         public IActionResult Create()
         {
             ViewBag.People = _peopleService.GetDefaultQuery().Select(p=>$"{p.Firstname} {p.Lastname}").ToList();
             ViewBag.Tags = _tagsService.GetDefaultQuery().Select(p => p.Title).ToList();
+            ViewBag.Categories = _categoriesService.GetDefaultQuery().Where(c=>c.IsDeleted == false)
+                .Select(c => new PostCategoriesSelectList { Id = c.Id, Title = c.Title, Selected = false});
             return View();
         }
+        [Authorize("Permission")]
         public IActionResult Edit(int id)
         {
             ViewBag.People = _peopleService.GetDefaultQuery().Select(p => $"{p.Firstname} {p.Lastname}").ToList();
             ViewBag.Tags = _tagsService.GetDefaultQuery().Select(p => p.Title).ToList();
 
             var vm = _postService.GetPostForEdit(id);
+
+            ViewBag.Categories = _categoriesService.GetDefaultQuery().Where(c => c.IsDeleted == false)
+                .Select(c => new PostCategoriesSelectList { Id = c.Id, Title = c.Title, Selected = vm.SelectedCategories.Any(selectedCatId => selectedCatId == c.Id) });
             return View(vm);
         }
         [HttpPost]
@@ -119,6 +129,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = e.ToString() + "خطا" });
             }
         }
+        [Authorize("Permission")]
         public ActionResult Delete(int id)
         {
             return PartialView(_postService.GetById(id));

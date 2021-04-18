@@ -10,6 +10,7 @@ namespace TvPlus.DataAccess.Repositories
 {
     public interface ICenterRepository : IBaseRepository<Center>
     {
+
     }
     public class CenterRepository : BaseRepository<Center>, ICenterRepository
     {

@@ -139,17 +139,8 @@ Dropzone.prototype.defaultOptions.dictRemoveFile = "حذف فایل";
 Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "شما نمیتوانید فایل دیگری آپلود کنید";
 
 $(document).ajaxStart(function () {
-    console.log("triggered");
     $("#loading").css("display","block");
 });
 $(document).ajaxComplete(function () {
     $("#loading").hide();
 });
-//$.ajaxSetup({
-//    beforeSend: function () {
-//        $('#loading').show();
-//    },
-//    complete: function () {
-//        $('#loading').hide();
-//    }
-//});

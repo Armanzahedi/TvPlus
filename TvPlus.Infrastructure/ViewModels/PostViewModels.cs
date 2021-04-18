@@ -28,8 +28,15 @@ namespace TvPlus.Infrastructure.ViewModels
         public string VideoName { get; set; }
         public string ImageName { get; set; }
         public EditMode EditMode { get; set; }
+        public List<int> SelectedCategories { get; set; }
     }
 
+    public class PostCategoriesSelectList
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool Selected { get; set; }
+    }
     public enum EditMode
     {
         Create = 1,

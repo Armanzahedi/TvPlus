@@ -81,13 +81,24 @@
                                         <div class="form-group row">
                                             <label class="col-xl-2 col-lg-2 col-form-label">عنوان کوتاه</label>
                                             <div class="col-lg-10 col-xl-10">
-                                                <input class="form-control" asp-for="ShortTitle" type="text" />
+                                                <input class="form-control" asp-for="ShortTitle" type="text" placeholder="عنوان کوتاه پست را وارد کنید" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-xl-2 col-lg-2 col-form-label">عنوان</label>
                                             <div class="col-lg-10 col-xl-10">
-                                                <input class="form-control" asp-for="Title" />
+                                                <input class="form-control" asp-for="Title"  placeholder="عنوان پست را وارد کنید"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-2 col-lg-2 col-form-label">دسته بندی</label>
+                                            <div class="col-lg-10 col-xl-10">
+                                                <select class="form-control form-control-xl select2" id="categories" name="param" multiple>
+                                                    @foreach (var item in ViewBag.Categories)
+                                                    {
+                                                        <option value="@item.Id" selected="@item.Selected">@item.Title</option>
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -238,7 +249,10 @@
         }
     </script>
     <script>
-        $(function() {
+        $(function () {
+            $('#categories').select2({
+                placeholder: "دسته بندی پست را انتخاب کنید"
+            });
             new Tagify(document.getElementById('people'),
                 {
                     enforceWhitelist: true,
@@ -286,7 +300,6 @@
                 videoDropzone.processQueue();
             });
             var postId = $("#Id").val();
-            console.log(postId);
             var videoDropzone = new Dropzone("#videoInput",
                 {
                     url: "/Management/UploadVideo",
@@ -304,7 +317,6 @@
                         this.removeFile(this.files[0]);
                     }
                     var postId = $("#Id").val();
-                    console.log(postId);
 
                     resetProgress();
                     toggleUploadBtn("active");
@@ -383,7 +395,6 @@
                                     data: post,
                                     success: function (res) {
                                         $("#Id").val(res.data);
-                                        console.log(res.data);
                                         _wizard.goNext();
                                         KTUtil.scrollTop();
                                     },
@@ -447,8 +458,6 @@
             createWizard.init();
         });
         $("#form").submit(function (e) {
-            console.log(people);
-            console.log($("#people").val());
             e.preventDefault();
             if ($("#VideoValidation").val() == "false" || $("#VideoValidation").val() === "") {
                 toastr.error("لطفا ویدیو را آپلود کنید", "خطا");
@@ -472,9 +481,6 @@
                         toastr.error("ذخیره پست با خطا مواجه شد", "خطا");
                     }
                 });
-                console.log("sub");
-                console.log($("#VideoValidation").val());
-                console.log($("#ImageValidation").val());
             }
         });
 
@@ -485,16 +491,21 @@
             var Description = window.editor.getData();
             var People = $("#people").val();
             var Tags = $("#tags").val();
-            console.log(Description);
+            var EditMode = $("#EditMode").val();
+            var SelectedCategories = $("#categories").val().map(function (item) {
+                return parseInt(item);
+            });
+
             var post = {
                 Id: Id,
                 ShortTitle: ShortTitle,
                 Title: Title,
                 Description: Description,
                 People: People,
-                Tags: Tags
+                Tags: Tags,
+                EditMode: EditMode,
+                SelectedCategories: SelectedCategories
             }
-            console.log(post);
             return post;
         };
     </script>

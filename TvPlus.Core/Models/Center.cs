@@ -17,6 +17,7 @@ namespace TvPlus.Core.Models
         public string InsertUser { get; set; }
         public string UpdateUser { get; set; }
         public bool IsDeleted { get; set; }
+        public ICollection<CenterCategory> CenterCategories { get; set; }
         public ICollection<Member> Members1 { get; set; }
         public ICollection<Member> Members2 { get; set; }
         public ICollection<Video> Videos { get; set; }

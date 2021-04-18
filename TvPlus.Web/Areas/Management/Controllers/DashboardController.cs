@@ -15,7 +15,7 @@ using TvPlus.Infrastructure.Wrappers;
 namespace TvPlus.Web.Areas.Management.Controllers
 {
     [Area("Management")]
-    //[Authorize(Roles = "Superuser")]
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly ICenterService _centerService;

@@ -27,6 +27,8 @@ namespace TvPlus.DataAccess
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<IVideoConvertRepository, VideoConvertRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICenterCategoryRepository, CenterCategoryRepository>();
 
 
             #endregion
