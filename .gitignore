@@ -3,6 +3,20 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# User-specific folders
+TvPlus.Web/UploadedFiles/Images/*
+!TvPlus.Web/UploadedFiles/Images/temp.png
+
+TvPlus.Web/UploadedFiles/Temp/*
+
+TvPlus.Web/UploadedFiles/UserAvatars/*
+!TvPlus.Web/UploadedFiles/UserAvatars/temp.png
+
+TvPlus.Web/UploadedFiles/VideoConverts/*
+!TvPlus.Web/UploadedFiles/VideoConverts/temp.png
+
+TvPlus.Web/UploadedFiles/Videos/*
+!TvPlus.Web/UploadedFiles/Videos/temp.png
 # User-specific files
 *.rsuser
 *.suo
