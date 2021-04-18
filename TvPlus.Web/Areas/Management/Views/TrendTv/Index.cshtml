@@ -1,0 +1,96 @@
+﻿@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
+@{
+    ViewData["Title"] = "Trend Tv";
+}
+<input type="hidden" id="nav_active" value="TrendTv">
+
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                @ViewData["Title"]
+                <span class="d-block text-muted pt-2 font-size-sm">ویرایش @ViewData["Title"]</span>
+            </h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-borderless" id="datatable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>نام پست</th>
+                    <th>وضعیت</th>
+                    <th>تغییر وضعیت</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(function () {
+            var table = $('#datatable').DataTable({
+                ajax: {
+                    url: '/Management/TrendTv/LoadGrid',
+                    type: "POST",
+                },
+                order: [2,"desc"], // descending order with first column witch is hidden id
+                columnDefs: [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                columns: [
+                    { data: "Id" },
+                    { data: "Title" },
+                    {
+                        data: "IsSpecialOffer",
+                        render: function (data, type, row) {
+                            var content = "";
+                            if (row.IsSpecialOffer === true) {
+                                content = "<span class='label label-lg label-success label-inline'>پیشنهاد ویژه</span>";
+                            } else {
+                                content = "<span class='label label-lg label-danger label-inline'>ویژه نیست</span>";
+                            }
+                            return content;
+                        },
+                        width:"200px",
+                    },
+                    {
+                        data: "Id",
+                        responsivePriority: -1,
+                        render: function (data, type, row) {
+                            var content = "";
+                            @{
+                                if (await PermissionHelper.UserHasPermission("TrendTv", "ToggleStatus"))
+                                {
+                                    <text>
+                                        if (row.IsSpecialOffer === true) {
+                                        content = `\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/TrendTv/ToggleStatus/${row.Id}')">\
+                                        <i class='fas fa-times text-danger'></i>\
+                                        </a>\
+                                        `;
+                                        } else {
+                                        content = `\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/TrendTv/ToggleStatus/${row.Id}')">\
+                                        <i class='fas fa-check text-success'></i>\
+                                        </a>\
+                                        `;
+                                        }
+                                    </text>
+                                }
+                            }
+                            return content;
+                        },
+                        width:"200px",
+                        orderable: false
+                    },
+
+                ],
+            });
+        });
+    </script>
+}

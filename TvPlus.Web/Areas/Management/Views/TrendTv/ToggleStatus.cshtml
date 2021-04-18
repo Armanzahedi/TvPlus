@@ -1,0 +1,31 @@
+﻿@model TvPlus.Core.Models.Post
+<input type="hidden" id="title" value="TrendTv" />
+
+@{
+    if (Model.IsSpecialOffer)
+    {
+        <h5 class="card-label">
+            آیا مطمئن هستید که می خواهید این پست را از Trend Tv حذف کنید؟
+        </h5>
+    }
+    else
+    {
+        <h5 class="card-label">
+            آیا مطمئن هستید که می خواهید این پست به Trend Tv اضافه کنید؟
+        </h5>
+    }
+}
+<div style="float:left">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        if (Model.IsSpecialOffer)
+        {
+            <input type="submit" value="حذف از Trend Tv" class="btn btn-danger mr-2" />
+        }
+        else
+        {
+            <input type="submit" value="افزودن به Trend Tv" class="btn btn-primary mr-2" />
+        }
+    }
+</div>
