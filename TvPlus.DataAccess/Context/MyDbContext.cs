@@ -32,7 +32,7 @@ namespace TvPlus.DataAccess
         public DbSet<Category> Categories { get; set; }
         public DbSet<CenterCategory> CenterCategories { get; set; }
         public DbSet<Slider> Sliders { get; set; }
-        public DbSet<AboutUs> AboutUse { get; set; }
+        public DbSet<AboutUs> AboutUs { get; set; }
         public DbSet<AboutUsSection> AboutUsSections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
