@@ -31,6 +31,7 @@ namespace TvPlus.DataAccess
             services.AddScoped<ICenterCategoryRepository, CenterCategoryRepository>();
             services.AddScoped<IAboutUsRepository, AboutUsRepository>();
             services.AddScoped<IAboutUsSectionsRepository, AboutUsSectionsRepository>();
+            services.AddScoped<IContactUsInfoRepository, ContactUsInfoRepository>();
 
 
             #endregion
