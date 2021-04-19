@@ -1,6 +1,10 @@
-﻿@font-face {
+﻿/*@font-face {
     font-family: 'iranYekan';
     src: url(./IRANYekan/woff/iranyekanwebboldfanum.woff);
+}*/
+@font-face {
+    font-family: 'iranYekan';
+    src: url('./IRANYekan/ttf/iranyekanwebregularfanum.ttf') format('truetype');
 }
 *{
     font-family: 'iranYekan';
