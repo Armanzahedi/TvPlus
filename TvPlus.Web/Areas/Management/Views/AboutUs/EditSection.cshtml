@@ -1,0 +1,23 @@
+﻿@model TvPlus.Core.Models.AboutUsSection
+
+<input type="hidden" id="title" value="ویرایش بخش @Model.Id درباره ما" />
+
+<div>
+    <div class="form-group">
+        <label class="control-label col-md-2">عنوان</label>
+        <div class="col-md-10">
+            <input asp-for="Title" id="section_@(Model.Id)_title" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">توضیح</label>
+        <div class="col-md-10">
+            <textarea asp-for="Description" id="section_@(Model.Id)_description" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div style="float: left">
+            <a onclick="saveSection(@Model.Id)" class="btn btn-primary mr-2">ثبت</a>
+        </div>
+    </div>
+</div>

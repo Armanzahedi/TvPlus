@@ -109,7 +109,7 @@ $(document).ajaxError(function (event, xhr, ajaxOptions, thrownError) {
     if (xhr.status == 403 || xhr.status == 401) {
         toastr.error("شما دسترسی لازم برای ورود به این بخش را ندارید.", "خطا");
     } else {
-        toastr.error("Error", "Error");
+        toastr.error(thrownError, "Error");
     }
 });
 function openModal(link) {

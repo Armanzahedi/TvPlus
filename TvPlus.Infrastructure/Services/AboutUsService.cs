@@ -12,22 +12,38 @@ namespace TvPlus.Infrastructure.Services
 {
     public interface IAboutUsService : IAboutUsRepository
     {
-        AboutUs GetAboutUsWithSectionNavigation();
+        AboutUs GetAboutUs();
+        List<AboutUsSection> GetAboutUsSections();
+        AboutUsSection GetSectionById(int id);
+        AboutUsSection UpdateSection(AboutUsSection model);
     }
     public class AboutUsService : AboutUsRepository, IAboutUsService
     {
-        private readonly IAboutUsRepository _AboutUsRepository;
+        private readonly IAboutUsSectionsRepository _AboutUsSectionRepository;
         private readonly MyDbContext _context;
-        public AboutUsService(
-            IAboutUsRepository AboutUsRepository,MyDbContext context) : base(context)
+        public AboutUsService(MyDbContext context, IAboutUsSectionsRepository aboutUsSectionRepository) : base(context)
         {
-            _AboutUsRepository = AboutUsRepository;
             _context = context;
+            _AboutUsSectionRepository = aboutUsSectionRepository;
+        }
+        public AboutUs GetAboutUs()
+        {
+            return _context.AboutUs.FirstOrDefault();
         }
 
-        public AboutUs GetAboutUsWithSectionNavigation()
+        public List<AboutUsSection> GetAboutUsSections()
         {
-            return _context.AboutUs.Include(a => a.AboutUsSections).FirstOrDefault();
+            return _context
+                .AboutUsSections.ToList();
+        }
+        public AboutUsSection GetSectionById(int id)
+        {
+            return _context.AboutUsSections.Find(id);
+        }
+
+        public AboutUsSection UpdateSection(AboutUsSection model)
+        {
+            return _AboutUsSectionRepository.Update(model);
         }
     }
 }
