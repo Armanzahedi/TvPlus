@@ -34,6 +34,8 @@ namespace TvPlus.DataAccess
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<AboutUs> AboutUs { get; set; }
         public DbSet<AboutUsSection> AboutUsSections { get; set; }
+        public DbSet<ContactUsInfo> ContactUsInfoes { get; set; }
+                
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
