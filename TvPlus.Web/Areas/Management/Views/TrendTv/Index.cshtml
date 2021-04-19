@@ -46,13 +46,13 @@
                     { data: "Id" },
                     { data: "Title" },
                     {
-                        data: "IsSpecialOffer",
+                        data: "IsTrendTv",
                         render: function (data, type, row) {
                             var content = "";
-                            if (row.IsSpecialOffer === true) {
-                                content = "<span class='label label-lg label-success label-inline'>پیشنهاد ویژه</span>";
+                            if (row.IsTrendTv === true) {
+                                content = "<span class='label label-lg label-success label-inline'>Trend Tv</span>";
                             } else {
-                                content = "<span class='label label-lg label-danger label-inline'>ویژه نیست</span>";
+                                content = "<span class='label label-lg label-danger label-inline'>در Trend Tv نیست</span>";
                             }
                             return content;
                         },
@@ -67,7 +67,7 @@
                                 if (await PermissionHelper.UserHasPermission("TrendTv", "ToggleStatus"))
                                 {
                                     <text>
-                                        if (row.IsSpecialOffer === true) {
+                                        if (row.IsTrendTv === true) {
                                         content = `\
                                         <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/TrendTv/ToggleStatus/${row.Id}')">\
                                         <i class='fas fa-times text-danger'></i>\
