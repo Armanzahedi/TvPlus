@@ -9,7 +9,6 @@ namespace TvPlus.Core.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string ImageName { get; set; }
         public int AboutUsId { get; set; }
         public AboutUs AboutUs { get; set; }
         public DateTime InsertDate { get; set; }

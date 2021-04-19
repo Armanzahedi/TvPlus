@@ -1,17 +1,91 @@
-﻿@{
+﻿@model TvPlus.Core.Models.AboutUs
+@{
     ViewData["Title"] = "درباره ما";
 }
 <input type="hidden" id="nav_active" value="special_offers">
 
 <div class="card card-custom">
-    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+    <form class="form">
+    <div class="card-header">
         <div class="card-title">
             <h3 class="card-label">
                 @ViewData["Title"]
-                <span class="d-block text-muted pt-2 font-size-sm">ویرایش @ViewData["Title"]</span>
+                <i class="mr-2"></i>
+                <small class="">ویرایش @ViewData["Title"]</small>
             </h3>
+        </div>
+        <div class="card-toolbar">
+            <a href="#" class="btn btn-primary font-weight-bolder">
+                ذخیره تغییرات
+            </a>
         </div>
     </div>
     <div class="card-body">
+        <div class="card-body">
+            <div class="form-group">
+                <label>عنوان:</label>
+                <input type="email" class="form-control" placeholder="عنوان درباره ما را وارد کنید"/>
+            </div>
+            <div class="form-group">
+                <label>توضیح:</label>
+                <textarea class="form-control ckEditor"></textarea>
+            </div>
+            <div class="form-group">
+                <label>بخش ها:</label>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">عنوان</th>
+                        <th scope="col">توضیحات</th>
+                        <th scope="col">ویرایش</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Nick</td>
+                        <td>Stone</td>
+                        <td>
+                            <a class='btn btn-sm btn-clean btn-icon mr-2' href="/Management/Posts/Edit/">
+                                <i class='far fa-edit text-primary'></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Ana</td>
+                        <td>Jacobs</td>
+                        <td>
+                            <a class='btn btn-sm btn-clean btn-icon mr-2' href="/Management/Posts/Edit/">
+                                <i class='far fa-edit text-primary'></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>Pettis</td>
+                        <td>
+                            <a class='btn btn-sm btn-clean btn-icon mr-2' href="/Management/Posts/Edit/">
+                                <i class='far fa-edit text-primary'></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    </form>
+
 </div>
+@section Scripts
+{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/config.js"></script>
+    <script>
+
+    </script>
+}
