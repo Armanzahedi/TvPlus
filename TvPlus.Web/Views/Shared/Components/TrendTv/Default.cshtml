@@ -1,0 +1,71 @@
+﻿@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
+
+@{
+    var itemIndex = 0;
+}
+<div class="df-style">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="home__title home-title">
+                    <b>
+                        Trend TV
+                    </b>
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 slow-carouseldiv">
+                <div class="owl-carousel home__carousel slow-carousel">
+                    @foreach (var item in Model)
+                    {
+                        ++itemIndex;
+
+                        if (itemIndex % 2 != 0)
+                        {
+                            <div class="item">
+                                <div class="card card--big">
+                                    <div class="card__cover">
+                                        <img src="~/UploadedFiles/Images/@item.Image" alt="" />
+                                        <a href="blog.html" class="card__play">
+                                            <i class="icon ion-ios-play"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        @{
+            itemIndex = 0;
+        }
+
+        <div class="row">
+            <div class="col-12  slow-carouseldiv">
+                <div class="owl-carousel home__carousel slow-carousel2">
+                    @foreach (var item in Model)
+                    {
+                        ++itemIndex;
+
+                        if (itemIndex % 2 == 0)
+                        {
+                            <div class="item">
+                                <div class="card card--big">
+                                    <div class="card__cover">
+                                        <img src="~/UploadedFiles/Images/@item.Image" alt="" />
+                                        <a href="blog.html" class="card__play">
+                                            <i class="icon ion-ios-play"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

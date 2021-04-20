@@ -1,0 +1,28 @@
+﻿@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="content__title text-center"> Top 10 Plus </h2>
+        </div>
+    </div>
+</div>
+<div class="swiper-container swiper-container2 ">
+    <div class="swiper-wrapper">
+        @foreach (var item in Model)
+        {
+            <div class="swiper-slide2 swiper-slide"
+                 style=" background-image : url(/UploadedFiles/Images/@item.Image)">
+                <div class="container">
+
+                    <div class="row">
+                        <h1 class="swipertitle">
+                            @item.Title
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="swiper-pagination"></div>
+</div>

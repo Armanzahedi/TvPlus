@@ -84,5 +84,16 @@ namespace TvPlus.Utility
 
             return date.ToPersianString() + " - " + $"{hour}:{minute}:{second}";
         }
+
+        public static string TruncateString(this string str, int count)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            if (str.Length <= count)
+                return str;
+
+            return str.Substring(0, count) + "...";
+        }
     }
 }

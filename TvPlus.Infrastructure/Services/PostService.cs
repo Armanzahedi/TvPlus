@@ -28,6 +28,12 @@ namespace TvPlus.Infrastructure.Services
         List<Tag> SavePostTags(Post post, List<string> tags);
         List<People> SavePostPeople(Post post, List<string> people);
         Task<List<PostViewModel>> GetSpecialPostsAsync();
+        Task<List<PostViewModel>> GetTrendTvsAsync();
+        Task<List<PostViewModel>> GetRecentVideosAsync();
+        Task<List<PostViewModel>> GetMostViewedPostAsync();
+        Task<List<PostViewModel>> GetHottestPostAsync();
+        Task<List<PostViewModel>> GetControversialPostAsync();
+        Task<List<PostViewModel>> GetTopTensAsync();
     }
 
     public class PostService : PostRepository, IPostService
@@ -275,7 +281,118 @@ namespace TvPlus.Infrastructure.Services
         {
             return await _context.Posts
                         .Where(w => !w.IsDeleted && w.IsSpecialOffer)
-                        .Select(s => new PostViewModel { Id = s.Id, Image = _imageService.GetByCenterId(s.Id).ImageName, Title = s.Title, ViewCount = s.ViewCount, PublishDate = s.PublishDate.ToPersianString() })
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .ToListAsync();
+        }
+
+        public async Task<List<PostViewModel>> GetTrendTvsAsync()
+        {
+            return await _context.Posts
+                        .Where(w => !w.IsDeleted && w.IsTrendTv)
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .ToListAsync();
+        }
+        public async Task<List<PostViewModel>> GetTopTensAsync()
+        {
+            return await _context.Posts
+                        .Where(w => !w.IsDeleted && w.IsTopTen)
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .ToListAsync();
+        }
+
+        public async Task<List<PostViewModel>> GetRecentVideosAsync()
+        {
+            return await _context.Posts
+                        .Where(w => !w.IsDeleted)
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .OrderByDescending(o => o.Id)
+                        .Take(4)
+                        .ToListAsync();
+        }
+
+        public async Task<List<PostViewModel>> GetMostViewedPostAsync()
+        {
+            return await _context.Posts
+                        .Where(w => !w.IsDeleted)
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .OrderByDescending(o => o.ViewCount)
+                        .Take(12)
+                        .ToListAsync();
+        }
+
+        public async Task<List<PostViewModel>> GetHottestPostAsync()
+        {
+            return await _context.Posts
+                        .Where(w => !w.IsDeleted)
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .OrderByDescending(o => o.ViewCount).ThenByDescending(o => o.Id)
+                        .Take(12)
+                        .ToListAsync();
+        }
+
+        public async Task<List<PostViewModel>> GetControversialPostAsync()
+        {
+            return await _context.Posts
+                        .Where(w => !w.IsDeleted)
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .OrderByDescending(o => o.ViewCount).ThenByDescending(o => o.Id)
+                        .Take(12)
                         .ToListAsync();
         }
     }
