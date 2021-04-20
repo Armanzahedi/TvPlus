@@ -34,7 +34,7 @@
       -webkit-box-direction: normal;
       -ms-flex-direction: column;
       flex-direction: column;
-      color: #B5B5C3;
+      color: #b8b7b7;
       padding: 2rem 0.5rem; }
       .wizard.wizard-3 .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-title {
         font-size: 1.1rem;
@@ -48,7 +48,7 @@
       .wizard.wizard-3 .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-bar {
         height: 4px;
         width: 100%;
-        background-color: #EBEDF3;
+        background-color: #707070;
         position: relative; }
         .wizard.wizard-3 .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-bar:after {
           content: " ";
@@ -63,10 +63,10 @@
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease; }
     .wizard.wizard-3 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-label {
-      color: #3699FF; }
+      color: #a11e3a; }
       .wizard.wizard-3 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-label .wizard-bar:after {
         width: 100%;
-        background-color: #3699FF; }
+        background-color: #a11e3a; }
 
 @media (max-width: 991.98px) {
   .wizard.wizard-3 .wizard-nav .wizard-steps {
@@ -91,3 +91,5 @@
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         padding: 1rem 0; } }
+
+/*# sourceMappingURL=wizard-3.css.map */

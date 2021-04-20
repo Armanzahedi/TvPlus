@@ -22,24 +22,36 @@
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 
     <!--begin::Main-->
-    <div class="d-flex flex-column flex-root">
-        <!--begin::Login-->
-        <div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
-            <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat" style="background-image: url('/wwwroot/logo.png');">
-                <div class="login-form text-center p-7 position-relative overflow-hidden">
-                    <!--begin::Login Header-->
-                    <div class="d-flex flex-center mb-15">
-                        <a href="#">
-                            <img src="/logo.png" class="max-h-75px" style="margin-left:25px" alt="logo" />
-                        </a>
-                    </div>
-                    <!--end::Login Header-->
-                    @RenderBody()
+<div class="d-flex flex-column flex-root">
+    <!--begin::Login-->
+    <div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
+        <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat" style="background-image: url('/wwwroot/logo.png');">
+            <div class="login-form text-center p-7 position-relative overflow-hidden">
+                <!--begin::Login Header-->
+                <div class="d-flex flex-center mb-15">
+                    <a href="#">
+                        <img src="/logo.png" class="max-h-75px" style="margin-left:25px" alt="logo" />
+                    </a>
                 </div>
+                <!--end::Login Header-->
+                @RenderBody()
             </div>
         </div>
-        <!--end::Login-->
     </div>
+    <!--end::Login-->
+</div>
+<style>
+    body {
+        background-color: #2B2B2B;
+    }
+    .btn.btn-primary {
+        background-color: #a11e3a !important;
+        border: none !important;
+    }
+        .btn.btn-primary:hover {
+            background-color: #af213f !important;
+        }
+</style>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

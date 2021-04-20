@@ -31,7 +31,7 @@
       -ms-flex: 0 0 calc(25% - 0.25rem);
       flex: 0 0 calc(25% - 0.25rem);
       width: calc(25% - 0.25rem);
-      background-color: #F3F6F9;
+      background-color: #4d4d4d;
       border-top-left-radius: 0.5rem;
       border-top-right-radius: 0.5rem; }
       .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step .wizard-wrapper {
@@ -46,7 +46,7 @@
         align-items: center;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-        color: #3F4254;
+        color: #e7e7e7;
         padding: 2rem 2.5rem; }
         .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step .wizard-wrapper .wizard-number {
           font-size: 1.3rem;
@@ -65,8 +65,8 @@
           -webkit-box-pack: center;
           -ms-flex-pack: center;
           justify-content: center;
-          background-color: rgba(54, 153, 255, 0.08);
-          color: #3699FF;
+          background-color: rgba(161, 30, 58, 0.08);
+          color: #a11e3a;
           margin-right: 1rem;
           border-radius: 0.5rem; }
         .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step .wizard-wrapper .wizard-label {
@@ -81,12 +81,12 @@
             font-size: 1.1rem;
             font-weight: 600; }
       .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] {
-        background-color: #ffffff; }
+        background-color: #3a3a3a; }
         .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-wrapper .wizard-number {
-          color: #ffffff;
-          background-color: #3699FF; }
+          color: #3a3a3a;
+          background-color: #a11e3a; }
         .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-wrapper .wizard-label .wizard-title {
-          color: #3699FF; }
+          color: #a11e3a; }
     .wizard.wizard-4 .wizard-nav .wizard-steps[data-total-steps="2"] .wizard-step {
       -webkit-box-flex: 0;
       -ms-flex: 0 0 calc(50% - 0.25rem);
@@ -146,3 +146,5 @@
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         padding: 0.5rem 2rem; } }
+
+/*# sourceMappingURL=wizard-4.css.map */

@@ -40,11 +40,11 @@
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease; }
           .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step .wizard-icon i {
-            color: #B5B5C3; }
+            color: #b8b7b7; }
           .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step .wizard-icon .svg-icon svg g [fill] {
             -webkit-transition: fill 0.3s ease;
             transition: fill 0.3s ease;
-            fill: #B5B5C3; }
+            fill: #b8b7b7; }
           .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step .wizard-icon .svg-icon svg:hover g [fill] {
             -webkit-transition: fill 0.3s ease;
             transition: fill 0.3s ease; }
@@ -60,18 +60,18 @@
           -ms-flex-pack: center;
           justify-content: center; }
           .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-title {
-            color: #181C32;
+            color: #f8f8f8;
             font-weight: 500;
             font-size: 1.1rem; }
           .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-desc {
-            color: #7E8299; }
+            color: #c5c5c5; }
         .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step .wizard-arrow {
-          color: #7E8299;
+          color: #c5c5c5;
           font-size: 1.25rem; }
           .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step .wizard-arrow.last {
             display: none; }
         .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] {
-          background-color: #F3F6F9;
+          background-color: #4d4d4d;
           -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
@@ -82,11 +82,11 @@
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease; }
             .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-icon i {
-              color: #3699FF !important; }
+              color: #a11e3a !important; }
             .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-icon .svg-icon svg g [fill] {
               -webkit-transition: fill 0.3s ease;
               transition: fill 0.3s ease;
-              fill: #3699FF !important; }
+              fill: #a11e3a !important; }
             .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-icon .svg-icon svg:hover g [fill] {
               -webkit-transition: fill 0.3s ease;
               transition: fill 0.3s ease; }
@@ -100,7 +100,7 @@
             width: 0;
             border: solid transparent;
             position: absolute;
-            border-left-color: #F3F6F9;
+            border-left-color: #4d4d4d;
             border-width: 1rem; }
   .wizard.wizard-2 .wizard-body {
     width: 100%; }
@@ -117,8 +117,10 @@
     display: block; }
     .wizard.wizard-2 .wizard-nav {
       width: 100%;
-      border-bottom: 1px solid #EBEDF3; }
+      border-bottom: 1px solid #707070; }
       .wizard.wizard-2 .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"]:after {
         content: none; }
     .wizard.wizard-2 .wizard-body {
       width: 100%; } }
+
+/*# sourceMappingURL=wizard-2.css.map */

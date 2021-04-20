@@ -44,14 +44,14 @@
           min-width: 50px;
           height: 50px;
           border-radius: 50px;
-          background-color: #F3F6F9;
+          background-color: #4d4d4d;
           margin-right: 1.4rem; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step .wizard-icon .wizard-check {
             display: none;
             font-size: 1.4rem; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step .wizard-icon .wizard-number {
             font-weight: 600;
-            color: #3F4254;
+            color: #e7e7e7;
             font-size: 1.35rem; }
         .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step .wizard-label {
           display: -webkit-box;
@@ -65,11 +65,11 @@
           -ms-flex-pack: center;
           justify-content: center; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-title {
-            color: #181C32;
+            color: #f8f8f8;
             font-weight: 500;
             font-size: 1.4rem; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-desc {
-            color: #B5B5C3;
+            color: #b8b7b7;
             font-size: 1.08rem;
             font-weight: 500; }
         .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] {
@@ -82,34 +82,34 @@
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
-            background-color: #C9F7F5; }
+            background-color: #c9f7f5; }
             .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-icon .wizard-check {
-              color: #1BC5BD;
+              color: #1bc5bd;
               display: none; }
             .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-icon .wizard-number {
-              color: #1BC5BD; }
+              color: #1bc5bd; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-label .wizard-title {
-            color: #181C32; }
+            color: #f8f8f8; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-label .wizard-desc {
-            color: #B5B5C3; }
+            color: #b8b7b7; }
         .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"]:last-child .wizard-icon, .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-icon {
           -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
-          background-color: #C9F7F5; }
+          background-color: #c9f7f5; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"]:last-child .wizard-icon .wizard-check, .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-icon .wizard-check {
-            color: #1BC5BD;
+            color: #1bc5bd;
             display: inline-block; }
           .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"]:last-child .wizard-icon .wizard-number, .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-icon .wizard-number {
             display: none; }
         .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"]:last-child .wizard-label .wizard-title, .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-label .wizard-title {
-          color: #B5B5C3; }
+          color: #b8b7b7; }
         .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"]:last-child .wizard-label .wizard-desc, .wizard.wizard-5 .wizard-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-label .wizard-desc {
-          color: #D1D3E0; }
+          color: #9b9b9b; }
 
 .wizard.wizard-5 .wizard-content {
-  background-color: #F3F6F9;
+  background-color: #4d4d4d;
   border-top-right-radius: 0.42rem;
   border-bottom-right-radius: 0.42rem; }
   .wizard.wizard-5 .wizard-content .form-group .fv-help-block {
@@ -135,3 +135,5 @@
     border-top-right-radius: 0;
     border-bottom-left-radius: 0.42rem;
     border-bottom-right-radius: 0.42rem; } }
+
+/*# sourceMappingURL=wizard-5.css.map */

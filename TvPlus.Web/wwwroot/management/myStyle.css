@@ -360,3 +360,48 @@ span.k-icon.k-i-file-pdf {
     -webkit-transform: rotateX(0deg);
     transform: rotateX(0deg);
 }
+.dataTables_wrapper .dataTables_paginate .pagination .page-item.active > .page-link {
+    color: white !important
+}
+paginate_button page-item:hover {
+    color: white !important
+}
+.btn.btn-success {
+    color: white !important
+}
+.btn.btn-danger {
+    color: white !important
+}
+.far.fa-edit.text-primary {
+    color: #ffa800 !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    color: #383838 !important;
+    background-color: #383838 !important;
+    border-radius: 5px;
+}
+.tagify__input {
+    color: white !important;
+}
+.brand-toggle {
+    border: none !important;
+}
+.symbol.symbol-light-success .symbol-label {
+    background-color: #ed95a6 !important;
+    color: #A11E3A !important;
+}
+.btn {
+    color: white !important;
+}
+.btn:hover {
+    color: white !important;
+}
+.label {
+    color: white !important;
+}
+.label:hover {
+    color: white !important;
+}
+h1, h2, h3, h4, h5 {
+    color: white;
+}
