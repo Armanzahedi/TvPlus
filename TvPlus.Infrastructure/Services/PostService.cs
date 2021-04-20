@@ -131,7 +131,7 @@ namespace TvPlus.Infrastructure.Services
         {
             var message = string.Empty;
 
-            var post = _context.Posts.FirstOrDefault(p=>p.Id == model.Id) ?? new Post{ Id = model.Id};
+            var post = _context.Posts.FirstOrDefault(p => p.Id == model.Id) ?? new Post { Id = model.Id };
 
             post.PublishDate = DateTime.Now;
             post.ShortTitle = model.ShortTitle;
@@ -278,7 +278,6 @@ namespace TvPlus.Infrastructure.Services
                         .ToListAsync();
         }
 
-        public async Task<List<PostViewModel>> GetRecentVideosAsync(int count)
         public List<Category> GetPostCategories(int id)
         {
             return _context.CenterCategories.Include(p => p.Category)
@@ -309,7 +308,7 @@ namespace TvPlus.Infrastructure.Services
             return model;
         }
 
-        public async Task<List<PostViewModel>> GetRecentVideosAsync()
+        public async Task<List<PostViewModel>> GetRecentVideosAsync(int count)
         {
             return await _context.Posts
                         .Where(w => !w.IsDeleted)

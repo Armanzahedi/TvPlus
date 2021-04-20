@@ -21,18 +21,18 @@
                         <div class="card card--big">
                             <div class="card__cover">
                                 <img src="~/UploadedFiles/Images/@post.Image" alt="" />
-                                <a href="/Post/@item.Id" class="card__play">
+                                <a href="/Post/@post.Id" class="card__play">
                                     <i class="icon ion-ios-play"></i>
                                 </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title">
-                                    <a href="/Post/@item.Id">
+                                    <a href="/Post/@post.Id">
                                         @post.Title
                                     </a>
                                 </h3>
                                 <span class="card__category">
-                                    <a href="/Post/@item.Id">@post.PublishDate</a>
+                                    <a href="/Post/@post.Id">@post.PublishDate</a>
                                 </span>
                                 <span class="card__rate">
                                     <i class="icon ion-ios-eye"></i>@post.ViewCount بازدید
