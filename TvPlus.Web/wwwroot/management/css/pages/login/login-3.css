@@ -1,5 +1,5 @@
 .login.login-3 .login-aside {
-  background-color: #ffffff;
+  background-color: #3a3a3a;
   -webkit-box-shadow: 0px 0px 40px rgba(177, 187, 208, 0.15);
   box-shadow: 0px 0px 40px rgba(177, 187, 208, 0.15); }
   .login.login-3 .login-aside .wizard-nav {
@@ -45,14 +45,14 @@
           width: 50px;
           height: 50px;
           border-radius: 50px;
-          background-color: #F3F6F9;
+          background-color: #4d4d4d;
           margin-right: 1.4rem; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step .wizard-icon .wizard-check {
             display: none;
             font-size: 1.4rem; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step .wizard-icon .wizard-number {
             font-weight: 600;
-            color: #3F4254;
+            color: #e7e7e7;
             font-size: 1.35rem; }
         .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step .wizard-label {
           display: -webkit-box;
@@ -66,11 +66,11 @@
           -ms-flex-pack: center;
           justify-content: center; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-title {
-            color: #181C32;
+            color: #f8f8f8;
             font-weight: 500;
             font-size: 1.4rem; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-desc {
-            color: #B5B5C3;
+            color: #b8b7b7;
             font-size: 1.08rem;
             font-weight: 500; }
         .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-icon {
@@ -78,16 +78,16 @@
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
-          background-color: #C9F7F5; }
+          background-color: #c9f7f5; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-icon .wizard-check {
-            color: #1BC5BD;
+            color: #1bc5bd;
             display: inline-block; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-icon .wizard-number {
             display: none; }
         .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-label .wizard-title {
-          color: #B5B5C3; }
+          color: #b8b7b7; }
         .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="done"] .wizard-label .wizard-desc {
-          color: #D1D3E0; }
+          color: #9b9b9b; }
         .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] {
           -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
@@ -98,16 +98,16 @@
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
             transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
-            background-color: #C9F7F5; }
+            background-color: #c9f7f5; }
             .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-icon .wizard-check {
-              color: #1BC5BD;
+              color: #1bc5bd;
               display: none; }
             .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-icon .wizard-number {
-              color: #1BC5BD; }
+              color: #1bc5bd; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-label .wizard-title {
-            color: #181C32; }
+            color: #f8f8f8; }
           .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state="current"] .wizard-label .wizard-desc {
-            color: #B5B5C3; }
+            color: #b8b7b7; }
   .login.login-3 .login-aside .aside-img-wizard {
     min-height: 320px !important;
     background-size: 400px; }
@@ -176,3 +176,5 @@
   .login.login-3 .login-aside .aside-img {
     min-height: 300px !important;
     background-size: 350px; } }
+
+/*# sourceMappingURL=login-3.css.map */
