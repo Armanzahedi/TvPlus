@@ -29,7 +29,7 @@ namespace TvPlus.Infrastructure.Services
         List<People> SavePostPeople(Post post, List<string> people);
         Task<List<PostViewModel>> GetSpecialPostsAsync();
         Task<List<PostViewModel>> GetTrendTvsAsync();
-        Task<List<PostViewModel>> GetRecentVideosAsync();
+        Task<List<PostViewModel>> GetRecentVideosAsync(int count);
         Task<List<PostViewModel>> GetMostViewedPostAsync();
         Task<List<PostViewModel>> GetHottestPostAsync();
         Task<List<PostViewModel>> GetControversialPostAsync();
@@ -278,6 +278,7 @@ namespace TvPlus.Infrastructure.Services
                         .ToListAsync();
         }
 
+        public async Task<List<PostViewModel>> GetRecentVideosAsync(int count)
         public List<Category> GetPostCategories(int id)
         {
             return _context.CenterCategories.Include(p => p.Category)
@@ -322,7 +323,7 @@ namespace TvPlus.Infrastructure.Services
                             Description = s.Description.TruncateString(200)
                         })
                         .OrderByDescending(o => o.Id)
-                        .Take(4)
+                        .Take(count)
                         .ToListAsync();
         }
 

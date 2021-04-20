@@ -21,7 +21,7 @@ namespace TvPlus.Web.Components
         {
             var model = new PostCategoryViewModel();
 
-            var recentVideos = await _postService.GetRecentVideosAsync();
+            var recentVideos = await _postService.GetRecentVideosAsync(4);
             var mostViewed = await _postService.GetMostViewedPostAsync();
             var hottest = await _postService.GetHottestPostAsync();
             var Controversials = await _postService.GetControversialPostAsync();

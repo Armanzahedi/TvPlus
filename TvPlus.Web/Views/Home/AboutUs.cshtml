@@ -1,0 +1,55 @@
+﻿@model TvPlus.Infrastructure.ViewModels.AboutUsViewModel
+
+<br />
+<section class="section section--first section--bg" data-bg="img/section/section.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__wrap">
+                    <h2 class="section__title">درباره ما</h2>
+
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb__item"><a href="/">خانه</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--active">درباره ما</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row" dir="rtl">
+            <div class="col-12">
+                <h2 class="section__title"><b>تی وی پلاس</b> مجله ویدئویی آنلاین</h2>
+            </div>
+
+            <span style="color:white"> @Html.Raw(Model.AboutUs.Description)</span>
+
+            @foreach (var item in Model.AboutUsSections)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="feature">
+                        <i class="icon ion-ios-tv feature__icon"></i>
+                        <h3 class="feature__title">@item.Title</h3>
+                        <p class="feature__text">
+                            @Html.Raw(item.Description)
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
