@@ -34,6 +34,8 @@ namespace TvPlus.Infrastructure.Services
         Task<List<PostViewModel>> GetHottestPostAsync();
         Task<List<PostViewModel>> GetControversialPostAsync();
         Task<List<PostViewModel>> GetTopTensAsync();
+        List<Category> GetPostCategories(int id);
+        PostDetailsViewModel GetPostDetail(int id);
     }
 
     public class PostService : PostRepository, IPostService
@@ -63,53 +65,6 @@ namespace TvPlus.Infrastructure.Services
             _tagService = tagService;
             _peopleService = peopleService;
         }
-
-        //public List<PostTagsDto> SavePostTags(int postId, List<PostTagsDto> tags)
-        //{
-        //    var message = string.Empty;
-        //    var post = base.GetById(postId);
-        //    var oldTagIds = _membershipManagementService.GetMemberships(postId, RelationTypes.PostTags, false, false)
-        //        .Select(s => s.CenterId).ToList();
-
-        //    var oldTags = _tagService.GetDefaultQuery().Where(w => oldTagIds.Contains(w.Id)).ToList();
-        //    oldTags.ForEach(item =>
-        //        {
-        //            var memberId = _membershipManagementService.GetMemberships(post.Id,item.Id,  RelationTypes.PostTags,
-        //                false, false).FirstOrDefault()?.MemberId;
-        //            if (memberId != null)
-        //            {
-        //             _membershipManagementService.ArchiveMembership(memberId.Value,DateTime.Now,out message);
-        //            }
-        //        });
-
-        //    var dto = new List<PostTagsDto>();
-        //    tags.ForEach(item =>
-        //    {
-        //        //map tag
-        //        var tag = _mapper.Map<Tag>(item);
-
-        //        if (tag.Id == 0)
-        //        {
-        //            tag.CenterTypeId = (int)CenterTypes.Tags;
-        //            tag.UniqueId = Guid.NewGuid();
-        //            _tagService.Save(tag);
-        //        }
-        //        else
-        //        {
-        //            tag = _tagService.GetById(tag.Id);
-        //        }
-
-        //        var memberId = _membershipManagementService.GetMemberships(post.Id, tag.Id, RelationTypes.PostTags,
-        //            false, false).FirstOrDefault()?.MemberId;
-
-        //        _membershipManagementService.RegisterMembership(post, tag, DateTime.Now, null, out message,
-        //            memberId, RelationTypes.PostTags, null);
-        //        var tagDto = _mapper.Map<PostTagsDto>(tag);
-        //        dto.Add(tagDto);
-        //    });
-        //    return dto;
-        //}
-
         public List<Tag> SavePostTags(Post post, List<string> tags)
         {
             var message = string.Empty;
@@ -321,6 +276,36 @@ namespace TvPlus.Infrastructure.Services
                             Description = s.Description.TruncateString(200)
                         })
                         .ToListAsync();
+        }
+
+        public List<Category> GetPostCategories(int id)
+        {
+            return _context.CenterCategories.Include(p => p.Category)
+                .Where(p => p.CenterId == id && p.IsDeleted == false && p.Category.IsDeleted == false)
+                .Select(p => p.Category).ToList();
+        }
+
+        public PostDetailsViewModel GetPostDetail(int id)
+        {
+            var post = base.GetById(id);
+            var peopleIds = _membershipManagementService.GetMemberships(id, RelationTypes.PostPeople, false, false)
+                .Select(s => s.CenterId).ToList();
+
+            var people = _peopleService.GetDefaultQuery().Where(w => peopleIds.Contains(w.Id)).ToList();
+
+            var categories = GetPostCategories(id);
+            var video = _videoService.GetByCenterId(id);
+            var image = _imageService.GetByCenterId(id);
+
+            var model = new PostDetailsViewModel();
+            model.Id = post.Id;
+            model.Title = post.Title;
+            model.Description = post.Description;
+            model.People = people;
+            model.Categories = categories;
+            model.VideoName = video.VideoName;
+            model.ImageName = image.ImageName;
+            return model;
         }
 
         public async Task<List<PostViewModel>> GetRecentVideosAsync()

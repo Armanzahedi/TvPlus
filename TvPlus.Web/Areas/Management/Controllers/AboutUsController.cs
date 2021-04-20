@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using TvPlus.Core.Models;
 using TvPlus.Infrastructure.Services;
 
@@ -17,7 +18,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
         {
             _aboutUsService = aboutUsService;
         }
-
+        [Authorize("Permission")]
         public IActionResult Index()
         {
             return View(_aboutUsService.GetDefaultQuery().FirstOrDefault());

@@ -44,4 +44,5 @@ namespace TvPlus.Web.Areas.Management.ViewModels
         public string Title { get; set; }
         public bool Selected { get; set; }
     }
+
 }

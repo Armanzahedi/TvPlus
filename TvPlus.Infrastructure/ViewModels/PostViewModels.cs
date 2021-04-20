@@ -82,4 +82,29 @@ namespace TvPlus.Infrastructure.ViewModels
         Create = 1,
         Edit = 2
     }
+
+    public class PostDetailsViewModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string VideoName { get; set; }
+        public string ImageName { get; set; }
+        private List<Category> _categories;
+        public List<Category> Categories
+        {
+            get { return _categories ?? (new List<Category>()); }
+            set { _categories = value; }
+        }
+
+        private List<People> _people;
+
+        public List<People> People
+        {
+            get { return _people ?? (new List<People>()); }
+            set { _people = value; }
+        }
+
+
+    }
 }
