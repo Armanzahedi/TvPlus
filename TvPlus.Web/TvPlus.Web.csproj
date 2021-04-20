@@ -29,6 +29,7 @@
     <Folder Include="UploadedFiles\Images\" />
     <Folder Include="UploadedFiles\Temp\" />
     <Folder Include="UploadedFiles\Videos\" />
+    <Folder Include="wwwroot\Client\" />
   </ItemGroup>
 
 </Project>

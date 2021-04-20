@@ -1,0 +1,108 @@
+﻿@model TvPlus.Core.Models.ContactUsInfo
+@{
+    ViewData["Title"] = "تماس با ما";
+}
+<input type="hidden" id="nav_active" value="contactUsInfo">
+
+<div class="card card-custom">
+    <form class="form">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            @ViewData["Title"]
+                            <i class="mr-2"></i>
+                            @*<small class="">ویرایش @ViewData["Title"]</small>*@
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card-toolbar">
+                        <a onclick="saveChanges()" class="btn btn-primary font-weight-bolder">
+                            ذخیره تغییرات
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-body">
+                <div class="form-group">
+                    <label>عنوان:</label>
+                    <input asp-for="Title" type="text" class="form-control" placeholder="عنوان تماس با ما را وارد کنید" value="@Model.Title"/>
+                </div>
+                <div class="form-group">
+                    <label>توضیح:</label>
+                    <textarea asp-for="Description" class="form-control ckEditor">@Model.Description</textarea>
+                </div>
+                <div class="form-group">
+                    <label>بخش ها:</label>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">عنوان</th>
+                                <th scope="col" colspan="2">مقدار</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>اینستاگرام</td>
+                                <td> <input type="text" asp-for="Instagram" class="form-control" placeholder="آدرس اینستاگرام را وارد کنید" value="@Model.Instagram" /></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>فیسبوک</td>
+                                <td><input type="text" asp-for="Facebook" class="form-control" placeholder="آدرس اینستاگرام را وارد کنید" value="@Model.Facebook" /></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>یوتیوب</td>
+                                <td><input type="text" asp-for="Youtube" class="form-control" placeholder="آدرس اینستاگرام را وارد کنید" value="@Model.Youtube" /></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>توییتر</td>
+                                <td><input type="text" asp-for="Twitter" class="form-control" placeholder="آدرس اینستاگرام را وارد کنید" value="@Model.Twitter" /></td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/config.js"></script>
+    <script>
+        function saveChanges() {
+            var model =
+            {
+                Title: $("#Title").val(),
+                Description: window.editor.getData(),
+                Instagram: $("#Instagram").val(),
+                Facebook: $("#Facebook").val(),
+                Youtube: $("#Youtube").val(),
+                Twitter: $("#Twitter").val(),
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "/Management/ContactUsInfo/Save",
+                data: model,
+                success: function (res) {
+                    toastr.success("ذخیره تغییرات با موفقیت انجام شد", "تایید");
+                },
+                error: function (data) {
+                    toastr.error("ذخیره تغییرات با خطا مواجه شد", "خطا");
+                }
+            });
+        }
+    </script>
+}

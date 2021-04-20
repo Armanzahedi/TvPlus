@@ -1,0 +1,49 @@
+﻿@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
+@using TvPlus.Utility;
+
+<div class="container container-style">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="home__title"><b>پیشنهاد </b> ویژه </h1>
+            <button class="home__nav home__nav--prev" type="button">
+                <i class="icon ion-ios-arrow-round-back"></i>
+            </button>
+            <button class="home__nav home__nav--next" type="button">
+                <i class="icon ion-ios-arrow-round-forward"></i>
+            </button>
+        </div>
+
+        <div class="col-12">
+            <div class="owl-carousel-top owl-carousel home__carousel">
+                @foreach (var item in Model)
+                {
+                    <div class="item">
+
+                        <div class="card card--big">
+                            <div class="card__cover">
+                                <img src="~/UploadedFiles/Images/@item.Image" alt="" />
+                                <a href="blog.html" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title">
+                                    <a href="#">
+                                        @item.Title
+                                    </a>
+                                </h3>
+                                <span class="card__category">
+                                    <a href="#">@item.PublishDate</a>
+                                </span>
+                                <span class="card__rate">
+                                    <i class="icon ion-ios-eye"></i>@item.ViewCount بازدید
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

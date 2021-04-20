@@ -18,6 +18,7 @@ namespace TvPlus.Infrastructure.Services
     {
         Slider Save(Slider model);
         IQueryable<Slider> GetWithPostNavigation();
+        Task<List<Slider>> GetSlidersAsync();
     }
     public class SliderService : SliderRepository, ISliderService
     {
@@ -32,13 +33,21 @@ namespace TvPlus.Infrastructure.Services
 
         public Slider Save(Slider model)
         {
-           var savedSlider =  base.AddOrUpdate(model);
-           return savedSlider;
+            var savedSlider = base.AddOrUpdate(model);
+            return savedSlider;
         }
 
         public IQueryable<Slider> GetWithPostNavigation()
         {
             return _context.Sliders.Include(s => s.Post).Where(s => s.IsDeleted == false).AsQueryable();
+        }
+
+        public async Task<List<Slider>> GetSlidersAsync()
+        {
+            return await _context.Sliders
+                        .Where(w => !w.IsDeleted)
+                        //.Select(s => new CategoryViewModel { Id = s.Id, ParentId = s.ParentId, Show = s.Show, Title = s.Title })
+                        .ToListAsync();
         }
     }
 }

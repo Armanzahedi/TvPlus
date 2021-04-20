@@ -37,6 +37,7 @@ namespace TvPlus.Infrastructure
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ISliderService, SliderService>();
             services.AddScoped<IAboutUsService, AboutUsService>();
+            services.AddScoped<IContactUsInfoService, ContactUsInfoService>();
 
             #endregion
 

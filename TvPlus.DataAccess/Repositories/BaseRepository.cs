@@ -141,6 +141,8 @@ namespace TvPlus.DataAccess.Repositories
         {
             return _context.Set<T>().Where(m=>m.IsDeleted == false).AsQueryable();
         }
+
+
         public string GetCurrentUsersName()
         {
             var userName = "";
