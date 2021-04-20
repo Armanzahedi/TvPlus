@@ -1,0 +1,127 @@
+﻿@model List<TvPlus.Infrastructure.Dtos.Category.CategoryViewModel>
+
+<header class="header header-5">
+    <div class="header-middle ">
+        <div class="container-fluid custome-container">
+            <div class="header-left">
+                <button class="mobile-menu-toggler">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <a href="/" class="logo">
+                    <img src="~/Client/img/logo.png" alt="TvPlus Logo" width="105" height="25" />
+                </a>
+                <nav class="main-nav">
+                    <ul class="menu sf-arrows">
+                        <li>
+                            <a href="/">
+                                خانه
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sf-with-ul">عناوین</a>
+
+                            <ul class="drop-back">
+                                @foreach (var item in Model)
+                                {
+                                    <li>
+                                        <a href="blog.html" class="">@item.Title</a>
+                                        @*<ul class="drop-back">
+                                                  <li><a href="blog.html">تبلیغات</a></li>
+                                                  <li><a href="blog.html">تبلیغات</a></li>
+                                            </ul>*@
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="contact.html">
+                                تماس با ما
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about.html">
+                                درباره ما
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+
+            <div class="header-right">
+
+                <button class="header__search-btn" type="button">
+                    <i class="icon ion-ios-search"></i>
+                </button>
+                <div class="Hotbg">
+                    <a href="#" class="Hotbg-btn">
+                        <i class="icon ion-ios-search"></i>
+                    </a>
+                    <input type="text" name="" class="Hotbg-txt" placeholder="جستجو...">
+
+
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </div>
+    <form action="#" class="header__search">
+        <div class="container">
+            <div class="row search-row">
+                <div class="col-12">
+                    <div class="header__search-content">
+                        <input type="text" placeholder="جستجو..." />
+
+                        <button type="button">جستجو</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-container mobile-menu-light">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+            <nav class="mobile-nav">
+                <ul class="mobile-menu">
+                    <li>
+                        <a href="/">
+                            خانه
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sf-with-ul">عناوین </a>
+
+                        <ul class="drop-back">
+                            @foreach (var item in Model)
+                            {
+                                <li>
+                                    <a href="blog.html" class="sf-with-ul">@item.Title</a>
+
+                                    @*<ul class="drop-back">
+                                            <li><a href="blog.html">سینما</a></li>
+                                            <li><a href="blog.html">سینما</a></li>
+                                        </ul>*@
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="contact">
+                            تماس با ما
+                        </a>
+                    </li>
+                    <li>
+                        <a href="about">
+                            درباره ما
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

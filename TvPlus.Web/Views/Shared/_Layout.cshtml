@@ -3,48 +3,235 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebRP</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewData["Title"]-مجله ویدئویی تی وی پلاس</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />*@
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="Client/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="Client/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="Client/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="Client/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="Client/css/nouislider.min.css">
+    <link rel="stylesheet" href="Client/css/ionicons.min.css">
+    <link rel="stylesheet" href="Client/css/plyr.css">
+    <link rel="stylesheet" href="Client/css/photoswipe.css">
+    <link rel="stylesheet" href="Client/css/default-skin.css">
+    <link rel="stylesheet" href="Client/css/swiper.min.css">
+    <link rel="stylesheet" href="Client/css/main.css">
+
+    <!-- Favicons -->
+    @*<link rel="icon" type="image/png" href="icon/fave.png" sizes="32x32">
+        <link rel="apple-touch-icon" href="icon/fave.png">*@
+
+    <title></title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">WebRP</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="page-wrapper">
+        @await Component.InvokeAsync("MenuCategory")
     </div>
 
-    <footer class="border-top footer text-muted">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer class="footer mt-5">
         <div class="container">
-            &copy; 2019 - WebRP - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <div class="row" style="text-align: right">
+                <!-- footer list -->
+                <div class="col-12 col-md-3">
+                    <h6 class="footer__title">دانلود نرم افزار تی وی پلاس </h6>
+                    <ul class="footer__app">
+                        <li><a href="#"><img src="~/Client/img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
+                        <li><a href="#"><img src="~/Client/img/google-play-badge.png" alt=""></a></li>
+                    </ul>
+                </div>
+                <!-- end footer list -->
+                <!-- footer list -->
+                <div class="col-6 col-sm-4 col-md-3">
+                    <h6 class="footer__title">صفحه ها</h6>
+                    <ul class="footer__list">
+                        <li><a href="#">درباره ما</a></li>
+                        <li><a href="#">تماس با ما</a></li>
+                        <li><a href="#">راهنما</a></li>
+                    </ul>
+                </div>
+                <!-- end footer list -->
+                <!-- footer list -->
+                <div class="col-6 col-sm-4 col-md-3">
+                    <h6 class="footer__title">قوانین</h6>
+                    <ul class="footer__list">
+                        <li><a href="#">چگونگی استفاده</a></li>
+                        <li><a href="#">حریم شخصی</a></li>
+                        <li><a href="#">قوانین سایت</a></li>
+                    </ul>
+                </div>
+                <!-- end footer list -->
+                <!-- footer list -->
+                <div class="col-12 col-sm-4 col-md-3">
+                    <h6 class="footer__title">تماس با ما</h6>
+                    <ul class="footer__list">
+                        <li><a href="tel:+18002345678">22019630</a></li>
+                        <li><a href="mailto:support@moviego.com">info@gmail.com</a></li>
+                    </ul>
+                    <ul class="footer__social">
+                        <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+                        <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
+                        <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
+                        <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+                    </ul>
+                </div>
+                <!-- end footer list -->
+                <!-- footer copyright -->
+                <div class="col-12">
+                    <div class="footer__copyright">
+                        <small>© طراحی شده توسط <a href="https://www.spad.co/" target="_blank">اسپاد</a></small>
+
+                        <ul>
+                            <li><a href="privacy.html">تمامی حقوق برای تی وی پلاس محفوظ است</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end footer copyright -->
+            </div>
         </div>
     </footer>
+    <!--JS-->
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/Client/js/jquery-3.5.1.min.js"></script>
+    <script src="~/Client/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Client/js/owl.carousel.min.js"></script>
+    <script src="~/Client/js/jquery.mousewheel.min.js"></script>
+    <script src="~/Client/js/jquery.mCustomScrollbar.min.js"></script>
+    <script src="~/Client/js/wNumb.js"></script>
+    <script src="~/Client/js/swiper.min.js"></script>
+    <script src="~/Client/js/jquery.morelines.min.js"></script>
+    <script src="~/Client/js/main.js"></script>
+    <script src="~/Client/js/swiper.min.js"></script>
+
+    <script>
+        var swiper4 = new Swiper('.wiper-slide2', {
+            autoplay: {
+                delay: 3000,
+            }
+        });
+
+
+        var swiper2 = new Swiper('.swiper-container2', {
+            effect: 'coverflow',
+            grabCursor: true,
+            loop: true,
+            centeredSlides: true,
+            centeredSlidesBounds: true,
+            centerInsufficientSlides: true,
+            slidesPerView: 'auto',
+            speed: 5000,
+            grabCursor: true,
+            watchSlidesProgress: true,
+            mousewheelControl: true,
+            keyboardControl: true,
+            autoplay: {
+                delay: 3000,
+            },
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+        });
+        var swiper = new Swiper('.swiper-container1', {
+            autoplay: {
+                delay: 5000,
+            },
+            cssMode: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination'
+            },
+            mousewheel: true,
+            keyboard: true,
+        });
+
+
+        $(".slow-carousel").owlCarousel({
+            loop: true,
+            autoplay: true,
+            slideTransition: 'linear',
+            autoplaySpeed: 8000,
+            smartSpeed: 3000,
+            center: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        });
+        $(".slow-carousel2").owlCarousel({
+            loop: true,
+            autoplay: true,
+            slideTransition: 'linear',
+            autoplaySpeed: 9000,
+            smartSpeed: 2000,
+            center: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        });
+
+        $(".owl-carousel-top").owlCarousel({
+            loop: true,
+            nav: true,
+            touchDrag: true,
+            mouseDrag: true,
+
+            slideBy: 2,
+            margin: 50
+            , responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        });
+
+    </script>
+    <script src="~/Client/js/main.js"></script>
+    <script src="~/Client/HeaderJs/jquery.waypoints.min.js"></script>
+    <script src="~/Client/HeaderJs/superfish.min.js"></script>
+    <script src="~/Client/HeaderJs/main.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

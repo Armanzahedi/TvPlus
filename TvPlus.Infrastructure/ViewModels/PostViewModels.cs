@@ -7,6 +7,15 @@ using TvPlus.Core.Models;
 
 namespace TvPlus.Infrastructure.ViewModels
 {
+    public class PostViewModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public int ViewCount { get; set; }
+        public string PublishDate { get; set; }
+        public string Image { get; set; }
+    }
+
     public class PostGridViewModel
     {
         public int Id { get; set; }

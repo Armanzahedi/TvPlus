@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using TvPlus.Core.Models;
 using TvPlus.DataAccess;
 using TvPlus.DataAccess.Repositories;
 using TvPlus.Infrastructure.Dtos.Post;
 using TvPlus.Infrastructure.ViewModels;
 using TvPlus.Services.Membership;
+using TvPlus.Utility;
 using TvPlus.Utility.Enums;
 
 namespace TvPlus.Infrastructure.Services
@@ -25,7 +27,7 @@ namespace TvPlus.Infrastructure.Services
         Post SavePost(EditPostViewModel post);
         List<Tag> SavePostTags(Post post, List<string> tags);
         List<People> SavePostPeople(Post post, List<string> people);
-
+        Task<List<PostViewModel>> GetSpecialPostsAsync();
     }
 
     public class PostService : PostRepository, IPostService
@@ -107,10 +109,10 @@ namespace TvPlus.Infrastructure.Services
             var message = string.Empty;
             var result = new List<Tag>();
 
-            var prevMembers =  _membershipManagementService.GetSelfMemberships(post,RelationTypes.PostTags, false);
+            var prevMembers = _membershipManagementService.GetSelfMemberships(post, RelationTypes.PostTags, false);
             foreach (var item in prevMembers)
             {
-                _membershipManagementService.DeleteMembership(item,null,out message);
+                _membershipManagementService.DeleteMembership(item, null, out message);
             }
             tags.ForEach(item =>
             {
@@ -234,15 +236,15 @@ namespace TvPlus.Infrastructure.Services
 
             var model = new EditPostViewModel
             {
-               Id = post.Id,
-               ShortTitle = post.ShortTitle,
-               Title = post.Title,
-               Description = post.Description,
-               Tags = postTags,
-               People = postPeople,
-               ImageName = postImage,
-               VideoName = postVideo,
-               SelectedCategories = postCategories.Select(c=>c.Id).ToList()
+                Id = post.Id,
+                ShortTitle = post.ShortTitle,
+                Title = post.Title,
+                Description = post.Description,
+                Tags = postTags,
+                People = postPeople,
+                ImageName = postImage,
+                VideoName = postVideo,
+                SelectedCategories = postCategories.Select(c => c.Id).ToList()
             };
             return model;
         }
@@ -254,7 +256,7 @@ namespace TvPlus.Infrastructure.Services
 
             var tags = _tagService.GetDefaultQuery().Where(w => tagIds.Contains(w.Id)).ToList();
 
-            var tagsStr = string.Join(",",tags.Select(t=>t.Title));
+            var tagsStr = string.Join(",", tags.Select(t => t.Title));
             return tagsStr;
         }
         public string GetPostPeople(int id)
@@ -264,9 +266,17 @@ namespace TvPlus.Infrastructure.Services
 
             var people = _peopleService.GetDefaultQuery().Where(w => peopleIds.Contains(w.Id)).ToList();
 
-            var peopleStr = string.Join(",", people.Select(p=>$"{p.Firstname} {p.Lastname}"));
+            var peopleStr = string.Join(",", people.Select(p => $"{p.Firstname} {p.Lastname}"));
             return peopleStr;
 
+        }
+
+        public async Task<List<PostViewModel>> GetSpecialPostsAsync()
+        {
+            return await _context.Posts
+                        .Where(w => !w.IsDeleted && w.IsSpecialOffer)
+                        .Select(s => new PostViewModel { Id = s.Id, Image = _imageService.GetByCenterId(s.Id).ImageName, Title = s.Title, ViewCount = s.ViewCount, PublishDate = s.PublishDate.ToPersianString() })
+                        .ToListAsync();
         }
     }
 }
