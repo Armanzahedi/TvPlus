@@ -59053,7 +59053,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #a11e3a; }
         .tagify .tagify__tag .tagify__tag__removeBtn:hover + div > span {
-          opacity: .4; }
+          opacity: 0.4; }
         .tagify .tagify__tag .tagify__tag__removeBtn:hover:after {
           -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
           transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
@@ -59071,7 +59071,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--primary:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--primary:not(.tagify--notAllowed) {
       background-color: rgba(161, 30, 58, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--primary:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59083,7 +59083,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--primary:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--secondary:not(.tagify--notAllowed) {
       background-color: #868686; }
       .tagify .tagify__tag.tagify__tag--secondary:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59095,7 +59095,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--secondary:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--secondary:not(.tagify--notAllowed) {
       background-color: rgba(134, 134, 134, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--secondary:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59107,7 +59107,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--secondary:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--success:not(.tagify--notAllowed) {
       background-color: #1bc5bd; }
       .tagify .tagify__tag.tagify__tag--success:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59119,7 +59119,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--success:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--success:not(.tagify--notAllowed) {
       background-color: rgba(27, 197, 189, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--success:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59131,7 +59131,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--success:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--info:not(.tagify--notAllowed) {
       background-color: #8950fc; }
       .tagify .tagify__tag.tagify__tag--info:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59143,7 +59143,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--info:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--info:not(.tagify--notAllowed) {
       background-color: rgba(137, 80, 252, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--info:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59155,7 +59155,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--info:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--warning:not(.tagify--notAllowed) {
       background-color: #ffa800; }
       .tagify .tagify__tag.tagify__tag--warning:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59167,7 +59167,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--warning:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--warning:not(.tagify--notAllowed) {
       background-color: rgba(255, 168, 0, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--warning:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59179,7 +59179,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--warning:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--danger:not(.tagify--notAllowed) {
       background-color: #f64e60; }
       .tagify .tagify__tag.tagify__tag--danger:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59191,7 +59191,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--danger:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--danger:not(.tagify--notAllowed) {
       background-color: rgba(246, 78, 96, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--danger:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59203,7 +59203,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--danger:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--light:not(.tagify--notAllowed) {
       background-color: #4d4d4d; }
       .tagify .tagify__tag.tagify__tag--light:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59215,7 +59215,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--light:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--light:not(.tagify--notAllowed) {
       background-color: rgba(77, 77, 77, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--light:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59227,7 +59227,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--light:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--dark:not(.tagify--notAllowed) {
       background-color: #f8f8f8; }
       .tagify .tagify__tag.tagify__tag--dark:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59239,7 +59239,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--dark:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--dark:not(.tagify--notAllowed) {
       background-color: rgba(248, 248, 248, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--dark:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59251,7 +59251,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--dark:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag--white:not(.tagify--notAllowed) {
       background-color: #3a3a3a; }
       .tagify .tagify__tag.tagify__tag--white:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59263,7 +59263,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag--white:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify__tag-light--white:not(.tagify--notAllowed) {
       background-color: rgba(58, 58, 58, 0.12); }
       .tagify .tagify__tag.tagify__tag-light--white:not(.tagify--notAllowed) div .tagify__tag-text {
@@ -59275,7 +59275,7 @@ body.swal2-height-auto {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify__tag-light--white:not(.tagify--notAllowed) .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
     .tagify .tagify__tag.tagify--notAllowed {
       background-color: #f64e60; }
       .tagify .tagify__tag.tagify--notAllowed div:before {
@@ -59287,21 +59287,21 @@ body.swal2-height-auto {
         transition: none; }
       .tagify .tagify__tag.tagify--notAllowed div .tagify__tag-text {
         color: #3a3a3a;
-        opacity: .75; }
+        opacity: 0.75; }
       .tagify .tagify__tag.tagify--notAllowed .tagify__tag__removeBtn:after {
-        opacity: .5;
+        opacity: 0.5;
         color: #3a3a3a; }
       .tagify .tagify__tag.tagify--notAllowed .tagify__tag__removeBtn:hover {
         background: transparent;
         color: #3a3a3a; }
         .tagify .tagify__tag.tagify--notAllowed .tagify__tag__removeBtn:hover + div > span {
-          opacity: .3; }
+          opacity: 0.3; }
 
 .tagify[readonly] .tagify__tag__removeBtn {
   display: none; }
 
 .tagify__input {
-  color: #e7e7e7; }
+  color: white; }
   .tagify__input::before {
     top: auto;
     bottom: auto;
@@ -59351,7 +59351,7 @@ body.swal2-height-auto {
     -webkit-box-shadow: none;
     box-shadow: none; }
   .tagify__dropdown .tagify__dropdown__item {
-    color: #e7e7e7;
+    color: black;
     border-radius: 0;
     padding: 0.75rem 1.5rem;
     margin: 0;

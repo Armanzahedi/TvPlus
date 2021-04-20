@@ -170,15 +170,14 @@ namespace TvPlus.Infrastructure.Services
         {
             var message = string.Empty;
 
-            var post = new Post
-            {
-                Id = model.Id,
-                PublishDate = DateTime.Now,
-                ShortTitle = model.ShortTitle,
-                Title = model.Title,
-                Description = model.Description,
-                Context = model.Context
-            };
+            var post = _context.Posts.FirstOrDefault(p=>p.Id == model.Id) ?? new Post{ Id = model.Id};
+
+            post.PublishDate = DateTime.Now;
+            post.ShortTitle = model.ShortTitle;
+            post.Title = model.Title;
+            post.Description = model.Description;
+            post.Context = model.Context;
+
             var savedPost = Save(post);
 
             //save tags
