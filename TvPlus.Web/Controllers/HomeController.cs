@@ -10,21 +10,50 @@ using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using TvPlus.Web.Models;
+using TvPlus.Core.Models;
+using TvPlus.Infrastructure.Services;
+using TvPlus.Infrastructure.ViewModels;
 
 namespace TvPlus.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IContactUsInfoService _contactUsInfoService;
+        private readonly IAboutUsService _aboutUsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IContactUsInfoService ContactUsInfoService, IAboutUsService AboutUsService)
         {
             _logger = logger;
+            _contactUsInfoService = ContactUsInfoService;
+            _aboutUsService = AboutUsService;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Route("ContactUs")]
+        public IActionResult ContactUs()
+        {
+            var item = _contactUsInfoService.GetFirst();
+            return View(item);
+        }
+
+        [Route("AboutUs")]
+        public IActionResult AboutUs()
+        {
+            var aboutUs = _aboutUsService.GetAboutUs();
+            var aboutUsSection = _aboutUsService.GetAboutUsSections();
+
+            var model = new AboutUsViewModel
+            {
+                AboutUs = aboutUs,
+                AboutUsSections = aboutUsSection
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()
