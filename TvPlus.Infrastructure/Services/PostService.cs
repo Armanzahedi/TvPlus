@@ -36,6 +36,7 @@ namespace TvPlus.Infrastructure.Services
         Task<List<PostViewModel>> GetTopTensAsync();
         List<Category> GetPostCategories(int id);
         PostDetailsViewModel GetPostDetail(int id);
+        List<PostViewModel> GetPostByCategory(int id);
     }
 
     public class PostService : PostRepository, IPostService
@@ -47,6 +48,7 @@ namespace TvPlus.Infrastructure.Services
         private readonly IImageService _imageService;
         private readonly IMembershipManagementBaseService _membershipManagementService;
         private readonly ICenterService _centerService;
+        private readonly ICategoryService _categoryService;
         private readonly MyDbContext _context;
 
         public PostService(
@@ -54,7 +56,7 @@ namespace TvPlus.Infrastructure.Services
             IMembershipManagementBaseService membershipManagementService,
             ITagService tagService,
             IPeopleService peopleService,
-            MyDbContext context, IVideoService videoService, IImageService imageService, ICenterService centerService) : base(context)
+            MyDbContext context, IVideoService videoService, IImageService imageService, ICenterService centerService, ICategoryService CategoryService) : base(context)
         {
             _mapper = mapper;
             _context = context;
@@ -64,6 +66,7 @@ namespace TvPlus.Infrastructure.Services
             _membershipManagementService = membershipManagementService;
             _tagService = tagService;
             _peopleService = peopleService;
+            _categoryService = CategoryService;
         }
         public List<Tag> SavePostTags(Post post, List<string> tags)
         {
@@ -245,6 +248,24 @@ namespace TvPlus.Infrastructure.Services
                             Description = s.Description.TruncateString(200)
                         })
                         .ToListAsync();
+        }
+
+
+        public List<PostViewModel> GetPostByCategory(int id)
+        {
+            return _context.Posts.Include(p => p.CenterCategories)
+                        .Where(w => !w.IsDeleted && w.IsSpecialOffer &&
+                        (w.CenterCategories.Where(p => p.CategoryId == id).Select(s => s.CenterId).Contains(w.Id)))
+                        .Select(s => new PostViewModel
+                        {
+                            Id = s.Id,
+                            Image = _imageService.GetByCenterId(s.Id).ImageName,
+                            Title = s.Title,
+                            ViewCount = s.ViewCount,
+                            PublishDate = s.PublishDate.ToPersianString(),
+                            Description = s.Description.TruncateString(200)
+                        })
+                        .ToList();
         }
 
         public async Task<List<PostViewModel>> GetTrendTvsAsync()
