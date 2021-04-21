@@ -1,0 +1,49 @@
+﻿@using TvPlus.Utility
+@model List<TvPlus.Infrastructure.ViewModels.SimilarPostViewModel>
+    <section class="home">
+        <div class="container video-container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="home__title"><b>ویدئو های مرتبط </b></h1>
+
+                    <button class="home__nav home__nav--prev" type="button">
+                        <i class="icon ion-ios-arrow-round-back"></i>
+                    </button>
+                    <button class="home__nav home__nav--next" type="button">
+                        <i class="icon ion-ios-arrow-round-forward"></i>
+                    </button>
+                </div>
+
+                <div class="col-12">
+                    <div class="owl-carousel-top owl-carousel home__carousel">
+                        @foreach (var item in Model)
+                        {
+                            <div class="item">
+                                <div class="card card--big">
+                                    <div class="card__cover">
+                                        <img src="/UploadedFiles/Images/@item.ImageName" alt="@item.ShortTitle"/>
+                                        <a href="/Post/@item.Id" class="card__play">
+                                            <i class="icon ion-ios-play"></i>
+                                        </a>
+                                    </div>
+                                    <div class="card__content">
+                                        <h3 class="card__title">
+                                            <a href="/Post/@item.Id">
+                                              @item.ShortTitle
+                                            </a>
+                                        </h3>
+                                        <span class="card__category">
+                                            <a href="#">@item.InsertDate.ToPersianString()</a>
+                                        </span>
+                                        <span class="card__rate">
+                                            <i class="icon ion-ios-eye"></i>@item.ViewCount بازدید
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

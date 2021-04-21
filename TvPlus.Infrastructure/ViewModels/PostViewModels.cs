@@ -10,6 +10,7 @@ namespace TvPlus.Infrastructure.ViewModels
     public class PostViewModel
     {
         public int Id { get; set; }
+        public string ShortTitle { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int ViewCount { get; set; }
@@ -104,7 +105,15 @@ namespace TvPlus.Infrastructure.ViewModels
             get { return _people ?? (new List<PeopleDetailViewModel>()); }
             set { _people = value; }
         }
+    }
 
+    public class SimilarPostViewModel
+    {
+        public int Id { get; set; }
+        public string ShortTitle { get; set; }
+        public DateTime InsertDate { get; set; }
+        public string ImageName { get; set; }
+        public int ViewCount { get; set; }
 
     }
 }
