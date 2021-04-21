@@ -5,35 +5,35 @@
     <div class="swiper-wrapper">
         @foreach (var item in Model)
         {
-            <div class="swiper-slide">
-                <img src="~/UploadedFiles/Images/@item.Image" />
-                <div class="slidertext slider-box-layout9">
-                    <div class="item-content">
-                        <div class="container">
-                            <h2 class="item-title">@item.Title</h2>
-                            <ul class="entry-meta meta-color-light">
-                                @*<li><i class="fas fa-tag"></i>@item.Title</li>*@
-                                <li><i class="fas fa-calendar-alt"></i>@item.InsertDate.ToPersianString()</li>
+        <div class="swiper-slide">
+            <img src="~/UploadedFiles/Images/@item.Image" />
+            <div class="slidertext slider-box-layout9">
+                <div class="item-content">
+                    <div class="container">
+                        <h2 class="item-title">@item.Title</h2>
+                        <ul class="entry-meta meta-color-light">
+                            @*<li><i class="fas fa-tag"></i>@item.Title</li>*@
+                            <li><i class="fas fa-calendar-alt"></i>@item.InsertDate.ToPersianString()</li>
+                        </ul>
+                        <div class="action-area">
+                            <ul>
+                                <li class="item-btn-wrap">
+                                    <a href="/Post/@item.PostId">
+                                        ادامه مطلب<i class="icon ion-ios-arrow-back"></i>
+                                    </a>
+                                </li>
+                                @*<li class="entry-meta meta-color-light">
+                                        <a href="#"><i class="icon ion-ios-heart"></i>15</a>
+                                        <a href="#"><i class="icon ion-ios-text"></i>02</a>
+                                    </li>*@
                             </ul>
-                            <div class="action-area">
-                                <ul>
-                                    <li class="item-btn-wrap">
-                                        <a href="/Post/@item.PostId">
-                                            ادامه مطلب<i class="icon ion-ios-arrow-back"></i>
-                                        </a>
-                                    </li>
-                                    @*<li class="entry-meta meta-color-light">
-                    <a href="#"><i class="icon ion-ios-heart"></i>15</a>
-                    <a href="#"><i class="icon ion-ios-text"></i>02</a>
-                </li>*@
-                                </ul>
-                            </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
+
+        </div>
         }
     </div>
     <div class="swiper-button-next"></div>
