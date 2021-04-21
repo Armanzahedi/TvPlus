@@ -22,7 +22,9 @@ namespace TvPlus.Web.Controllers
         [Route("Post/{id}")]
         public IActionResult Details(int id)
         {
-            return View(_postService.GetPostDetail(id));
+            var post = _postService.GetPostDetail(id);
+            _postService.UpdatePostViewCount(id);
+            return View(post);
         }
 
         [Route("PostCategory/{id}")]

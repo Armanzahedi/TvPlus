@@ -37,6 +37,7 @@ namespace TvPlus.Infrastructure.Services
         List<Category> GetPostCategories(int id);
         PostDetailsViewModel GetPostDetail(int id);
         List<PostViewModel> GetPostByCategory(int id);
+        void UpdatePostViewCount(int postId);
     }
 
     public class PostService : PostRepository, IPostService
@@ -266,6 +267,16 @@ namespace TvPlus.Infrastructure.Services
                             Description = s.Description.TruncateString(200)
                         })
                         .ToList();
+        }
+
+        public void UpdatePostViewCount(int postId)
+        {
+            var post = base.GetById(postId);
+            if (post != null)
+            {
+                post.ViewCount += 1;
+                base.Update(post);
+            }
         }
 
         public async Task<List<PostViewModel>> GetTrendTvsAsync()
