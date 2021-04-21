@@ -299,7 +299,6 @@
                 e.preventDefault();
                 videoDropzone.processQueue();
             });
-            var postId = $("#Id").val();
             var videoDropzone = new Dropzone("#videoInput",
                 {
                     url: "/Management/UploadVideo",
@@ -318,8 +317,6 @@
                     if (this.files[1] != null) {
                         this.removeFile(this.files[0]);
                     }
-                    var postId = $("#Id").val();
-
                     resetProgress();
                     toggleUploadBtn("active");
 
@@ -355,13 +352,21 @@
                     formData.append("Id", $("#Id").val());
                 });
 
-            videoDropzone.on("complete",
+            videoDropzone.on("success",
                 function(progress) {
                     $("#VideoValidation").val(true);
                     resetProgress();
                     $(".progress").hide();
                     toggleUploadBtn("deactive");
                     toastr.success("ویدیو با موفقیت آپلود شد", "تایید");
+                });
+            videoDropzone.on("error",
+                function() {
+                    //$("#VideoValidation").val(false);
+                    resetProgress();
+                    $(".progress").hide();
+                    toggleUploadBtn("deactive");
+                    toastr.error("آپلود ویدیو با خطا مواجه شد", "خطا");
                 });
         });
     </script>
