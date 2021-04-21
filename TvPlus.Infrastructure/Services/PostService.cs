@@ -37,6 +37,8 @@ namespace TvPlus.Infrastructure.Services
         List<Category> GetPostCategories(int id);
         PostDetailsViewModel GetPostDetail(int id);
         List<PostViewModel> GetPostByCategory(int id);
+        void UpdatePostViewCount(int postId);
+        Task<List<SimilarPostViewModel>> GetSimilarPosts(int postId, int take);
     }
 
     public class PostService : PostRepository, IPostService
@@ -268,6 +270,53 @@ namespace TvPlus.Infrastructure.Services
                             Description = s.Description.TruncateString(200)
                         })
                         .ToList();
+        }
+
+        public void UpdatePostViewCount(int postId)
+        {
+            var post = base.GetById(postId);
+            if (post != null)
+            {
+                post.ViewCount += 1;
+                base.Update(post);
+            }
+        }
+
+        public async Task<List<SimilarPostViewModel>> GetSimilarPosts(int postId, int take)
+        {
+            var model = new List<SimilarPostViewModel>();
+            var postCategories = GetPostCategories(postId);
+            if (postCategories != null && postCategories.Any())
+            {
+                while (model.Count < take)
+                {
+                    int random = new Random().Next(postCategories.Count);
+                    var randomCategory = postCategories[random];
+                    var availableItems = _context.CenterCategories
+                        .Where(cp => cp.CategoryId == randomCategory.Id && cp.IsDeleted == false && cp.Center.IsDeleted == false && cp.Category.IsDeleted == false);
+                    if (availableItems.Any())
+                    {
+                        random = new Random().Next(availableItems.Count());
+                        var randomPostId = availableItems.Skip(random).FirstOrDefault().CenterId;
+                        var randomPost = await _context.Posts.FirstOrDefaultAsync(p => p.Id == randomPostId);
+                        if (randomPost != null && model.All(m => m.Id != randomPost.Id))
+                        {
+                            var image = _imageService.GetByCenterId(randomPostId);
+                            model.Add(new SimilarPostViewModel
+                            {
+                                Id = randomPostId,
+                                ShortTitle = randomPost.ShortTitle,
+                                InsertDate = randomPost.InsertDate,
+                                ImageName = image?.ImageName ?? "temp.png",
+                                ViewCount = randomPost.ViewCount
+                            });
+                        }
+                    }
+                }
+
+            }
+
+            return model;
         }
 
         public async Task<List<PostViewModel>> GetTrendTvsAsync()

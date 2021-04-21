@@ -2,464 +2,211 @@
 @{
     ViewData["Title"] = "پست";
 }
-<div class="container">
+@if (Model != null)
+{
+    <div class="container">
 
-    <br />
-    <br />
-    <br /> 
+        <br />
+        <br />
+        <br />
 
-    <div class="row justify-content-center" style="margin-top:40px;">
-        <div class="col-12">
-            <div class="video-border">
-                <video controls width="100%" poster="/UploadedFiles/Images/@Model.ImageName" id="player">
-                    <source src="/UploadedFiles/Videos/@Model.VideoName" type="video/mp4" size="576" />
-                    @*<a href="img/1.mp4" download>Download</a>*@
-                </video>
+        <div class="row justify-content-center" style="margin-top:40px;">
+            <div class="col-12">
+                <div class="video-border">
+                    <video controls width="100%" poster="/UploadedFiles/Images/@Model.ImageName" id="player">
+                        <source src="/UploadedFiles/Videos/@Model.VideoName" type="video/mp4" size="576" />
+                        @*<a href="img/1.mp4" download>Download</a>*@
+                    </video>
+                </div>
             </div>
         </div>
-    </div>
-    <br />
-    <br />
+        <br />
+        <br />
 
-    <div class="video-des">
-        <h1>@Model.Title</h1>
-        <p>
-            @Html.Raw(Model.Description)
-        </p>
-    </div>
-    <br />
-    <div class="tag-part">
-        <span class="tag-title">دسته بندی ها : </span>
-
-        <ul class="tag-list">
-            @foreach (var item in Model.Categories)
-            {
-                <li><a href="/Category/@item.Id">@item.Title</a></li>
-            }
-        </ul>
-    </div>
-    <div class="related_actor">
-        <h2 class="actor-title">افراد مرتبط</h2>
-        <div class="row-flex">
-            @foreach (var item in Model.People)
-            {
-                <div class="actor-img">
-                    <a href="/People/@item.Id">
-                        <img class="img" src="/UploadedFiles/Images/@item.ImageName" alt="@item.FirstName @item.LastName" />
-                        <div class="actor-details">
-                            <h4 class="actor-font actor-name">@item.FirstName @item.LastName</h4>
-                            @*<p class="actor-font">بازیگر</p>*@
-                        </div>
-                    </a>
-                </div>
-            }
+        <div class="video-des">
+            <h2 style="color: white">@Model.Title</h2>
+            <p>
+                @Html.Raw(Model.Description)
+            </p>
         </div>
-    </div>
+        <br />
+        <div class="tag-part">
+            <span class="tag-title">دسته بندی ها : </span>
 
-    <section class="home">
-        <div class="container video-container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="home__title"><b>ویدئو های مرتبط </b></h1>
-
-                    <button class="home__nav home__nav--prev" type="button">
-                        <i class="icon ion-ios-arrow-round-back"></i>
-                    </button>
-                    <button class="home__nav home__nav--next" type="button">
-                        <i class="icon ion-ios-arrow-round-forward"></i>
-                    </button>
-                </div>
-
-                <div class="col-12">
-                    <div class="owl-carousel-top owl-carousel home__carousel">
-                        <div class="item">
-                            <div class="card card--big">
-                                <div class="card__cover">
-                                    <img src="img/covers/slide1.jpg" alt="" />
-                                    <a href="blog.html" class="card__play">
-                                        <i class="icon ion-ios-play"></i>
-                                    </a>
-                                </div>
-                                <div class="card__content">
-                                    <h3 class="card__title">
-                                        <a href="#">
-                                            لحظه تلخ
-                                            ترکیدن بغض حامد زمانی حین کتک خوردنش از
-                                            پلیس حین کتک خوردنش از پلیس
-                                        </a>
-                                    </h3>
-                                    <span class="card__category">
-                                        <a href="#">نیما اسلامی</a>
-                                        <a href="#">22 /اسفند/99</a>
-                                    </span>
-                                    <span class="card__rate">
-                                        <i class="icon ion-ios-eye"></i>30 بازدید
-                                    </span>
-                                </div>
+            <ul class="tag-list">
+                @foreach (var item in Model.Categories)
+                {
+                    <li><a href="/PostCategory/@item.Id">@item.Title</a></li>
+                }
+            </ul>
+        </div>
+        <div class="related_actor">
+            <h2 class="actor-title">افراد مرتبط</h2>
+            <div class="row-flex">
+                @foreach (var item in Model.People)
+                {
+                    <div class="actor-img">
+                        <a href="/People/@item.Id">
+                            <img class="img" src="/UploadedFiles/Images/@item.ImageName" alt="@item.FirstName @item.LastName" />
+                            <div class="actor-details">
+                                <h4 class="actor-font actor-name">@item.FirstName @item.LastName</h4>
+                                @*<p class="actor-font">بازیگر</p>*@
                             </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card card--big">
-                                <div class="card__cover">
-                                    <img src="img/covers/slide2.jpg" alt="" />
-                                    <a href="blog.html" class="card__play">
-                                        <i class="icon ion-ios-play"></i>
-                                    </a>
-                                </div>
-                                <div class="card__content">
-                                    <h3 class="card__title">
-                                        <a href="#">
-                                            لحظه تلخ
-                                            ترکیدن بغض حامد زمانی حین کتک خوردنش از
-                                            پلیس
-                                        </a>
-                                    </h3>
-                                    <span class="card__category">
-                                        <a href="#">نیما اسلامی</a>
-                                        <a href="#">22 /اسفند/99</a>
-                                    </span>
-                                    <span class="card__rate">
-                                        <i class="icon ion-ios-eye"></i>30 بازدید
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card card--big">
-                                <div class="card__cover">
-                                    <img src="img/covers/slide3.jpg" alt="" />
-                                    <a href="blog.html" class="card__play">
-                                        <i class="icon ion-ios-play"></i>
-                                    </a>
-                                </div>
-                                <div class="card__content">
-                                    <h3 class="card__title">
-                                        <a href="#">
-                                            لحظه تلخ
-                                            ترکیدن بغض حامد زمانی حین کتک خوردنش از
-                                            پلیس
-                                        </a>
-                                    </h3>
-                                    <span class="card__category">
-                                        <a href="#">نیما اسلامی</a>
-                                        <a href="#">22 /اسفند/99</a>
-                                    </span>
-                                    <span class="card__rate">
-                                        <i class="icon ion-ios-eye"></i>30 بازدید
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card card--big">
-                                <div class="card__cover">
-                                    <img src="img/covers/slide4.jpg" alt="" />
-                                    <a href="blog.html" class="card__play">
-                                        <i class="icon ion-ios-play"></i>
-                                    </a>
-                                </div>
-                                <div class="card__content">
-                                    <h3 class="card__title">
-                                        <a href="#">
-                                            لحظه تلخ
-                                            ترکیدن بغض حامد زمانی حین کتک خوردنش از
-                                            پلیس
-                                        </a>
-                                    </h3>
-                                    <span class="card__category">
-                                        <a href="#">نیما اسلامی</a>
-                                        <a href="#">22 /اسفند/99</a>
-                                    </span>
-                                    <span class="card__rate">
-                                        <i class="icon ion-ios-eye"></i>30 بازدید
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
-                </div>
+                }
             </div>
         </div>
-    </section>
-    <section class="rtl">
-        <div class="container">
-            <div>
-                <ul class="comment-part">
-                    <li>
-                        <div class="comment">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="comment-details">
-                            <div class="comment-time">
-                                <span>روژین - </span>
-                                <span>سه‌شنبه ۲۱ بهمن ساعت ۱۰:۳۷</span>
+        @await Component.InvokeAsync("SimilarPosts", new {postId = Model.Id, take = 5})
+        @*<section class="rtl">
+            <div class="container">
+                <div>
+                    <ul class="comment-part">
+                        <li>
+                            <div class="comment">
+                                <i class="fa fa-user"></i>
                             </div>
-                            <div class="comment-des">
-                                <p>
-                                    عالی کی مرام چه میپردازه در هر فیلمش
-                                </p>
-                            </div>
-                            <div class="comment-like">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                     height="40" viewBox="0 0 40 40"
-                                     class="t-svg-0-1-253">
-                                    <path class="svg-c1"
-                                          d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
-                                </svg>
-                                <span>0</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                     height="40" viewBox="0 0 40 40"
-                                     class="t-svg-0-1-253">
-                                    <path class="svg-c1"
-                                          d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
-                                </svg>
-                                <span>0</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="comment">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="comment-details">
-                            <div class="comment-time">
-                                <span>روژین - </span>
-                                <span>سه‌شنبه ۲۱ بهمن ساعت ۱۰:۳۷</span>
-                            </div>
-                            <div class="comment-des">
-                                <p>
-                                    عالی کی مرام چه میپردازه در هر فیلمش
-                                </p>
-                            </div>
-                            <div class="comment-like">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                     height="40" viewBox="0 0 40 40"
-                                     class="t-svg-0-1-253">
-                                    <path class="svg-c1"
-                                          d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
-                                </svg>
-                                <span>0</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                     height="40" viewBox="0 0 40 40"
-                                     class="t-svg-0-1-253">
-                                    <path class="svg-c1"
-                                          d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
-                                </svg>
-                                <span>0</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="comment">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="comment-details">
-                            <div class="comment-time">
-                                <span>روژین - </span>
-                                <span>سه‌شنبه ۲۱ بهمن ساعت ۱۰:۳۷</span>
-                            </div>
-                            <div class="comment-des">
-                                <p>
-                                    عالی کی مرام چه میپردازه در هر فیلمش
-                                </p>
-                            </div>
-                            <div class="comment-like">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                     height="40" viewBox="0 0 40 40"
-                                     class="t-svg-0-1-253">
-                                    <path class="svg-c1"
-                                          d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
-                                </svg>
-                                <span>0</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                     height="40" viewBox="0 0 40 40"
-                                     class="t-svg-0-1-253">
-                                    <path class="svg-c1"
-                                          d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
-                                </svg>
-                                <span>0</span>
-                            </div>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2 class="section__title">نظر خود را بنویسید</h2>
-                        </div>
-
-                        <div class="col-12">
-                            <form action="#" class="form form--contacts">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" class="form__input"
-                                               placeholder="نام" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form__input"
-                                               placeholder="نام خانوادگی" />
-                                    </div>
-                                    <div class="col-md-6">
-
-                                        <input type="text" class="form__input"
-                                               placeholder="ایمیل" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form__input"
-                                               placeholder="موضوع" />
-                                    </div>
+                            <div class="comment-details">
+                                <div class="comment-time">
+                                    <span>روژین - </span>
+                                    <span>سه‌شنبه ۲۱ بهمن ساعت ۱۰:۳۷</span>
                                 </div>
-                                <textarea id="text" name="text"
-                                          class="form__textarea"
-                                          placeholder="متن را وارد کنید ..."></textarea>
-                                <button type="button" class="form__btn">
-                                    ارسال
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<div class="mobile-menu-overlay"></div>
-<div class="mobile-menu-container mobile-menu-light">
-    <div class="mobile-menu-wrapper">
-        <span class="mobile-menu-close"><i class="icon-close"></i></span>
-
-
-        <nav class="mobile-nav">
-            <ul class="mobile-menu">
-                <li>
-                    <a href="/">
-                        خانه
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="sf-with-ul">عناوین </a>
-
-                    <ul class="drop-back">
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">سینما</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">سینما</a></li>
-                                <li><a href="blog.html">سینما</a></li>
-                            </ul>
+                                <div class="comment-des">
+                                    <p>
+                                        عالی کی مرام چه میپردازه در هر فیلمش
+                                    </p>
+                                </div>
+                                <div class="comment-like">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                         height="40" viewBox="0 0 40 40"
+                                         class="t-svg-0-1-253">
+                                        <path class="svg-c1"
+                                              d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
+                                    </svg>
+                                    <span>0</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                         height="40" viewBox="0 0 40 40"
+                                         class="t-svg-0-1-253">
+                                        <path class="svg-c1"
+                                              d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
+                                    </svg>
+                                    <span>0</span>
+                                </div>
+                            </div>
                         </li>
                         <li>
-                            <a href="blog.html" class="sf-with-ul">تبلیغات</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">تبلیغات</a></li>
-                                <li><a href="blog.html">تبلیغات</a></li>
-                            </ul>
+                            <div class="comment">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="comment-details">
+                                <div class="comment-time">
+                                    <span>روژین - </span>
+                                    <span>سه‌شنبه ۲۱ بهمن ساعت ۱۰:۳۷</span>
+                                </div>
+                                <div class="comment-des">
+                                    <p>
+                                        عالی کی مرام چه میپردازه در هر فیلمش
+                                    </p>
+                                </div>
+                                <div class="comment-like">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                         height="40" viewBox="0 0 40 40"
+                                         class="t-svg-0-1-253">
+                                        <path class="svg-c1"
+                                              d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
+                                    </svg>
+                                    <span>0</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                         height="40" viewBox="0 0 40 40"
+                                         class="t-svg-0-1-253">
+                                        <path class="svg-c1"
+                                              d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
+                                    </svg>
+                                    <span>0</span>
+                                </div>
+                            </div>
                         </li>
                         <li>
-                            <a href="blog.html" class="sf-with-ul">ورزشی</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">ورزشی</a></li>
-                                <li><a href="blog.html">ورزشی</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">تکنولوژی</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">تکنولوژی</a></li>
-                                <li><a href="blog.html">تکنولوژی</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">سیاست</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">سیاست</a></li>
-                                <li><a href="blog.html">سیاست</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">اقتصاد</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">اقتصاد</a></li>
-                                <li><a href="blog.html">اقتصاد</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">بیزینس</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">بیزینس</a></li>
-                                <li><a href="blog.html">بیزینس</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">حوادث</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">حوادث</a></li>
-                                <li><a href="blog.html">حوادث</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">گردشگری</a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">گردشگری</a></li>
-                                <li><a href="blog.html">گردشگری</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blog.html" class="sf-with-ul">شهربازی </a>
-
-                            <ul class="drop-back">
-                                <li><a href="blog.html">شهربازی</a></li>
-                                <li><a href="blog.html">شهربازی</a></li>
-                            </ul>
+                            <div class="comment">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="comment-details">
+                                <div class="comment-time">
+                                    <span>روژین - </span>
+                                    <span>سه‌شنبه ۲۱ بهمن ساعت ۱۰:۳۷</span>
+                                </div>
+                                <div class="comment-des">
+                                    <p>
+                                        عالی کی مرام چه میپردازه در هر فیلمش
+                                    </p>
+                                </div>
+                                <div class="comment-like">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                         height="40" viewBox="0 0 40 40"
+                                         class="t-svg-0-1-253">
+                                        <path class="svg-c1"
+                                              d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
+                                    </svg>
+                                    <span>0</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                         height="40" viewBox="0 0 40 40"
+                                         class="t-svg-0-1-253">
+                                        <path class="svg-c1"
+                                              d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
+                                    </svg>
+                                    <span>0</span>
+                                </div>
+                            </div>
                         </li>
 
                     </ul>
-                </li>
-                <li>
-                    <a href="contact">
-                        تماس با ما
-                    </a>
-                </li>
-                <li>
-                    <a href="about">
-                        درباره ما
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 class="section__title">نظر خود را بنویسید</h2>
+                            </div>
+
+                            <div class="col-12">
+                                <form action="#" class="form form--contacts">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form__input"
+                                                   placeholder="نام" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form__input"
+                                                   placeholder="نام خانوادگی" />
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <input type="text" class="form__input"
+                                                   placeholder="ایمیل" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form__input"
+                                                   placeholder="موضوع" />
+                                        </div>
+                                    </div>
+                                    <textarea id="text" name="text"
+                                              class="form__textarea"
+                                              placeholder="متن را وارد کنید ..."></textarea>
+                                    <button type="button" class="form__btn">
+                                        ارسال
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>*@
     </div>
 
+}
 
-</div>*@
