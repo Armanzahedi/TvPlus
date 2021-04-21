@@ -299,7 +299,6 @@
                 e.preventDefault();
                 videoDropzone.processQueue();
             });
-            var postId = $("#Id").val();
             var videoDropzone = new Dropzone("#videoInput",
                 {
                     url: "/Management/UploadVideo",
@@ -308,7 +307,9 @@
                     method: "post",
                     maxFiles: 1,
                     acceptedFiles: "video/*",
-                    addRemoveLinks: true
+                    addRemoveLinks: true,
+                    maxFilesize: 2000,
+                    timeout: 10800000,
                 });
 
             videoDropzone.on("addedfile",
@@ -316,8 +317,6 @@
                     if (this.files[1] != null) {
                         this.removeFile(this.files[0]);
                     }
-                    var postId = $("#Id").val();
-
                     resetProgress();
                     toggleUploadBtn("active");
 
@@ -353,13 +352,21 @@
                     formData.append("Id", $("#Id").val());
                 });
 
-            videoDropzone.on("complete",
+            videoDropzone.on("success",
                 function(progress) {
                     $("#VideoValidation").val(true);
                     resetProgress();
                     $(".progress").hide();
                     toggleUploadBtn("deactive");
                     toastr.success("ویدیو با موفقیت آپلود شد", "تایید");
+                });
+            videoDropzone.on("error",
+                function() {
+                    //$("#VideoValidation").val(false);
+                    resetProgress();
+                    $(".progress").hide();
+                    toggleUploadBtn("deactive");
+                    toastr.error("آپلود ویدیو با خطا مواجه شد", "خطا");
                 });
         });
     </script>
