@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using TvPlus.Core.Models;
 using TvPlus.DataAccess;
@@ -107,8 +109,12 @@ namespace TvPlus.Web
         ));
 
             services.AddHangfireServer(opt => opt.WorkerCount = 1);
-        }
 
+
+            services.AddSingleton<HtmlEncoder>(
+                HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin,
+                    UnicodeRanges.Arabic }));
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

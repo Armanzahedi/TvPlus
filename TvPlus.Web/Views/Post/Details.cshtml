@@ -46,10 +46,10 @@
             {
                 <div class="actor-img">
                     <a href="/People/@item.Id">
-                        <img class="img" src="/UploadedFiles/Images" alt="@item.Title" />
+                        <img class="img" src="/UploadedFiles/Images/@item.ImageName" alt="@item.FirstName @item.LastName" />
                         <div class="actor-details">
-                            <h4 class="actor-font actor-name">@item.Firstname @item.Lastname</h4>
-                            <p class="actor-font">بازیگر</p>
+                            <h4 class="actor-font actor-name">@item.FirstName @item.LastName</h4>
+                            @*<p class="actor-font">بازیگر</p>*@
                         </div>
                     </a>
                 </div>

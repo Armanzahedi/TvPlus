@@ -97,11 +97,11 @@ namespace TvPlus.Infrastructure.ViewModels
             set { _categories = value; }
         }
 
-        private List<People> _people;
+        private List<PeopleDetailViewModel> _people;
 
-        public List<People> People
+        public List<PeopleDetailViewModel> People
         {
-            get { return _people ?? (new List<People>()); }
+            get { return _people ?? (new List<PeopleDetailViewModel>()); }
             set { _people = value; }
         }
 

@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "persian.js@0.4.0",
+      "destination": "wwwroot/management/persian.js/",
+      "files": [
+        "persian.min.js"
+      ]
+    }
+  ]
+}

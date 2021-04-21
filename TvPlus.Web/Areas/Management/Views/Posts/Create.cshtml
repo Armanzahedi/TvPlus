@@ -89,7 +89,7 @@
                                         <div class="form-group row">
                                             <label class="col-xl-2 col-lg-2 col-form-label">عنوان</label>
                                             <div class="col-lg-10 col-xl-10">
-                                                <input class="form-control" asp-for="Title"  placeholder="عنوان پست را وارد کنید"/>
+                                                <input class="form-control" asp-for="Title" placeholder="عنوان پست را وارد کنید" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -98,7 +98,7 @@
                                                 <select class="form-control form-control-xl select2" id="categories" name="param" multiple>
                                                     @foreach (var item in ViewBag.Categories)
                                                     {
-                                                    <option value="@item.Id" selected="@item.Selected">@item.Title</option>
+                                                        <option value="@item.Id" selected="@item.Selected">@item.Title</option>
                                                     }
                                                 </select>
                                             </div>
@@ -233,7 +233,7 @@
         }
     </script>
     <script>
-        $(function () {
+        $(function() {
             $('#categories').select2({
                 placeholder: "دسته بندی پست را انتخاب کنید"
             });
@@ -319,7 +319,7 @@
                     }
                 });
             videoDropzone.on("sending",
-                function (file, xhr, formData) {
+                function(file, xhr, formData) {
 
                     file.xhr.upload.addEventListener("progress",
                         function(evt) {
@@ -348,14 +348,14 @@
     </script>
     <script>
 
-        var createWizard = function () {
+        var createWizard = function() {
 
             var _wizardEl;
             var _formEl;
             var _wizard;
             var _validations = [];
 
-            var initWizard = function () {
+            var initWizard = function() {
 
                 _wizard = new KTWizard(_wizardEl,
                     {
@@ -364,24 +364,24 @@
                     });
 
                 _wizard.on('beforeNext',
-                    function (wizard) {
+                    function(wizard) {
 
                         _wizard.stop();
 
                         var validator = _validations[wizard.getStep() - 1];
-                        validator.validate().then(function (status) {
+                        validator.validate().then(function(status) {
                             if (status === 'Valid') {
                                 var post = createPostObj();
                                 $.ajax({
                                     type: 'POST',
                                     url: "/Management/Posts/SavePost",
                                     data: post,
-                                    success: function (res) {
+                                    success: function(res) {
                                         $("#Id").val(res.data);
                                         _wizard.goNext();
                                         KTUtil.scrollTop();
                                     },
-                                    error: function (data) {
+                                    error: function(data) {
                                         toastr.error("ارسال جزییات با خطا مواجه شد", "خطا");
                                     }
                                 });
@@ -393,12 +393,12 @@
                     });
 
                 _wizard.on('change',
-                    function (wizard) {
+                    function(wizard) {
                         KTUtil.scrollTop();
                     });
             }
 
-            var initValidation = function () {
+            var initValidation = function() {
 
                 _validations.push(FormValidation.formValidation(
                     _formEl,
@@ -427,7 +427,7 @@
                 ));
             }
             return {
-                init: function () {
+                init: function() {
                     _wizardEl = KTUtil.getById('kt_projects_add');
                     _formEl = KTUtil.getById('form');
 
@@ -437,10 +437,10 @@
             };
         }();
 
-        jQuery(document).ready(function () {
+        jQuery(document).ready(function() {
             createWizard.init();
         });
-        $("#form").submit(function (e) {
+        $("#form").submit(function(e) {
             e.preventDefault();
             if ($("#VideoValidation").val() == "false" || $("#VideoValidation").val() === "") {
                 toastr.error("لطفا ویدیو را آپلود کنید", "خطا");
@@ -457,10 +457,10 @@
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function (data) {
+                    success: function(data) {
                         location.href = "/Management/Posts";
                     },
-                    error: function (data) {
+                    error: function(data) {
                         toastr.error("ذخیره پست با خطا مواجه شد", "خطا");
                     }
                 });

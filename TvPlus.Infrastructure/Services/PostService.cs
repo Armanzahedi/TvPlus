@@ -26,7 +26,7 @@ namespace TvPlus.Infrastructure.Services
         string GetPostPeople(int id);
         Post SavePost(EditPostViewModel post);
         List<Tag> SavePostTags(Post post, List<string> tags);
-        List<People> SavePostPeople(Post post, List<string> people);
+        List<People> SavePostPeople(Post post, List<string> peoples);
         Task<List<PostViewModel>> GetSpecialPostsAsync();
         Task<List<PostViewModel>> GetTrendTvsAsync();
         Task<List<PostViewModel>> GetRecentVideosAsync(int count);
@@ -95,7 +95,7 @@ namespace TvPlus.Infrastructure.Services
             });
             return result;
         }
-        public List<People> SavePostPeople(Post post, List<string> people)
+        public List<People> SavePostPeople(Post post, List<string> peoples)
         {
             var message = string.Empty;
             var result = new List<People>();
@@ -104,7 +104,7 @@ namespace TvPlus.Infrastructure.Services
             {
                 _membershipManagementService.DeleteMembership(item, null, out message);
             }
-            people.ForEach(item =>
+            peoples.ForEach(item =>
             {
                 var people = _peopleService.FindByFirstAndLastName(item) ?? new People();
                 if (people.Id != 0)
@@ -288,15 +288,11 @@ namespace TvPlus.Infrastructure.Services
         public PostDetailsViewModel GetPostDetail(int id)
         {
             var post = base.GetById(id);
-            var peopleIds = _membershipManagementService.GetMemberships(id, RelationTypes.PostPeople, false, false)
-                .Select(s => s.CenterId).ToList();
-
-            var people = _peopleService.GetDefaultQuery().Where(w => peopleIds.Contains(w.Id)).ToList();
 
             var categories = GetPostCategories(id);
             var video = _videoService.GetByCenterId(id);
             var image = _imageService.GetByCenterId(id);
-
+            var people = _peopleService.GetPostPeople(id);
             var model = new PostDetailsViewModel();
             model.Id = post.Id;
             model.Title = post.Title;
