@@ -243,6 +243,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
@@ -261,6 +262,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
@@ -277,6 +279,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
@@ -292,6 +295,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
@@ -334,6 +338,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
@@ -352,6 +357,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
@@ -370,6 +376,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
@@ -388,6 +395,7 @@ namespace TvPlus.Infrastructure.Services
                             Id = s.Id,
                             Image = _imageService.GetByCenterId(s.Id).ImageName,
                             Title = s.Title,
+                            ShortTitle = s.ShortTitle,
                             ViewCount = s.ViewCount,
                             PublishDate = s.PublishDate.ToPersianString(),
                             Description = s.Description.TruncateString(200)
