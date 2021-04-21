@@ -91,10 +91,18 @@ namespace TvPlus.Infrastructure.ViewModels
         public string Description { get; set; }
         public string VideoName { get; set; }
         public string ImageName { get; set; }
+        private List<CommentInfoViewModel> _comments;
+
+        public List<CommentInfoViewModel> Comments
+        {
+            get => _comments ?? new List<CommentInfoViewModel>();
+            set => _comments = value;
+        }
+
         private List<Category> _categories;
         public List<Category> Categories
         {
-            get { return _categories ?? (new List<Category>()); }
+            get { return _categories ?? new List<Category>(); }
             set { _categories = value; }
         }
 

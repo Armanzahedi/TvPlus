@@ -6,26 +6,47 @@ using AutoMapper;
 using TvPlus.Core.Models;
 using TvPlus.DataAccess;
 using TvPlus.DataAccess.Repositories;
+using TvPlus.Infrastructure.ViewModels;
 
 namespace TvPlus.Infrastructure.Services
 {
     public interface ICommentService : ICommentRepository
     {
-        List<Comment> GetCenterVisibleComments(int centerId);
+        List<CommentInfoViewModel> GetCenterVisibleComments(int centerId);
     }
     public class CommentService : CommentRepository, ICommentService
     {
         private readonly ICommentRepository _CommentRepository;
-        private readonly IMapper _mapper;
+        private readonly MyDbContext _context;
         public CommentService(
             ICommentRepository CommentRepository, MyDbContext context) : base(context)
         {
             _CommentRepository = CommentRepository;
+            _context = context;
         }
 
-        public List<Comment> GetCenterVisibleComments(int centerId)
+        public List<CommentInfoViewModel> GetCenterVisibleComments(int centerId)
         {
-            return base.GetDefaultQuery().Where(c => c.Show == true && c.CenterId == centerId).ToList();
+            var commentIds = base.GetDefaultQuery().Where(c => c.Show == true && c.CenterId == centerId)
+                .Select(c => c.Id).ToList();
+
+            return commentIds.Select(CreateCommentInfo).ToList();
         }
+        #region Private
+        private CommentInfoViewModel CreateCommentInfo(int commentId)
+        {
+            var comment = base.GetById(commentId);
+            var writer = _context.Users.FirstOrDefault(u => u.Id == comment.UserId);
+            var model = new CommentInfoViewModel
+            {
+                Id = commentId,
+                Writer = $"{writer.FirstName} {writer.LastName}",
+                AddedDate = comment.InsertDate,
+                WriterImage = writer?.Avatar ?? "temp.png",
+                Message = comment.Message
+            };
+            return model;
+        }
+        #endregion
     }
 }

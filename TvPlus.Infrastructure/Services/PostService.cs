@@ -51,6 +51,7 @@ namespace TvPlus.Infrastructure.Services
         private readonly IMembershipManagementBaseService _membershipManagementService;
         private readonly ICenterService _centerService;
         private readonly ICategoryService _categoryService;
+        private readonly ICommentService _commentService;
         private readonly MyDbContext _context;
 
         public PostService(
@@ -58,7 +59,7 @@ namespace TvPlus.Infrastructure.Services
             IMembershipManagementBaseService membershipManagementService,
             ITagService tagService,
             IPeopleService peopleService,
-            MyDbContext context, IVideoService videoService, IImageService imageService, ICenterService centerService, ICategoryService CategoryService) : base(context)
+            MyDbContext context, IVideoService videoService, IImageService imageService, ICenterService centerService, ICategoryService CategoryService, ICommentService commentService) : base(context)
         {
             _mapper = mapper;
             _context = context;
@@ -69,6 +70,7 @@ namespace TvPlus.Infrastructure.Services
             _tagService = tagService;
             _peopleService = peopleService;
             _categoryService = CategoryService;
+            _commentService = commentService;
         }
         public List<Tag> SavePostTags(Post post, List<string> tags)
         {
@@ -367,6 +369,7 @@ namespace TvPlus.Infrastructure.Services
             var video = _videoService.GetByCenterId(id);
             var image = _imageService.GetByCenterId(id);
             var people = _peopleService.GetPostPeople(id);
+            var comments = _commentService.GetCenterVisibleComments(id);
             var model = new PostDetailsViewModel();
             model.Id = post.Id;
             model.Title = post.Title;
@@ -375,6 +378,7 @@ namespace TvPlus.Infrastructure.Services
             model.Categories = categories;
             model.VideoName = video.VideoName;
             model.ImageName = image.ImageName;
+            model.Comments = comments;
             return model;
         }
 
