@@ -292,7 +292,9 @@
                     method: "post",
                     maxFiles: 1,
                     acceptedFiles: "video/*",
-                    addRemoveLinks: true
+                    addRemoveLinks: true,
+                    maxFilesize: 2000,
+                    timeout: 10800000,
                 });
 
             videoDropzone.on("addedfile",
