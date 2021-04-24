@@ -29,11 +29,18 @@
 @section Scripts {
     <script>
         $(function () {
+            @if (ViewBag.Root != null && ViewBag.Root != false)
+            {
+                <text>
+                    localStorage.removeItem('DataTables_datatable_' + window.location.pathname);
+                </text>
+            }
             var table = $('#datatable').DataTable({
                 ajax: {
                     url: '/Management/SpecialOffers/LoadGrid',
                     type: "POST",
                 },
+                stateSave: true,
                 order: [2,"desc"], // descending order with first column witch is hidden id
                 columnDefs: [
                     {

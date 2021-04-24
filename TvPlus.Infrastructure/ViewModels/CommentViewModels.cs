@@ -12,4 +12,12 @@ namespace TvPlus.Infrastructure.ViewModels
         public string Message { get; set; }
         public DateTime AddedDate { get; set; }
     }
+
+    public class CommentTable
+    {
+        public int Id { get; set; }
+        public string Writer { get; set; }
+        public string Subject { get; set; }
+        public string Message { get; set; }
+    }
 }

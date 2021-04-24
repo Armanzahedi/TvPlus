@@ -35,11 +35,18 @@
 @section Scripts {
     <script>
         $(function () {
+            @if (ViewBag.Root != null && ViewBag.Root != false)
+            {
+                <text>
+                    localStorage.removeItem('DataTables_datatable_' + window.location.pathname);
+                </text>
+            }
             var table = $('#datatable').DataTable({
                 ajax: {
                     url: '/Management/Roles/LoadGrid',
                     type: "POST",
                 },
+                stateSave: true,
                 order: [0,"desc"], // descending order with first column witch is hidden id
                 columnDefs: [
                     {
@@ -79,7 +86,7 @@
                                 }
                                 if (await PermissionHelper.UserHasPermission("Roles", "EditRolePermission"))
                                 {
-                                    <text>var element = `<a class='btn btn-primary btn-sm ml-2' href='/Management/Roles/EditRolePermission/${row.Id}'>دسترسی</a>`;
+                                    <text>var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Roles/EditRolePermission/${row.Id}'>دسترسی</a>`;
                                     content += element;
                                     </text>
                                 }

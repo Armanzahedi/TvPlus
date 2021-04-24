@@ -32,8 +32,9 @@ namespace TvPlus.Web.Areas.Management.Controllers
             _categoriesService = categoriesService;
         }
         [Authorize("Permission")]
-        public IActionResult Index()
+        public IActionResult Index(bool root = false)
         {
+            ViewBag.Root = root;
             return View();
         }
 
@@ -45,7 +46,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             new PostGridViewModel
             {
                 Id = item.Id,
-                Title = item.Title,
+                Title = item.ShortTitle,
                 PublishDate = new PersianDateTime(item.PublishDate).ToString(),
                 ViewCount = item.ViewCount,
             }

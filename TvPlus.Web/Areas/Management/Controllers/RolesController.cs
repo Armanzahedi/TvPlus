@@ -36,9 +36,10 @@ namespace TvPlus.Web.ViewModels
             _logger = logger;
         }
 
-        //[Authorize("Authorization")]
-        public IActionResult Index()
+        [Authorize("Permission")]
+        public IActionResult Index(bool root = false)
         {
+            ViewBag.Root = root;
             return View();
         }
         [HttpPost]

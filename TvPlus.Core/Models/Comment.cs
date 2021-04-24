@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using TvPlus.Core.Models;
 
@@ -13,6 +14,7 @@ namespace TvPlus.Core.Models
         public int CenterId { get; set; }
         public Center Center { get; set; }
         public bool Show { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Message { get; set; }
         public DateTime InsertDate { get; set; }
         public DateTime? UpdateDate { get; set; }

@@ -13,6 +13,7 @@ namespace TvPlus.Infrastructure.Services
     public interface ICommentService : ICommentRepository
     {
         List<CommentInfoViewModel> GetCenterVisibleComments(int centerId);
+        IQueryable<Comment> GetCommentTableQuery(int? centerId = null);
     }
     public class CommentService : CommentRepository, ICommentService
     {
@@ -32,6 +33,15 @@ namespace TvPlus.Infrastructure.Services
 
             return commentIds.Select(CreateCommentInfo).ToList();
         }
+
+        public IQueryable<Comment> GetCommentTableQuery(int? centerId = null)
+        {
+            var query = _context.Comments.Where(c=>c.IsDeleted == false);
+            if (centerId != null)
+                query = query.Where(c => c.CenterId == centerId);
+            return query;
+        }
+
         #region Private
         private CommentInfoViewModel CreateCommentInfo(int commentId)
         {

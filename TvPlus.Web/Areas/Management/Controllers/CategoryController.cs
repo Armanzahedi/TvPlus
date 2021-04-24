@@ -24,8 +24,9 @@ namespace TvPlus.Web.Areas.Management.Controllers
             _imageService = imageService;
         }
         [Authorize("Permission")]
-        public IActionResult Index()
+        public IActionResult Index(bool root = false)
         {
+            ViewBag.Root = root;
             return View();
         }
 
@@ -36,7 +37,6 @@ namespace TvPlus.Web.Areas.Management.Controllers
             var Category = _CategoryService.GetDefaultQuery().Select(p => new CategoryGridViewModel
                 {Id = p.Id, Title =p.Title}).AsQueryable();
 
-            var form = Request.Form;
             var parser = new Parser<CategoryGridViewModel>(Request.Form, Category);
             return JsonConvert.SerializeObject(parser.Parse());
         }
@@ -50,7 +50,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
         [Authorize("Permission")]
         public IActionResult Edit(int id)
         {
-            return PartialView(_CategoryService.GetById(id));
+            return PartialView(_CategoryService.GetCategoryForEdit(id));
         }
 
         [HttpPost]  

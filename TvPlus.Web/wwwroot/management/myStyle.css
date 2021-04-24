@@ -136,10 +136,10 @@ span.k-icon.k-i-file-pdf {
             display: none;
         }
 
-    tr:nth-child(odd) {
+/*    tr:nth-child(odd) {
         background: #FFF
     }
-
+*/
     .k-grid table tr {
         display: block;
         border: 1px solid #ddd;
@@ -404,4 +404,13 @@ paginate_button page-item:hover {
 }
 h1, h2, h3, h4, h5 {
     color: white;
+}
+.btn {
+    border: none !important;
+}
+#datatable_processing {
+    color: white !important;
+}
+.btn.btn-light:hover {
+    background-color: #404040 !important;
 }

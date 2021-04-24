@@ -1,8 +1,8 @@
 ﻿@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
 @{
-    ViewData["Title"] = "پست ها";
+    ViewData["Title"] = "کامنت های " + ViewBag.PostName;
 }
-<input type="hidden" id="nav_active" value="posts">
+<input type="hidden" id="nav_active" value="comments">
 
 <div class="card card-custom">
     <div class="card-header flex-wrap border-0 pt-6 pb-0">
@@ -12,9 +12,9 @@
                 <span class="d-block text-muted pt-2 font-size-sm">ویرایش @ViewData["Title"]</span>
             </h3>
         </div>
-        <validate-permission asp-controller="SystemParameters" asp-action="Create">
+        <validate-permission asp-controller="Category" asp-action="Create">
             <div class="card-toolbar">
-                <a href="/Management/Posts/Create" class="btn btn-success font-weight-bolder">
+                <a onclick="openModal('/Management/Comment/Create')" class="btn btn-success font-weight-bolder">
                     <partial name="SvgIcons/_NewRecordIcon" />
                 </a>
             </div>
@@ -25,9 +25,9 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>نام</th>
-                    <th>تاریخ ثبت</th>
-                    <th>تعداد بازدید</th>
+                    <th>نویسنده</th>
+                    @*<th>موضوع</th>*@
+                    <th>نظر</th>
                     <th>دستورات</th>
                 </tr>
             </thead>
@@ -45,8 +45,11 @@
             }
             var table = $('#datatable').DataTable({
                 ajax: {
-                    url: '/Management/Posts/LoadGrid',
+                    url: '/Management/Comment/LoadGrid',
                     type: "POST",
+                    data: {
+                        centerId: @ViewBag.PostId
+                    }
                 },
                 stateSave: true,
                 order: [0,"desc"], // descending order with first column witch is hidden id
@@ -59,33 +62,33 @@
                 ],
                 columns: [
                     { data: "Id" },
-                    { data: "Title" },
-                    { data: "PublishDate" },
-                    { data: "ViewCount" },
+                    { data: "Writer" },
+                    //{ data: "Subject" },
+                    { data: "Message" },
                     {
                         data: "Id",
                         responsivePriority: -1,
                         render: function (data, type, row) {
                             var content = "";
                             @{
-                                if (await PermissionHelper.UserHasPermission("Posts", "Edit"))
+                                if (await PermissionHelper.UserHasPermission("Category", "Edit"))
                                 {
                                     <text>var element = `\
-                                        <a class='btn btn-sm btn-clean btn-icon mr-2' href="/Management/Posts/Edit/${row.Id}">\
+                                        <a class='btn btn-sm btn-clean btn-icon mr-2' onclick="openModal('/Management/Category/Edit/${row.Id}')">\
                                         <i class='far fa-edit text-primary'></i>\
                                         </a>\
                                         `;
-                                    content += element;
+                                        content += element;
                                     </text>
                                 }
-                                if (await PermissionHelper.UserHasPermission("Posts", "Delete"))
+                                if (await PermissionHelper.UserHasPermission("Category", "Delete"))
                                 {
                                     <text>var element = `\
-                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Posts/Delete/${row.Id}')">\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Category/Delete/${row.Id}')">\
                                         <i class='far fa-trash-alt text-danger'></i>\
                                         </a>\
                                         `;
-                                    content += element;
+                                        content += element;
                                     </text>
                                 }
                              }

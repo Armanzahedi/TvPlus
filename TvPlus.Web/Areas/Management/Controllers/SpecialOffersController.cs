@@ -21,8 +21,9 @@ namespace TvPlus.Web.Areas.Management.Controllers
             _postService = postService;
         }
         [Authorize("Permission")]
-        public IActionResult Index()
+        public IActionResult Index(bool root = false)
         {
+            ViewBag.Root = root;
             return View();
         }
         [HttpPost]

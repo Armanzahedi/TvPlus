@@ -35,11 +35,18 @@
 @section Scripts {
     <script>
         $(function () {
+            @if (ViewBag.Root != null && ViewBag.Root != false)
+            {
+                <text>
+                    localStorage.removeItem('DataTables_datatable_' + window.location.pathname);
+                </text>
+            }
             var table = $('#datatable').DataTable({
                 ajax: {
                     url: '/Management/Category/LoadGrid',
                     type: "POST",
                 },
+                stateSave: true,
                 order: [0,"desc"], // descending order with first column witch is hidden id
                 columnDefs: [
                     {
@@ -64,7 +71,7 @@
                                         <i class='far fa-edit text-primary'></i>\
                                         </a>\
                                         `;
-                                    content += element;
+                                        content += element;
                                     </text>
                                 }
                                 if (await PermissionHelper.UserHasPermission("Category", "Delete"))
@@ -74,7 +81,7 @@
                                         <i class='far fa-trash-alt text-danger'></i>\
                                         </a>\
                                         `;
-                                    content += element;
+                                        content += element;
                                     </text>
                                 }
                              }

@@ -20,8 +20,9 @@ namespace TvPlus.Web.Areas.Management.Controllers
         {
             _systemParameterService = systemParameterService;
         }
-        public IActionResult Index()
+        public IActionResult Index(bool root = false)
         {
+            ViewBag.Root = root;
             return View();
         }
 

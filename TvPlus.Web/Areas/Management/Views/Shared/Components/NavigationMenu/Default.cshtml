@@ -85,7 +85,7 @@
                             <li class="menu-item menu-item-submenu"
                                 id="nav_@item.ElementIdentifier"
                                 data-menu-toggle="hover">
-                                <a asp-area="@item.Area" asp-controller="@item.ControllerName" asp-action="@item.ActionName" class="menu-link menu-toggle">
+                                <a asp-area="@item.Area" asp-controller="@item.ControllerName" asp-action="@item.ActionName" asp-route-root="true" class="menu-link menu-toggle">
                                     <span class="svg-icon menu-icon">
                                         @Html.Raw(item.Icon)
                                     </span><span class="menu-text">@item.Name</span>
@@ -112,6 +112,7 @@
                                                 <a asp-area="@child.Area"
                                                    asp-controller="@child.ControllerName"
                                                    asp-action="@child.ActionName"
+                                                   asp-route-root="true"
                                                    class="menu-link">
                                                     <i class="menu-bullet menu-bullet-dot"><span></span></i><span class="menu-text">@child.Name</span>
                                                 </a>
