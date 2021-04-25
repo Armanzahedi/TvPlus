@@ -1,12 +1,9 @@
-﻿@model TvPlus.Core.Models.Comment 
+﻿@model TvPlus.Infrastructure.ViewModels.EditCommentViewModel
 <input type="hidden" id="title" value="ویرایش کامنت" />
 
 <form asp-action="Save" method="post" id="form" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
-    <input type="hidden" asp-for="Show" />
-    <input type="hidden" asp-for="InsertDate" />
-    <input type="hidden" asp-for="InsertUser" />
     <input type="hidden" asp-for="CenterId" value="@ViewBag.CenterId" />
     <div class="form-group">
         <label asp-for="Message" class="control-label col-md-3"></label>

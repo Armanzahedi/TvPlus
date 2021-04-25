@@ -14,5 +14,6 @@ namespace TvPlus.Core.Models
         [MaxLength(300)]
         public string LastName { get; set; }
         public string Information { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

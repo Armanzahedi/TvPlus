@@ -88,6 +88,12 @@
                                     content += element;
                                     </text>
                                 }
+                                                                if (await PermissionHelper.UserHasPermission("Posts", "Delete"))
+                                {
+                                    <text>var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Comment/PostComments/${row.Id}'>کامنت ها</a>`;
+                                        content += element;
+                                    </text>
+                                }
                              }
                             return content;
                         },

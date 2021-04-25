@@ -61,21 +61,18 @@ namespace TvPlus.Web.Areas.Management.Controllers
         //[Authorize("Permission")]
         public IActionResult Edit(int id)
         {
-            return PartialView(_commentService.GetById(id));
+            return PartialView(_commentService.GetForEdit(id));
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Save(Comment model)
+        public async Task<IActionResult> Save(EditCommentViewModel model)
         {
             if (!ModelState.IsValid)
-                return PartialView(nameof(Edit), model);
+                return View(nameof(Edit), model);
 
-            var savedComment = _commentService.AddOrUpdate(model);
-            if (savedComment.CenterId == null)
-                return RedirectToAction(nameof(Index));
-            else
-                return RedirectToAction(nameof(PostComments),new {id = savedComment.CenterId});
+            var savedComment = await _commentService.Save(model);
+            return RedirectToAction(nameof(PostComments),new {id = savedComment.CenterId});
         }
     }
 }

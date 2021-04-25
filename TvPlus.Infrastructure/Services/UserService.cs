@@ -28,6 +28,7 @@ namespace TvPlus.Infrastructure.Services
         Task<User> GetUserByUserName(string userName);
         Task<List<User>> GetUsers(PaginationFilter pagination, string searchString);
         IQueryable<User> FilterUsers(string searchString = null);
+        Task<User> GetCurrentUser();
     }
 
     public class UserService : IUserService
@@ -37,6 +38,8 @@ namespace TvPlus.Infrastructure.Services
         private readonly MyDbContext _context;
         public readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly HttpContextAccessor _httpContext;
+
 
         public UserService(
             IUserRepository userRepository,
@@ -48,6 +51,8 @@ namespace TvPlus.Infrastructure.Services
             _roleManager = roleManager;
             _userRepository = userRepository;
             _mapper = mapper;
+            _httpContext ??= new HttpContextAccessor();
+
         }
 
         public async Task<User> GetById(string id)
@@ -209,6 +214,13 @@ namespace TvPlus.Infrastructure.Services
                 users = _userManager.Users
                     .Where(u => u.UserName.ToLower().Contains(searchString.ToLower()) || u.Email.ToLower().Contains(searchString.ToLower()));
             return users;
+        }
+
+        public async Task<User> GetCurrentUser()
+        {
+            System.Security.Claims.ClaimsPrincipal currentUser = _httpContext.HttpContext.User;
+
+            return await _userManager.GetUserAsync(currentUser);
         }
 
         public async Task<List<User>> GetUsers(PaginationFilter pagination, string searchString = null)

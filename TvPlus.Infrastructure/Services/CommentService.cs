@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using TvPlus.Core.Models;
 using TvPlus.DataAccess;
 using TvPlus.DataAccess.Repositories;
 using TvPlus.Infrastructure.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace TvPlus.Infrastructure.Services
 {
@@ -14,16 +16,20 @@ namespace TvPlus.Infrastructure.Services
     {
         List<CommentInfoViewModel> GetCenterVisibleComments(int centerId);
         IQueryable<Comment> GetCommentTableQuery(int? centerId = null);
+        EditCommentViewModel GetForEdit(int commentId);
+        Task<Comment> Save(EditCommentViewModel model);
     }
     public class CommentService : CommentRepository, ICommentService
     {
         private readonly ICommentRepository _CommentRepository;
+        private readonly IUserService _userService;
         private readonly MyDbContext _context;
         public CommentService(
-            ICommentRepository CommentRepository, MyDbContext context) : base(context)
+            ICommentRepository CommentRepository, MyDbContext context, IUserService userService) : base(context)
         {
             _CommentRepository = CommentRepository;
             _context = context;
+            _userService = userService;
         }
 
         public List<CommentInfoViewModel> GetCenterVisibleComments(int centerId)
@@ -40,6 +46,25 @@ namespace TvPlus.Infrastructure.Services
             if (centerId != null)
                 query = query.Where(c => c.CenterId == centerId);
             return query;
+        }
+
+        public EditCommentViewModel GetForEdit(int commentId)
+        {
+            var comment = base.GetById(commentId);
+            var model = new EditCommentViewModel
+            {
+                Id = commentId,
+                CenterId = comment.CenterId,
+                Message = comment.Message
+            };
+            return model;
+        }
+
+        public async Task<Comment> Save(EditCommentViewModel model)
+        {
+            var currentUser = await _userService.GetCurrentUser();
+            var comment = base.GetById(model.Id) ?? new Comment { CenterId = model.CenterId, UserId = currentUser.Id,Message = model.Message};
+            return base.AddOrUpdate(comment);
         }
 
         #region Private

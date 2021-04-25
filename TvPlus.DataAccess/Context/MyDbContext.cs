@@ -73,6 +73,12 @@ namespace TvPlus.DataAccess
                 .WithMany(m => m.Members2)
                 .HasForeignKey(n => n.CenterId2)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(n => n.User)
+                .WithMany(m => m.Comments)
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

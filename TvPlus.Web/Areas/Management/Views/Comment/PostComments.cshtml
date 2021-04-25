@@ -1,6 +1,6 @@
 ﻿@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
 @{
-    ViewData["Title"] = "کامنت های " + ViewBag.PostName;
+    ViewData["Title"] = "کامنت ها ";
 }
 <input type="hidden" id="nav_active" value="comments">
 
@@ -9,12 +9,12 @@
         <div class="card-title">
             <h3 class="card-label">
                 @ViewData["Title"]
-                <span class="d-block text-muted pt-2 font-size-sm">ویرایش @ViewData["Title"]</span>
+                <span class="d-block text-muted pt-2 font-size-sm">ویرایش کامنت های @ViewBag.PostName</span>
             </h3>
         </div>
         <validate-permission asp-controller="Category" asp-action="Create">
             <div class="card-toolbar">
-                <a onclick="openModal('/Management/Comment/Create')" class="btn btn-success font-weight-bolder">
+                <a onclick="openModal('/Management/Comment/Create?centerId=@(ViewBag.PostId)')" class="btn btn-success font-weight-bolder">
                     <partial name="SvgIcons/_NewRecordIcon" />
                 </a>
             </div>

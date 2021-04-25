@@ -15,6 +15,7 @@ namespace TvPlus.Core.Models
         public Center Center { get; set; }
         public bool Show { get; set; }
         [DataType(DataType.MultilineText)]
+        [Display(Name = "نظر")]
         public string Message { get; set; }
         public DateTime InsertDate { get; set; }
         public DateTime? UpdateDate { get; set; }
