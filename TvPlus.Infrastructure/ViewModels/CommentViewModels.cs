@@ -19,6 +19,7 @@ namespace TvPlus.Infrastructure.ViewModels
         public string Writer { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
+        public bool Show { get; set; }
     }
 
     public class EditCommentViewModel
@@ -34,5 +35,11 @@ namespace TvPlus.Infrastructure.ViewModels
         {
             RuleFor(sp => sp.Message).NotEmpty().WithName("نظر");
         }
+    }
+
+    public class SubmitCommentViewModel
+    {
+        public int CenterId { get; set; }
+        public string Message { get; set; }
     }
 }

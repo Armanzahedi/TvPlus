@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="/Client/css/default-skin.css">
     <link rel="stylesheet" href="/Client/css/swiper.min.css">
     <link rel="stylesheet" href="/Client/css/main.css">
-
+    <link href="~/Client/plugins/toastr.js/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <!-- Favicons -->
@@ -44,20 +44,20 @@
             <div class="row" style="text-align: right">
                 <!-- footer list -->
                 @*<div class="col-12 col-md-3">
-                    <h6 class="footer__title">دانلود نرم افزار تی وی پلاس </h6>
-                    <ul class="footer__app">
-                        <li><a href="#"><img src="~/Client/img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
-                        <li><a href="#"><img src="~/Client/img/google-play-badge.png" alt=""></a></li>
-                    </ul>
-                </div>*@
+                        <h6 class="footer__title">دانلود نرم افزار تی وی پلاس </h6>
+                        <ul class="footer__app">
+                            <li><a href="#"><img src="~/Client/img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
+                            <li><a href="#"><img src="~/Client/img/google-play-badge.png" alt=""></a></li>
+                        </ul>
+                    </div>*@
                 <!-- end footer list -->
                 <!-- footer list -->
                 <div class="col-6 col-sm-4 col-md-4">
                     <h6 class="footer__title">صفحه ها</h6>
                     <ul class="footer__list">
-                        <li><a href="#">درباره ما</a></li>
-                        <li><a href="#">تماس با ما</a></li>
-                        <li><a href="#">راهنما</a></li>
+                        <li><a href="/AboutUs">درباره ما</a></li>
+                        <li><a href="/ContactUs">تماس با ما</a></li>
+                        @*<li><a href="#">راهنما</a></li>*@
                     </ul>
                 </div>
                 <!-- end footer list -->
@@ -236,6 +236,8 @@
     <script src="~/Client/HeaderJs/jquery.waypoints.min.js"></script>
     <script src="~/Client/HeaderJs/superfish.min.js"></script>
     <script src="~/Client/HeaderJs/main.js"></script>
+    <script src="~/Client/plugins/toastr.js/toastr.min.js"></script>
+    <script src="~/Client/plugins/toastr.js/config.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

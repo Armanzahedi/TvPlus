@@ -8,6 +8,16 @@
       "files": [
         "persian.min.js"
       ]
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/management/toastr.js/",
+      "files": [
+        "toastr.css",
+        "toastr.js.map",
+        "toastr.min.css",
+        "toastr.min.js"
+      ]
     }
   ]
 }

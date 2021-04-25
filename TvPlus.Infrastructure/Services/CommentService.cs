@@ -63,7 +63,8 @@ namespace TvPlus.Infrastructure.Services
         public async Task<Comment> Save(EditCommentViewModel model)
         {
             var currentUser = await _userService.GetCurrentUser();
-            var comment = base.GetById(model.Id) ?? new Comment { CenterId = model.CenterId, UserId = currentUser.Id,Message = model.Message};
+            var comment = base.GetById(model.Id) ?? new Comment { CenterId = model.CenterId, UserId = currentUser.Id};
+            comment.Message = model.Message;
             return base.AddOrUpdate(comment);
         }
 

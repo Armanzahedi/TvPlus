@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using TvPlus.Infrastructure.Services;
 using TvPlus.Infrastructure.ViewModels;
 
@@ -12,11 +13,13 @@ namespace TvPlus.Web.Controllers
     {
         private readonly IPostService _postService;
         private readonly ICategoryService _categoryService;
+        private readonly ICommentService _commentService;
 
-        public PostController(IPostService postService, ICategoryService categoryService)
+        public PostController(IPostService postService, ICategoryService categoryService, ICommentService commentService)
         {
             _postService = postService;
             _categoryService = categoryService;
+            _commentService = commentService;
         }
 
         [Route("Post/{id}")]
@@ -39,6 +42,25 @@ namespace TvPlus.Web.Controllers
             model.BestPosts = items.OrderByDescending(p => p.ViewCount).Take(6).ToList();
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitComment(SubmitCommentViewModel model)
+        {
+            try
+            {
+                var comment = new EditCommentViewModel()
+                {
+                    CenterId = model.CenterId,
+                    Message = model.Message
+                };
+                 await _commentService.Save(comment);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

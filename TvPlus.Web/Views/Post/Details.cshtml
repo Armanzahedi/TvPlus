@@ -1,5 +1,10 @@
 ﻿@using TvPlus.Utility
 @model TvPlus.Infrastructure.ViewModels.PostDetailsViewModel
+@using Microsoft.AspNetCore.Identity
+@using TvPlus.Core.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "پست";
 }
@@ -31,122 +36,160 @@
             </p>
         </div>
         <br />
-        <div class="tag-part">
-            <span class="tag-title">دسته بندی ها : </span>
+        @if (Model.Categories.Any())
+        {
+            <div class="tag-part">
+                <span class="tag-title">دسته بندی ها : </span>
 
-            <ul class="tag-list">
-                @foreach (var item in Model.Categories)
+                <ul class="tag-list">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <li><a href="/PostCategory/@item.Id">@item.Title</a></li>
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.People.Any())
+        {
+            <div class="related_actor">
+                <h2 class="actor-title">افراد مرتبط</h2>
+                <div class="row-flex">
+                    @foreach (var item in Model.People)
+                    {
+                        <div class="actor-img">
+                            <a href="/People/@item.Id">
+                                <img class="img" src="/UploadedFiles/Images/@item.ImageName" alt="@item.FirstName @item.LastName" />
+                                <div class="actor-details">
+                                    <h4 class="actor-font actor-name">@item.FirstName @item.LastName</h4>
+                                    @*<p class="actor-font">بازیگر</p>*@
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        @await Component.InvokeAsync("SimilarPosts", new { postId = Model.Id, take = 5 })
+        @if (Model.Comments.Any())
+        {
+            <section class="rtl">
+                <div class="container">
+                    <div>
+                        <ul class="comment-part">
+                            @foreach (var item in Model.Comments)
+                            {
+                                <li>
+                                    <div class="comment">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <div class="comment-details">
+                                        <div class="comment-time">
+                                            <span>@item.Writer - </span>
+                                            <span>@item.AddedDate.ToPersianStringDateTime()</span>
+                                        </div>
+                                        <div class="comment-des">
+                                            <p>
+                                                @item.Message
+                                            </p>
+                                        </div>
+                                        @*<div class="comment-like">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                     height="40" viewBox="0 0 40 40"
+                                                     class="t-svg-0-1-253">
+                                                    <path class="svg-c1"
+                                                          d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
+                                                </svg>
+                                                <span>0</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                     height="40" viewBox="0 0 40 40"
+                                                     class="t-svg-0-1-253">
+                                                    <path class="svg-c1"
+                                                          d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
+                                                </svg>
+                                                <span>0</span>
+                                            </div>*@
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        }
+        <section class="section">
+            <div class="container">
+                @if (SignInManager.IsSignedIn(User))
                 {
-                    <li><a href="/PostCategory/@item.Id">@item.Title</a></li>
+                    <div class="row">
+                     <div class="col-12">
+                         <div class="row">
+                             <div class="col-12">
+                                 <h2 class="section__title">نظر خود را بنویسید</h2>
+                             </div>
+
+                             <div class="col-12">
+                                 <form class="form form--contacts" id="form">
+                                     <input type="hidden" name="CenterId" id="CenterId" value="@Model.Id" />
+                                     <textarea id="Message" name="Message"
+                                              class="form__textarea"
+                                              style="border-radius: 5px"
+                                              required="required"
+                                              placeholder="متن را وارد کنید ..."></textarea>
+                                     <button type="submit" class="form__btn">
+                                         ارسال
+                                     </button>
+                                 </form>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
                 }
-            </ul>
-        </div>
-        <div class="related_actor">
-            <h2 class="actor-title">افراد مرتبط</h2>
-            <div class="row-flex">
-                @foreach (var item in Model.People)
+                else
                 {
-                    <div class="actor-img">
-                        <a href="/People/@item.Id">
-                            <img class="img" src="/UploadedFiles/Images/@item.ImageName" alt="@item.FirstName @item.LastName" />
-                            <div class="actor-details">
-                                <h4 class="actor-font actor-name">@item.FirstName @item.LastName</h4>
-                                @*<p class="actor-font">بازیگر</p>*@
-                            </div>
+                    <div style="display: flex; align-items: center; justify-content: center; width: 100%">
+                        <a href="/Identity/Account/Login" class="form__btn">
+                            ورود
                         </a>
                     </div>
                 }
             </div>
-        </div>
-        @await Component.InvokeAsync("SimilarPosts", new {postId = Model.Id, take = 5})
-        <section class="rtl">
-            <div class="container">
-                <div>
-                    <ul class="comment-part">
-                        @foreach (var item in Model.Comments)
-                        {
-                        <li>
-                            <div class="comment">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="comment-details">
-                                <div class="comment-time">
-                                    <span>@item.Writer - </span>
-                                    <span>@item.AddedDate.ToPersianStringDateTime()</span>
-                                </div>
-                                <div class="comment-des">
-                                    <p>
-                                        @item.Message
-                                    </p>
-                                </div>
-                                @*<div class="comment-like">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                         height="40" viewBox="0 0 40 40"
-                                         class="t-svg-0-1-253">
-                                        <path class="svg-c1"
-                                              d="M29.884 15.13c-2.536 0-9.32-1.1-10.248-6.118-.556-3-2.4-3.8-3.8-3.54-1.768.35-2.927 2.056-2.6 3.83l1.033 5.828h-2.83a3.84 3.84 0 0 0-3.095 1.546 3.84 3.84 0 0 0-.625 3.4l2.48 8.57a5.46 5.46 0 0 0 5.218 3.923h5.556a5.44 5.44 0 0 0 3.472-1.255l1.216-1.01a5.13 5.13 0 0 1 3.273-1.184h.957a2.56 2.56 0 0 0 2.557-2.557v-8.876a2.56 2.56 0 0 0-2.554-2.555zm.932 2.557v8.876c-.001.514-.418.93-.932.93h-.957a6.75 6.75 0 0 0-4.312 1.56l-1.215 1c-.684.568-1.544.88-2.433.88H15.4c-1.693-.006-3.18-1.124-3.656-2.75l-2.478-8.57c-.2-.678-.065-1.41.362-1.974.423-.57 1.09-.904 1.8-.9h4.768l-1.37-7.73a1.66 1.66 0 0 1 1.275-1.952c.91-.16 1.646.7 1.93 2.234.5 2.7 2.374 4.818 5.422 6.12a17.75 17.75 0 0 0 6.423 1.327c.514.003.93.42.928.935z"></path>
-                                    </svg>
-                                    <span>0</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                         height="40" viewBox="0 0 40 40"
-                                         class="t-svg-0-1-253">
-                                        <path class="svg-c1"
-                                              d="M29.807 11.352c-.68-2.318-2.802-3.914-5.218-3.922h-5.56c-1.27 0-2.497.444-3.473 1.255l-1.215 1a5.13 5.13 0 0 1-3.274 1.184h-.956a2.56 2.56 0 0 0-2.557 2.557v8.876a2.56 2.56 0 0 0 2.557 2.557c2.536 0 9.322 1.1 10.248 6.118.614 3.324 2.7 3.582 3.322 3.582.164 0 .328-.014.49-.043a3.3 3.3 0 0 0 2.6-3.829l-1.032-5.828h2.83a3.84 3.84 0 0 0 3.1-1.546 3.84 3.84 0 0 0 .625-3.4zm.554 11a2.23 2.23 0 0 1-1.8.9h-4.768l1.37 7.73a1.66 1.66 0 0 1-1.275 1.951c-.91.16-1.646-.7-1.93-2.233-.5-2.7-2.373-4.818-5.422-6.122-2.04-.838-4.22-1.288-6.424-1.327-.514-.001-.93-.418-.93-.932v-8.876a.93.93 0 0 1 .931-.931h.956c1.576-.001 3.1-.553 4.313-1.56l1.215-1.01c.684-.568 1.545-.88 2.434-.88h5.556c1.693.006 3.18 1.124 3.656 2.748l2.48 8.57a2.23 2.23 0 0 1-.357 1.968z"></path>
-                                    </svg>
-                                    <span>0</span>
-                                </div>*@
-                            </div>
-                        </li>
-                        }
-                        
-                    </ul>
-                </div>
-            </div>
         </section>
-        @*<section class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="section__title">نظر خود را بنویسید</h2>
-                            </div>
-
-                            <div class="col-12">
-                                <form action="#" class="form form--contacts">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" class="form__input"
-                                                   placeholder="نام" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form__input"
-                                                   placeholder="نام خانوادگی" />
-                                        </div>
-                                        <div class="col-md-6">
-
-                                            <input type="text" class="form__input"
-                                                   placeholder="ایمیل" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form__input"
-                                                   placeholder="موضوع" />
-                                        </div>
-                                    </div>
-                                    <textarea id="text" name="text"
-                                              class="form__textarea"
-                                              placeholder="متن را وارد کنید ..."></textarea>
-                                    <button type="button" class="form__btn">
-                                        ارسال
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
     </div>
 
 }
 
+@section Scripts
+{
+    <script>
+        $("#form").submit(function(e) {
+            e.preventDefault();
+            var diffMins = 1;
+            if (localStorage.getItem("cmsbmtdt") != null && localStorage.getItem("cmsbmtdt") != undefined) {
+            var diffMins = Math.round((((Date.now() - localStorage.getItem("cmsbmtdt")) % 86400000) % 3600000) / 60000);
+            }
+            if (diffMins < 1) {
+                toastr.error("در هر دقیقه تنها یک پیام میتوانید ارسال کنید.", "خطا");
+            } else {
+                var model = {
+                    CenterId: $("#CenterId").val(),
+                    Message: $("#Message").val()
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "/Post/SubmitComment",
+                    data: model,
+                    success: function () {
+                        localStorage.setItem("cmsbmtdt", Date.now());
+                        toastr.success("نظر شما با موفقیت ارسال شد و پس از تایید نمایش داده میشود.", "تایید");
+                        $("#Message").val("");
+                    },
+                    error: function(data) {
+                        toastr.error("در هنگام ثبت نظر خطایی رخ داد.", "خطا");
+                    }
+                });
+            }
+        });
+    </script>
+} 

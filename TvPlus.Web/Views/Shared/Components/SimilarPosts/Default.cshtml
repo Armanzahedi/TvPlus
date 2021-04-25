@@ -1,5 +1,7 @@
 ﻿@using TvPlus.Utility
 @model List<TvPlus.Infrastructure.ViewModels.SimilarPostViewModel>
+@if (Model.Any())
+{
     <section class="home">
         <div class="container video-container">
             <div class="row">
@@ -21,7 +23,7 @@
                             <div class="item">
                                 <div class="card card--big">
                                     <div class="card__cover">
-                                        <img src="/UploadedFiles/Images/@item.ImageName" alt="@item.ShortTitle"/>
+                                        <img src="/UploadedFiles/Images/@item.ImageName" alt="@item.ShortTitle" />
                                         <a href="/Post/@item.Id" class="card__play">
                                             <i class="icon ion-ios-play"></i>
                                         </a>
@@ -29,7 +31,7 @@
                                     <div class="card__content">
                                         <h3 class="card__title">
                                             <a href="/Post/@item.Id">
-                                              @item.ShortTitle
+                                                @item.ShortTitle
                                             </a>
                                         </h3>
                                         <span class="card__category">
@@ -47,3 +49,4 @@
             </div>
         </div>
     </section>
+}

@@ -25,7 +25,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             _postService = postService;
             _commentService = commentService;
         }
-
+        [Authorize("Permission")]
         public IActionResult PostComments(int id, bool root = false)
         {
             ViewBag.Root = root;
@@ -45,20 +45,21 @@ namespace TvPlus.Web.Areas.Management.Controllers
                     Writer = $"{p.User.FirstName} {p.User.LastName}",
                     Subject = p.Center.ShortTitle,
                     Message = p.Message,
+                    Show = p.Show
                 }).AsQueryable();
 
             var parser = new Parser<CommentTable>(Request.Form, comments);
             return JsonConvert.SerializeObject(parser.Parse());
         }
 
-        //[Authorize("Permission")]
+        [Authorize("Permission")]
         public IActionResult Create(int? centerId)
         {
             ViewBag.CenterId = centerId;
             return PartialView();
         }
 
-        //[Authorize("Permission")]
+        [Authorize("Permission")]
         public IActionResult Edit(int id)
         {
             return PartialView(_commentService.GetForEdit(id));
@@ -73,6 +74,28 @@ namespace TvPlus.Web.Areas.Management.Controllers
 
             var savedComment = await _commentService.Save(model);
             return RedirectToAction(nameof(PostComments),new {id = savedComment.CenterId});
+        }
+        [Authorize("Permission")]
+        public ActionResult Delete(int id)
+        {
+            return PartialView(_commentService.GetById(id));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var centerId = _commentService.GetForEdit(id).CenterId;
+            _commentService.Delete(id);
+            return RedirectToAction(nameof(PostComments), new { id = centerId });
+
+        }
+
+        public IActionResult ToggleShow(int id)
+        {
+            var comment = _commentService.GetById(id);
+            comment.Show = !comment.Show;
+            _commentService.Update(comment);
+            return RedirectToAction(nameof(PostComments), new { id = comment.CenterId });
         }
     }
 }
