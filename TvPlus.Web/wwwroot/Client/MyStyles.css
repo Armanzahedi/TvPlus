@@ -1,0 +1,22 @@
+﻿.slider-box-layout9 .item-content {
+    top: 75%;
+    left: 51%;
+}
+.sliderBtn {
+    direction: rtl;
+    display: inline-block;
+    font-size: 13px;
+    color: #ffffff;
+    background-color: #111111;
+    border-radius: 4px;
+    padding: 12px 30px;
+    font-weight: 600;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+svg path {
+    fill: white;
+}
