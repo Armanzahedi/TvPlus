@@ -19,12 +19,12 @@ namespace TvPlus.Infrastructure.Services
     }
     public class AboutUsService : AboutUsRepository, IAboutUsService
     {
-        private readonly IAboutUsSectionsRepository _AboutUsSectionRepository;
+        private readonly IAboutUsSectionsRepository _aboutUsSectionRepository;
         private readonly MyDbContext _context;
         public AboutUsService(MyDbContext context, IAboutUsSectionsRepository aboutUsSectionRepository) : base(context)
         {
             _context = context;
-            _AboutUsSectionRepository = aboutUsSectionRepository;
+            _aboutUsSectionRepository = aboutUsSectionRepository;
         }
         public AboutUs GetAboutUs()
         {
@@ -43,7 +43,7 @@ namespace TvPlus.Infrastructure.Services
 
         public AboutUsSection UpdateSection(AboutUsSection model)
         {
-            return _AboutUsSectionRepository.Update(model);
+            return _aboutUsSectionRepository.Update(model);
         }
     }
 }

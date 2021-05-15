@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 using Xabe.FFmpeg;
 
 namespace TvPlus.Web
@@ -16,9 +17,27 @@ namespace TvPlus.Web
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            FFmpegRun().GetAwaiter().GetResult();
-            host.Run();
+            IConfigurationRoot configuration = new
+                ConfigurationBuilder().AddJsonFile("appsettings.json",
+                optional: false, reloadOnChange: true).Build();
+
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration
+                (configuration).CreateLogger();
+            try
+            {
+                Log.Information("Application Starting.");
+                var host = CreateHostBuilder(args).Build();
+                FFmpegRun().GetAwaiter().GetResult();
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "The Application failed to start.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
         private static async Task FFmpegRun()
         {
@@ -45,6 +64,7 @@ namespace TvPlus.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseSerilog();
                 });
     }
 }
