@@ -7,7 +7,6 @@
     @await Component.InvokeAsync("Slider")
 </section>
 
-
 <section class="home">
     @await Component.InvokeAsync("SpecialPost")
 </section>
@@ -55,3 +54,6 @@
 <section class="section section--bg" dir="rtl">
     @await Component.InvokeAsync("RecentVideos")
 </section>
+@section Scripts {
+    <script src="_framework/blazor.server.js"></script>
+} 

@@ -107,7 +107,6 @@ namespace TvPlus.Web
         //    DisableGlobalLocks = true
         //}
         ));
-
             services.AddHangfireServer(opt => opt.WorkerCount = 1);
 
 
