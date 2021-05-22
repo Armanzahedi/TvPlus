@@ -10,6 +10,7 @@ namespace TvPlus.DataAccess
 {
     public class MyDbContext : IdentityDbContext<User>
     {
+
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
         }

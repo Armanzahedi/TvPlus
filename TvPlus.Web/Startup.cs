@@ -69,7 +69,15 @@ namespace TvPlus.Web
             services.AddRazorPages();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 6;
+                })
             .AddEntityFrameworkStores<MyDbContext>()
             .AddDefaultTokenProviders()
             .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
@@ -80,7 +88,8 @@ namespace TvPlus.Web
             });
             services.AddDbContext<MyDbContext>(opt =>
             {
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("TvPlus.DataAccess"));
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("TvPlus.DataAccess"))
+                    .EnableSensitiveDataLogging();
             }, ServiceLifetime.Transient);
             services.AddDataAccess();
             services.AddInfrastructure();
@@ -92,7 +101,7 @@ namespace TvPlus.Web
             services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
             services.AddScoped<IUserPermissionHelper, UserPermissionHelper>();
-
+            services.AddServerSideBlazor();
             services.AddHangfire(configuration => configuration
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
             .UseSimpleAssemblyNameTypeSerializer()
@@ -160,6 +169,7 @@ namespace TvPlus.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapRazorPages();
+                // endpoints.MapBlazorHub();
             });
         }
     }

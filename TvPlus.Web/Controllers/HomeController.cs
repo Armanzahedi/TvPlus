@@ -101,5 +101,6 @@ namespace TvPlus.Web.Controllers
             vOutput = @"<html><body><script>window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum + ", \"" + vImagePath + "\", \"" + vMessage + "\");</script></body></html>";
             return Json(new { uploaded = "true", url = vImagePath });
         }
+
     }
 }

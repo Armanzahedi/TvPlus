@@ -1,0 +1,121 @@
+﻿@model TvPlus.Infrastructure.ViewModels.AddUserViewModel
+
+@{
+    ViewBag.Title = "کاربران";
+}
+<input type="hidden" id="nav_active" value="auth_control">
+<input type="hidden" id="nav_item_active" value="users">
+<div class="col-lg-12">
+    <div class="card card-custom gutter-b">
+        <div class="card-header">
+            <h3 class="card-title">
+                افزودن کاربر
+            </h3>
+        </div>
+        <form method="post" id="form" enctype="multipart/form-data">
+            <div class="container" style="margin-top:20px">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="User.UserName" class="control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="User.UserName" class="form-control"/>
+                                <span asp-validation-for="User.UserName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="User.Email" class="control-label "></label>
+                            <div class="col-md-10">
+                                <input asp-for="User.Email" class="form-control"/>
+                                <span asp-validation-for="User.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Password" class="form-control"/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="ConfirmPassword" class="form-control"/>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="User.FirstName" class="control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="User.FirstName" class="form-control"/>
+                                <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="User.LastName" class="control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="User.LastName" class="form-control"/>
+                                <span asp-validation-for="User.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="User.PhoneNumber" class="control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="User.PhoneNumber" class="form-control"/>
+                                <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="User.Information" class="control-label"></label>
+                            <div class="col-md-10">
+                                <textarea asp-for="User.Information" class="form-control"></textarea>
+                                <span asp-validation-for="User.Information" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="col-label">تصویر</label>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="image-input image-input-outline" id="user-avatar">
+                                    <div class="image-input-wrapper" style="background-image: url(/UploadedFiles/UserAvatars/@Model?.User?.Avatar)"></div>
+
+                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="آپلود تصویر">
+                                        <i class="fa fa-pen icon-sm text-muted"></i>
+                                        <input type="file" name="UserAvatar" accept=".png, .jpg, .jpeg"/>
+                                        <input type="hidden" name="user-avatar_remove"/>
+                                    </label>
+
+                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="حذف تصویر">
+                                        <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="@Url.Action("Index")" class="btn btn-secondary">انصراف</a>
+                <input type="submit" value="ثبت" class="btn btn-primary mr-2"/>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    .image-input .image-input-wrapper {
+        width: 200px;
+        height: 200px;
+        border-radius: 100%
+    }
+</style>
+@section Scripts {
+    <script>
+        new KTImageInput('user-avatar');
+    </script>
+}

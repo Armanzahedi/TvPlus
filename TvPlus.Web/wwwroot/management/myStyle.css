@@ -431,4 +431,13 @@ label {
     width: 60vw;
     height: 35vh;
 }
-
+.btn.btn-white.btn-shadow {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+div#videoInput {
+    background-color: #3a3a3a;
+}
+.progress-bar {
+    color: white !important;
+}

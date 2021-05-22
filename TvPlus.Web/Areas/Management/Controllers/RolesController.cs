@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 using TvPlus.Core.Models;
 using TvPlus.DataAccess;
 using TvPlus.Web.Helpers;
+using TvPlus.Web.ViewModels;
 
-namespace TvPlus.Web.ViewModels
+namespace TvPlus.Web.Areas.Management.Controllers
 {
     [Area("Management")]
     [Authorize("Permission")]

@@ -13,14 +13,16 @@ using TvPlus.DataAccess;
 using TvPlus.DataAccess.Repositories;
 using TvPlus.Infrastructure.Dtos.User;
 using TvPlus.Infrastructure.Helpers;
+using TvPlus.Infrastructure.ViewModels;
 
 namespace TvPlus.Infrastructure.Services
 {
     public interface IUserService
     {
+        IQueryable<User> GetDefaultQuery();
         Task<User> GetById(string id);
-        Task<User> Create(UserCreateDto model);
-        Task<User> Update(string id, UserEditDto newUser);
+        Task<User> CreateUser(User model, string Password);
+        Task<Tuple<User, bool>> UpdateUser(EditUserViewModel model);
         Task<IdentityResult> Remove(string id);
         Task<bool> UserNameExists(string username, string id = null);
         Task<bool> EmailExists(string email, string id = null);
@@ -55,58 +57,19 @@ namespace TvPlus.Infrastructure.Services
 
         }
 
+        public IQueryable<User> GetDefaultQuery()
+        {
+            return _context.Users;
+        }
+
+
         public async Task<User> GetById(string id)
         {
             return await _userRepository.GetById(id);
         }
-        public async Task<User> Update(string id, UserEditDto model)
-        {
-            //var user = await _context.Users.FindAsync(id);
-            //if (user == null)
-            //    return null;
-
-            //user.UserName = model.UserName;
-            //user.Email = model.Email;
-
-            //var result = await _userManager.UpdateAsync(user);
-
-
-            //var userDto = _mapper.Map<UserDto>(user);
-            //if (user != null)
-            //{
-            //    var userRoles = await _userManager.GetRolesAsync(user);
-
-            //    //if (userRoles.Where(r => r == "Admin").Any())
-            //    //    userDto.IsAdmin = true;
-            //    //else
-            //    //    userDto.IsAdmin = false;
-            //}
-            var entity = _mapper.Map<User>(model);
-
-            return await _userRepository.Update(entity);
-        }
 
         public async Task<User> Create(UserCreateDto model)
         {
-            //User user = new User()
-            //{
-            //    SecurityStamp = Guid.NewGuid().ToString(),
-            //    UserName = model.UserName,
-            //    Email = model.Email
-            //};
-            //var result = await _userManager.CreateAsync(user, model.Password);
-
-            //var userDto = _mapper.Map<UserDto>(user);
-
-            //if (user != null)
-            //{
-            //    var userRoles = await _userManager.GetRolesAsync(user);
-
-            //    //if (userRoles.Where(r => r == "Admin").Any())
-            //    //    userDto.IsAdmin = true;
-            //    //else
-            //    //    userDto.IsAdmin = false;
-            //}
             var entity = _mapper.Map<User>(model);
             return await _userRepository.Add(entity);
         }
@@ -184,18 +147,6 @@ namespace TvPlus.Infrastructure.Services
             file.CopyTo(stream);
 
             user.Avatar = imageName;
-            //await _userManager.UpdateAsync(user);
-            //var userDto = _mapper.Map<UserDto>(user);
-            //if (user != null)
-            //{
-            //    var userRoles = await _userManager.GetRolesAsync(user);
-
-            //    //if (userRoles.Where(r => r == "Admin").Any())
-            //    //    userDto.IsAdmin = true;
-            //    //else
-            //    //    userDto.IsAdmin = false;
-            //}
-
             return user;
         }
 
@@ -223,6 +174,21 @@ namespace TvPlus.Infrastructure.Services
             return await _userManager.GetUserAsync(currentUser);
         }
 
+        private static List<string> GetRoles(MyDbContext _context,string userId)
+        {
+            var roleIds = _context.UserRoles
+                .Where(x => x.UserId == userId)
+                .Select(x => x.RoleId)
+                .ToList();
+
+            var roles = _context.Roles
+                .Where(x => roleIds.Contains(x.Id))
+                .Select(r=>r.Name).ToList();
+
+
+            return roles;
+        }
+
         public async Task<List<User>> GetUsers(PaginationFilter pagination, string searchString = null)
         {
             var usersList = new List<UserInfoDto>();
@@ -234,6 +200,48 @@ namespace TvPlus.Infrastructure.Services
 
 
             return await users.ToListAsync();
+        }
+        public async  Task<User> CreateUser(User model, string Password)
+        {
+            model.SecurityStamp = Guid.NewGuid().ToString();
+            await _userManager.CreateAsync(model, Password);
+
+            return model;
+        }
+        public async Task<Tuple<User, bool>> UpdateUser(EditUserViewModel model)
+        {
+            var succeeded = true;
+            var prevUser = _context.Users.Find(model.Id);
+            prevUser.Email = model.Email;
+            prevUser.FirstName = model.FirstName;
+            prevUser.LastName = model.LastName;
+            prevUser.UserName = model.UserName;
+            prevUser.Information = model.Information;
+            prevUser.PhoneNumber = model.PhoneNumber;
+            prevUser.Avatar = model.Avatar;
+
+            _context.Entry(prevUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            //_userManager.Update(model);
+            //if (!string.IsNullOrEmpty(newPassword))
+            //{
+            //    var userPrevPassword = model.PasswordHash; // keeping prev password just in case setting new password fails
+            //    var removePassword = _userManager.RemovePassword(model.Id);
+            //    if (removePassword.Succeeded)
+            //    {
+            //        var addPassword = _userManager.AddPassword(model.Id, newPassword);
+            //        if (addPassword.Succeeded == false)
+            //        {
+            //            succeeded = false;
+            //            model.PasswordHash = userPrevPassword;
+            //            _context.Entry(model).State = EntityState.Modified;
+            //            _context.SaveChanges();
+            //            //_userManager.Update(model);
+            //        }
+            //    }
+            //}
+            var updateModel = new Tuple<User, bool>(prevUser, succeeded);
+            return updateModel;
         }
 
     }
