@@ -15,6 +15,8 @@ using TvPlus.Infrastructure.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using TvPlus.DataAccess;
 using TvPlus.Infrastructure.Dtos.User;
+using Microsoft.EntityFrameworkCore;
+using TvPlus.Web.ViewModels;
 
 namespace TvPlus.Web.Areas.Management.Controllers
 {
@@ -35,7 +37,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             _userManager = userManager;
             _context = context;
         }
-
+        [Authorize("Permission")]
         public IActionResult Index(bool root = false)
         {
             ViewBag.Root = root;
@@ -57,6 +59,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             var parser = new Parser<UserGridDto>(Request.Form, usersGrid);
             return JsonConvert.SerializeObject(parser.Parse());
         }
+        [Authorize("Permission")]
         public ActionResult Create()
         {
             ViewBag.Message = null;
@@ -100,7 +103,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
 
             return View(form);
         }
-
+        [Authorize("Permission")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -163,10 +166,63 @@ namespace TvPlus.Web.Areas.Management.Controllers
             return View(user);
 
         }
-        // [Authorize("Permission")]
-        public ActionResult Delete(string id)
+        [Authorize("Permission")]
+        public async Task<IActionResult> EditRoles(string userId)
         {
-            return PartialView(_userService.GetById(id));
+            var user = await _userManager.FindByIdAsync(userId);
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            ViewBag.Email = user?.Email;
+            ViewBag.UserId = user?.Id;
+
+            var allRoles = await _roleManager.Roles.ToListAsync();
+            var roles = allRoles.Select(x => new RoleViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Selected = userRoles.Contains(x.Name)
+            }).ToList();
+            return View(roles);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditRoles(string userId, List<RoleViewModel> roles)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                await _userManager.RemoveFromRolesAsync(user, userRoles);
+                await _userManager.AddToRolesAsync(user, roles.Where(x => x.Selected).Select(x => x.Name));
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(roles);
+        }
+        // [HttpPost]
+        // public async Task<IdentityResult> ResetPasswordToDefault(string id)
+        // {
+        //     var result = await _userService.ResetPasswordToDefault(id);
+        //     return result;
+        // }
+        // public ActionResult Delete(string id)
+        // {
+        //     if (string.IsNullOrEmpty(id))
+        //     {
+        //         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //     }
+        //     var user = _repo.GetUser(id);
+        //     if (user == null)
+        //     {
+        //         return HttpNotFound();
+        //     }
+        //     return PartialView(user);
+        // }
+        [Authorize("Permission")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            return PartialView(await _userService.GetById(id));
         }
         [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(string id)

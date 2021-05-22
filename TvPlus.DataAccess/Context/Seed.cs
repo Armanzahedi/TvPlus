@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TvPlus.Core.Models;
+using TvPlus.Utility;
 
 namespace TvPlus.DataAccess
 {
@@ -12,14 +13,10 @@ namespace TvPlus.DataAccess
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            var SUPER_USER_ID = "75625814-138e-4831-a1ea-bf58e211acmf";
-            var SUPER_USER_ROLE_ID = "29bd76db-5835-406d-ad1d-7a0901448abd";
-            var ADMIN_ID = "75625814-138e-4831-a1ea-bf58e211adff";
-            var ADMIN_ROLE_ID = "29bd76db-5835-406d-ad1d-7a0901447c18";
-            var USER_ROLE_ID = "d7be43da-622c-4cfe-98a9-5a5161120d24";
+
             var admin = new User()
             {
-                Id = ADMIN_ID,
+                Id = StaticVariables.ADMIN_ID,
                 Avatar = "user-avatar.png",
                 FirstName = "Admin",
                 LastName = "Admin",
@@ -30,7 +27,7 @@ namespace TvPlus.DataAccess
             };
             var superuser = new User()
             {
-                Id = SUPER_USER_ID,
+                Id = StaticVariables.SUPER_USER_ID,
                 Avatar = "user-avatar.png",
                 FirstName = "Superuser",
                 LastName = "Superuser",
@@ -46,9 +43,9 @@ namespace TvPlus.DataAccess
                 superuser
             );
             modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Id = ADMIN_ROLE_ID, Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole { Id = USER_ROLE_ID, Name = "User", NormalizedName = "USER" },
-                new IdentityRole { Id = SUPER_USER_ROLE_ID, Name = "Superuser", NormalizedName = "SUPERUSER" }
+                new IdentityRole { Id = StaticVariables.ADMIN_ROLE_ID, Name = "Admin", NormalizedName = "ADMIN" },
+                new IdentityRole { Id = StaticVariables.USER_ROLE_ID, Name = "User", NormalizedName = "USER" },
+                new IdentityRole { Id = StaticVariables.SUPER_USER_ROLE_ID, Name = "Superuser", NormalizedName = "SUPERUSER" }
             );
             //modelBuilder.Entity<NavigationMenu>().HasData(
             //new NavigationMenu()

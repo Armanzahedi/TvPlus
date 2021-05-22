@@ -78,7 +78,7 @@
                                     content += element;
                                     </text>
                                 }
-                                if (await PermissionHelper.UserHasPermission("SystemParameters", "Delete"))
+                                @* if (await PermissionHelper.UserHasPermission("SystemParameters", "Delete"))
                                 {
                                     <text>var element = `\
                                         <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/SystemParameters/Delete/${row.Id}')">\
@@ -87,7 +87,7 @@
                                         `;
                                     content += element;
                                     </text>
-                                }
+                                } *@
                              }
                             return content;
                         },

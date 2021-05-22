@@ -1,8 +1,10 @@
-﻿@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
+﻿@using TvPlus.Utility
+@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
 @{
     ViewData["Title"] = "کاربران";
 }
-<input type="hidden" id="nav_active" value="users">
+<input type="hidden" id="nav_active" value="auth_control">
+<input type="hidden" id="nav_item_active" value="users">
 
 <div class="card card-custom">
     <div class="card-header flex-wrap border-0 pt-6 pb-0">
@@ -12,7 +14,7 @@
                 <span class="d-block text-muted pt-2 font-size-sm">ویرایش @ViewData["Title"]</span>
             </h3>
         </div>
-        <validate-permission asp-controller="SystemParameters" asp-action="Create">
+        <validate-permission asp-controller="Users" asp-action="Create">
             <div class="card-toolbar">
                 <a asp-area="Management" asp-controller="Users" asp-action="Create" class="btn btn-success font-weight-bolder">
                     <partial name="SvgIcons/_NewRecordIcon" />
@@ -65,7 +67,6 @@
                         data: "Roles",
                         render: function(data, type, row) {
                             var content = "";
-                            console.log(row);
                             if (row.Roles != null && row.Roles.length > 0) {
                                 row.Roles.forEach(function (role) {
                                         content += "<span class='label label-lg label-info label-inline mr-2'>"+ role +"</span>";
@@ -82,30 +83,40 @@
                         render: function (data, type, row) {
                             var content = "";
                             @{
-                                if (await PermissionHelper.UserHasPermission("Posts", "Edit"))
+                                if (await PermissionHelper.UserHasPermission("Users", "Edit"))
                                 {
-                                    <text>var element = `\
+                                    <text>
+
+                                        var element = `\
                                         <a class='btn btn-sm btn-clean btn-icon mr-2' href="/Management/Users/Edit/${row.Id}">\
                                         <i class='far fa-edit text-primary'></i>\
                                         </a>\
                                         `;
                                         content += element;
+
                                     </text>
                                 }
-                                if (await PermissionHelper.UserHasPermission("Posts", "Delete"))
+                                if (await PermissionHelper.UserHasPermission("Users", "Delete"))
                                 {
-                                    <text>var element = `\
+                                    <text>
+                                        if(row.Id != "@StaticVariables.ADMIN_ID" && row.Id != "@StaticVariables.SUPER_USER_ID"){
+                                        console.log(row.Id)
+                                        var element = `\
                                         <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Users/Delete/${row.Id}')">\
                                         <i class='far fa-trash-alt text-danger'></i>\
                                         </a>\
                                         `;
                                         content += element;
+                                        }
                                     </text>
                                 }
-                                if (await PermissionHelper.UserHasPermission("Comment", "PostComments"))
+                                if (await PermissionHelper.UserHasPermission("Users", "EditRoles"))
                                 {
-                                    <text>var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Comment/PostComments/${row.Id}?root=true'>نقش ها</a>`;
+                                    <text>
+                                        if(row.Id != "@StaticVariables.ADMIN_ID" && row.Id != "@StaticVariables.SUPER_USER_ID"){
+                                        var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Users/EditRoles?userId=${row.Id}'>نقش ها</a>`;
                                         content += element;
+                                        }
                                     </text>
                                 }
                             }

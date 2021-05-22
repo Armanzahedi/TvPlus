@@ -8,12 +8,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TvPlus.Core.Models;
 using TvPlus.DataAccess;
 using TvPlus.DataAccess.Repositories;
 using TvPlus.Infrastructure.Dtos.User;
 using TvPlus.Infrastructure.Helpers;
 using TvPlus.Infrastructure.ViewModels;
+using TvPlus.Utility;
 
 namespace TvPlus.Infrastructure.Services
 {
@@ -41,12 +43,12 @@ namespace TvPlus.Infrastructure.Services
         public readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly HttpContextAccessor _httpContext;
-
+        private readonly ISystemParameterService _systemParameterService;
 
         public UserService(
             IUserRepository userRepository,
             IMapper mapper, MyDbContext context,
-            UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+            UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ISystemParameterService systemParameterService)
         {
             _context = context;
             _userManager = userManager;
@@ -54,7 +56,7 @@ namespace TvPlus.Infrastructure.Services
             _userRepository = userRepository;
             _mapper = mapper;
             _httpContext ??= new HttpContextAccessor();
-
+            _systemParameterService = systemParameterService;
         }
 
         public IQueryable<User> GetDefaultQuery()
@@ -174,7 +176,7 @@ namespace TvPlus.Infrastructure.Services
             return await _userManager.GetUserAsync(currentUser);
         }
 
-        private static List<string> GetRoles(MyDbContext _context,string userId)
+        private static List<string> GetRoles(MyDbContext _context, string userId)
         {
             var roleIds = _context.UserRoles
                 .Where(x => x.UserId == userId)
@@ -183,7 +185,7 @@ namespace TvPlus.Infrastructure.Services
 
             var roles = _context.Roles
                 .Where(x => roleIds.Contains(x.Id))
-                .Select(r=>r.Name).ToList();
+                .Select(r => r.Name).ToList();
 
 
             return roles;
@@ -201,7 +203,7 @@ namespace TvPlus.Infrastructure.Services
 
             return await users.ToListAsync();
         }
-        public async  Task<User> CreateUser(User model, string Password)
+        public async Task<User> CreateUser(User model, string Password)
         {
             model.SecurityStamp = Guid.NewGuid().ToString();
             await _userManager.CreateAsync(model, Password);
@@ -242,6 +244,14 @@ namespace TvPlus.Infrastructure.Services
             //}
             var updateModel = new Tuple<User, bool>(prevUser, succeeded);
             return updateModel;
+        }
+        public async Task<IdentityResult> ResetPasswordToDefault(string userId)
+        {
+            var defaultPassword = _systemParameterService.GetById(StaticVariables.UserDefaultPassword_sys_id)?.Value ?? "Tvplus@123456";
+            var user = await _userManager.FindByIdAsync(userId);
+            await _userManager.RemovePasswordAsync(user);
+            var result = await _userManager.AddPasswordAsync(user, defaultPassword);
+            return result;
         }
 
     }
