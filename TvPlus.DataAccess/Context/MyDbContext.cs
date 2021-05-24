@@ -37,7 +37,15 @@ namespace TvPlus.DataAccess
         public DbSet<AboutUsSection> AboutUsSections { get; set; }
         public DbSet<ContactUsInfo> ContactUsInfoes { get; set; }
         public DbSet<Comment> Comments { get; set; }
-                
+
+
+        public DbSet<PComments> ZComments { get; set; }
+        public DbSet<PTags> ZTags { get; set; }
+        public DbSet<PVideos> ZVideos { get; set; }
+        public DbSet<PVideo_Tag> ZVideo_Tag { get; set; }
+        public DbSet<PVideo_Category> ZVideo_Category { get; set; }
+        public DbSet<PVideo_Convert> ZVideo_Convert { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

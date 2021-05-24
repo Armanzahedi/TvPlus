@@ -22,5 +22,9 @@ namespace TvPlus.Core.Models
         public string InsertUser { get; set; }
         public string UpdateUser { get; set; }
         public bool IsDeleted { get; set; }
+        public int LikeCount { get; set; }
+        public int DislikeCount { get; set; }
+        public string ZIP { get; set; }
+        public string ZAgent { get; set; }
     }
 }

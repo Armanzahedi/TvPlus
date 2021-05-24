@@ -8,6 +8,9 @@ namespace TvPlus.Core.Models
     {
         public int Id { get; set; }
         public int VideoId { get; set; }
+        public int Height { get; set; }
+        public int Duration { get; set; }
+        public int ZStatus { get; set; }
         public Video Video { get; set; }
         public int VideoQuality { get; set; }
         public string VideoName { get; set; }
@@ -16,5 +19,6 @@ namespace TvPlus.Core.Models
         public string InsertUser { get; set; }
         public string UpdateUser { get; set; }
         public bool IsDeleted { get; set; }
+        public string ZErrors { get; set; }
     }
 }
