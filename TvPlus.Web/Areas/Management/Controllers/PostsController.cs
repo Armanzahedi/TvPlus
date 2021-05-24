@@ -56,6 +56,30 @@ namespace TvPlus.Web.Areas.Management.Controllers
             var data = parser.Parse();
             return JsonConvert.SerializeObject(parser.Parse());
         }
+
+        public JsonResult GetPeopleSuggestion(string searchStr)
+        {
+            var suggestion = new List<string>();
+            if (string.IsNullOrEmpty(searchStr) == false)
+            {
+                suggestion = _peopleService.GetDefaultQuery().Where(
+                    p=>p.Firstname.ToLower().Trim().Contains(searchStr.ToLower().Trim()) || 
+                       p.Lastname.ToLower().Trim().Contains(searchStr.ToLower().Trim())
+                       ).Select(p => $"{p.Firstname} {p.Lastname}").ToList();
+            }
+            return Json(suggestion);
+        }
+        public JsonResult GetTagSuggestion(string searchStr)
+        {
+            var suggestion = new List<string>();
+            if (string.IsNullOrEmpty(searchStr) == false)
+            {
+                suggestion = _tagsService.GetDefaultQuery().Where(
+                    p => p.Title.ToLower().Trim().Contains(searchStr.ToLower().Trim())
+                ).Select(p => p.Title).ToList();
+            }
+            return Json(suggestion);
+        }
         [Authorize("Permission")]
         public IActionResult Create()
         {

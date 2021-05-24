@@ -1,12 +1,13 @@
 ﻿using DataTablesParser;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Microsoft.AspNetCore.Http;
 using TvPlus.Core.Models;
 using TvPlus.Infrastructure.Helpers;
@@ -17,6 +18,8 @@ using TvPlus.DataAccess;
 using TvPlus.Infrastructure.Dtos.User;
 using Microsoft.EntityFrameworkCore;
 using TvPlus.Web.ViewModels;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace TvPlus.Web.Areas.Management.Controllers
 {
@@ -37,7 +40,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             _userManager = userManager;
             _context = context;
         }
-        [Authorize("Permission")]
+        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public IActionResult Index(bool root = false)
         {
             ViewBag.Root = root;
@@ -59,7 +62,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             var parser = new Parser<UserGridDto>(Request.Form, usersGrid);
             return JsonConvert.SerializeObject(parser.Parse());
         }
-        [Authorize("Permission")]
+        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public ActionResult Create()
         {
             ViewBag.Message = null;
@@ -103,7 +106,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
 
             return View(form);
         }
-        [Authorize("Permission")]
+        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -166,7 +169,78 @@ namespace TvPlus.Web.Areas.Management.Controllers
             return View(user);
 
         }
-        [Authorize("Permission")]
+        public async Task<IActionResult> EditMyProfile()
+        {
+            var currentUser = await _userService.GetCurrentUser();
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+            var model = new EditUserViewModel
+            {
+                Id = currentUser.Id,
+                UserName = currentUser.UserName,
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName,
+                PhoneNumber = currentUser.PhoneNumber,
+                Email = currentUser.Email,
+                Information = currentUser.Information,
+                Avatar = currentUser.Avatar
+            };
+            return View(model);
+        }
+
+
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public async Task<IActionResult> EditMyProfile(EditUserViewModel user, IFormFile UserAvatar)
+        {
+
+            if (ModelState.IsValid)
+            {
+                #region Check for duplicate username or email
+                if (await _userService.UserNameExists(user.UserName, user.Id))
+                {
+                    ModelState.AddModelError(string.Empty, "کاربر دیگری با همین نام در سیستم ثبت شده");
+                    return View(user);
+                }
+                if (await _userService.EmailExists(user.Email, user.Id))
+                {
+                    ModelState.AddModelError(string.Empty, "کاربر دیگری با همین ایمیل در سیستم ثبت شده");
+                    return View(user);
+                }
+                #endregion
+
+                #region Upload Image
+                if (UserAvatar != null)
+                {
+                    var imageName = await ImageHelper.SaveImage(UserAvatar, 400, 400, "UserAvatars", true);
+
+                    user.Avatar = imageName;
+                }
+                #endregion
+                var result = await _userService.UpdateUser(user);
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            return View(user);
+
+        }
+        public ActionResult ResetMyPassword(string id)
+        {
+            return PartialView();
+        }
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public async Task<IdentityResult> ResetMyPassword(ResetMyPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUser = await _userService.GetCurrentUser();
+                var result = await _userManager.ChangePasswordAsync(currentUser, model.OldPassword, model.Password);
+                return result;
+            }
+            return IdentityResult.Failed();
+        }
+        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public async Task<IActionResult> EditRoles(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -184,7 +258,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             }).ToList();
             return View(roles);
         }
-        [HttpPost]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
         public async Task<IActionResult> EditRoles(string userId, List<RoleViewModel> roles)
         {
             if (ModelState.IsValid)
@@ -200,31 +274,18 @@ namespace TvPlus.Web.Areas.Management.Controllers
 
             return View(roles);
         }
-        // [HttpPost]
-        // public async Task<IdentityResult> ResetPasswordToDefault(string id)
-        // {
-        //     var result = await _userService.ResetPasswordToDefault(id);
-        //     return result;
-        // }
-        // public ActionResult Delete(string id)
-        // {
-        //     if (string.IsNullOrEmpty(id))
-        //     {
-        //         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //     }
-        //     var user = _repo.GetUser(id);
-        //     if (user == null)
-        //     {
-        //         return HttpNotFound();
-        //     }
-        //     return PartialView(user);
-        // }
-        [Authorize("Permission")]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public async Task<IdentityResult> ResetPasswordToDefault(string id)
+        {
+            var result = await _userService.ResetPasswordToDefault(id);
+            return result;
+        }
+        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public async Task<ActionResult> Delete(string id)
         {
             return PartialView(await _userService.GetById(id));
         }
-        [HttpPost, ActionName("Delete")]
+        [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

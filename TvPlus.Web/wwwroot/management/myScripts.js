@@ -138,9 +138,10 @@ Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "آیا اطم�
 Dropzone.prototype.defaultOptions.dictRemoveFile = "حذف فایل";
 Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "شما نمیتوانید فایل دیگری آپلود کنید";
 
-$(document).ajaxStart(function () {
-    $("#loading").css("display","block");
-});
-$(document).ajaxComplete(function () {
-    $("#loading").hide();
-});
+
+//$(document).ajaxStart(function () {
+//    $("#loading").css("display","block");
+//});
+//$(document).ajaxComplete(function () {
+//    $("#loading").hide();
+//});

@@ -46,4 +46,25 @@ namespace TvPlus.Infrastructure.ViewModels
         [DataType(DataType.MultilineText)]
         public string Information { get; set; }
     }
+
+    public class ResetMyPasswordViewModel
+    {
+        public string UserId { get; set; }
+
+        [Required(ErrorMessage = "{0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        [Display(Name = "رمز عبور")]
+        public string OldPassword { get; set; }
+        [Required(ErrorMessage = "{0} را وارد کنید")]
+        [StringLength(100, ErrorMessage = "{0} باید حداقل 6 کارکتر باشد", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "رمز عبور جدید")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "{0} را وارد کنید")]
+        [DataType(DataType.Password)]
+        [Display(Name = "تکرار رمز عبور جدید")]
+        [Compare("Password", ErrorMessage = "عدم تطابق رمز عبور جدید و تکرار رمز عبور جدید")]
+        public string ConfirmPassword { get; set; }
+    }
 }

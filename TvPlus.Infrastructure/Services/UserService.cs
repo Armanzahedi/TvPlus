@@ -33,6 +33,7 @@ namespace TvPlus.Infrastructure.Services
         Task<List<User>> GetUsers(PaginationFilter pagination, string searchString);
         IQueryable<User> FilterUsers(string searchString = null);
         Task<User> GetCurrentUser();
+        Task<IdentityResult> ResetPasswordToDefault(string userId);
     }
 
     public class UserService : IUserService
@@ -224,24 +225,6 @@ namespace TvPlus.Infrastructure.Services
 
             _context.Entry(prevUser).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            //_userManager.Update(model);
-            //if (!string.IsNullOrEmpty(newPassword))
-            //{
-            //    var userPrevPassword = model.PasswordHash; // keeping prev password just in case setting new password fails
-            //    var removePassword = _userManager.RemovePassword(model.Id);
-            //    if (removePassword.Succeeded)
-            //    {
-            //        var addPassword = _userManager.AddPassword(model.Id, newPassword);
-            //        if (addPassword.Succeeded == false)
-            //        {
-            //            succeeded = false;
-            //            model.PasswordHash = userPrevPassword;
-            //            _context.Entry(model).State = EntityState.Modified;
-            //            _context.SaveChanges();
-            //            //_userManager.Update(model);
-            //        }
-            //    }
-            //}
             var updateModel = new Tuple<User, bool>(prevUser, succeeded);
             return updateModel;
         }
@@ -253,6 +236,5 @@ namespace TvPlus.Infrastructure.Services
             var result = await _userManager.AddPasswordAsync(user, defaultPassword);
             return result;
         }
-
     }
 }

@@ -250,35 +250,49 @@
             $('#categories').select2({
                 placeholder: "دسته بندی پست را انتخاب کنید"
             });
-            new Tagify(document.getElementById('people'),
+            var peopleInput = new Tagify(document.getElementById('people'),
                 {
                     enforceWhitelist: true,
-                    whitelist: [
-                        @{
-                            foreach (var item in ViewBag.People)
-                            {
-                                <text>
-                                    "@item",
-                                </text>
-                            }
-                        }
-                    ],
+                    whitelist: [],
                     originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
                 });
-            new Tagify(document.getElementById('tags'),
+            peopleInput.on('input', onPeopleInput);
+
+            function onPeopleInput(e) {
+                var value = e.detail.value;
+                peopleInput.settings.whitelist.length = 0;
+                peopleInput.loading(true).dropdown.hide.call(peopleInput);
+                var newWhitelist = [];
+                $.get("/Management/Posts/GetPeopleSuggestion?searchStr=" + value,
+                    {
+                    },
+                    function(data) {
+                        newWhitelist = data;
+                        peopleInput.settings.whitelist.push(...newWhitelist, ...peopleInput.value);
+                        peopleInput.loading(false).dropdown.show.call(peopleInput, value);
+                    });
+            };
+            var tagInput = new Tagify(document.getElementById('tags'),
                 {
-                    whitelist: [
-                        @{
-                            foreach (var item in ViewBag.Tags)
-                            {
-                                <text>
-                                    "@item",
-                                </text>
-                            }
-                        }
-                    ],
+                    whitelist: [],
                     originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
                 });
+            tagInput.on('input', onTagInput);
+
+            function onTagInput(e) {
+                var value = e.detail.value;
+                tagInput.settings.whitelist.length = 0;
+                tagInput.loading(true).dropdown.hide.call(tagInput);
+                var newWhitelist = [];
+                $.get("/Management/Posts/GetTagSuggestion?searchStr=" + value,
+                    {
+                    },
+                    function(data) {
+                        newWhitelist = data;
+                        tagInput.settings.whitelist.push(...newWhitelist, ...tagInput.value);
+                        tagInput.loading(false).dropdown.show.call(tagInput, value);
+                    });
+            };
 
             var image = new KTImageInput('post-image');
 
@@ -397,6 +411,12 @@
                                     type: 'POST',
                                     url: "/Management/Posts/SavePost",
                                     data: post,
+                                    beforeSend: function() {
+                                        $("#loading").show();
+                                    },
+                                    complete: function() {
+                                        $("#loading").hide();
+                                    },
                                     success: function (res) {
                                         $("#Id").val(res.data);
                                         _wizard.goNext();

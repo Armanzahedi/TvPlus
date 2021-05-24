@@ -210,7 +210,7 @@
     <script src="~/ckeditor/config.js"></script>
     <script>
         function toggleUploadBtn(command) {
-            if (command == "active") {
+            if (command === "active") {
                 $("#upload-btn").removeClass("disabled");
                 $("#upload-btn").removeClass("btn-secondary");
                 $("#upload-btn").addClass("btn-primary");
@@ -237,38 +237,51 @@
             $('#categories').select2({
                 placeholder: "دسته بندی پست را انتخاب کنید"
             });
-            new Tagify(document.getElementById('people'),
+            var peopleInput = new Tagify(document.getElementById('people'),
                 {
                     enforceWhitelist: true,
-                    whitelist: [
-                        @{
-                            foreach (var item in ViewBag.People)
-                            {
-                                <text>
-                                    "@item",
-                                </text>
-                            }
-                        }
-                    ],
+                    whitelist: [],
                     originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
                 });
-            new Tagify(document.getElementById('tags'),
+            peopleInput.on('input', onPeopleInput);
+
+            function onPeopleInput(e) {
+                var value = e.detail.value;
+                peopleInput.settings.whitelist.length = 0;
+                peopleInput.loading(true).dropdown.hide.call(peopleInput);
+                var newWhitelist = [];
+                $.get("/Management/Posts/GetPeopleSuggestion?searchStr=" + value,
+                    {
+                    },
+                    function(data) {
+                        newWhitelist = data;
+                        peopleInput.settings.whitelist.push(...newWhitelist, ...peopleInput.value);
+                        peopleInput.loading(false).dropdown.show.call(peopleInput, value);
+                    });
+            };
+            var tagInput = new Tagify(document.getElementById('tags'),
                 {
-                    whitelist: [
-                        @{
-                            foreach (var item in ViewBag.Tags)
-                            {
-                                <text>
-                                    "@item",
-                                </text>
-                            }
-                        }
-                    ],
+                    whitelist: [],
                     originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
                 });
+            tagInput.on('input', onTagInput);
+
+            function onTagInput(e) {
+                var value = e.detail.value;
+                tagInput.settings.whitelist.length = 0;
+                tagInput.loading(true).dropdown.hide.call(tagInput);
+                var newWhitelist = [];
+                $.get("/Management/Posts/GetTagSuggestion?searchStr=" + value,
+                    {
+                    },
+                    function(data) {
+                        newWhitelist = data;
+                        tagInput.settings.whitelist.push(...newWhitelist, ...tagInput.value);
+                        tagInput.loading(false).dropdown.show.call(tagInput, value);
+                    });
+            };
 
             var image = new KTImageInput('post-image');
-
             image.on('cancel',
                 function(imageInput) {
                     $("#ImageValidation").val(false);
@@ -355,14 +368,14 @@
     </script>
     <script>
 
-        var createWizard = function() {
+        var createWizard = function () {
 
             var _wizardEl;
             var _formEl;
             var _wizard;
             var _validations = [];
 
-            var initWizard = function() {
+            var initWizard = function () {
 
                 _wizard = new KTWizard(_wizardEl,
                     {
@@ -371,24 +384,30 @@
                     });
 
                 _wizard.on('beforeNext',
-                    function(wizard) {
+                    function (wizard) {
 
                         _wizard.stop();
 
                         var validator = _validations[wizard.getStep() - 1];
-                        validator.validate().then(function(status) {
+                        validator.validate().then(function (status) {
                             if (status === 'Valid') {
                                 var post = createPostObj();
                                 $.ajax({
                                     type: 'POST',
                                     url: "/Management/Posts/SavePost",
                                     data: post,
-                                    success: function(res) {
+                                    beforeSend: function() {
+                                        $("#loading").show();
+                                    },
+                                    complete: function() {
+                                        $("#loading").hide();
+                                    },
+                                    success: function (res) {
                                         $("#Id").val(res.data);
                                         _wizard.goNext();
                                         KTUtil.scrollTop();
                                     },
-                                    error: function(data) {
+                                    error: function (data) {
                                         toastr.error("ارسال جزییات با خطا مواجه شد", "خطا");
                                     }
                                 });
@@ -400,12 +419,12 @@
                     });
 
                 _wizard.on('change',
-                    function(wizard) {
+                    function (wizard) {
                         KTUtil.scrollTop();
                     });
             }
 
-            var initValidation = function() {
+            var initValidation = function () {
 
                 _validations.push(FormValidation.formValidation(
                     _formEl,
@@ -434,7 +453,7 @@
                 ));
             }
             return {
-                init: function() {
+                init: function () {
                     _wizardEl = KTUtil.getById('kt_projects_add');
                     _formEl = KTUtil.getById('form');
 
@@ -444,10 +463,10 @@
             };
         }();
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             createWizard.init();
         });
-        $("#form").submit(function(e) {
+        $("#form").submit(function (e) {
             e.preventDefault();
             if ($("#VideoValidation").val() == "false" || $("#VideoValidation").val() === "") {
                 toastr.error("لطفا ویدیو را آپلود کنید", "خطا");
@@ -464,10 +483,10 @@
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function(data) {
+                    success: function (data) {
                         location.href = "/Management/Posts";
                     },
-                    error: function(data) {
+                    error: function (data) {
                         toastr.error("ذخیره پست با خطا مواجه شد", "خطا");
                     }
                 });
@@ -482,7 +501,7 @@
             var People = $("#people").val();
             var Tags = $("#tags").val();
             var EditMode = $("#EditMode").val();
-            var SelectedCategories = $("#categories").val().map(function(item) {
+            var SelectedCategories = $("#categories").val().map(function (item) {
                 return parseInt(item);
             });
 
