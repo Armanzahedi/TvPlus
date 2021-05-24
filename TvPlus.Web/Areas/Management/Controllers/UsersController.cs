@@ -40,7 +40,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             _userManager = userManager;
             _context = context;
         }
-        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
+        //[Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public IActionResult Index(bool root = false)
         {
             ViewBag.Root = root;
@@ -106,7 +106,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
 
             return View(form);
         }
-        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
+        //[Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -240,7 +240,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
             }
             return IdentityResult.Failed();
         }
-        [Microsoft.AspNetCore.Authorization.Authorize("Permission")]
+        //[Microsoft.AspNetCore.Authorization.Authorize("Permission")]
         public async Task<IActionResult> EditRoles(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvPlus.Utility", "TvPlus.Ut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvPlus.Infrastructure", "TvPlus.Infrastructure\TvPlus.Infrastructure.csproj", "{340D6E9F-094C-4C06-A6B6-65A4F21EEE59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvPlus.Tests", "TvPlus.Tests\TvPlus.Tests.csproj", "{4C31A6C7-2457-41D2-9761-85E41E64DB53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{340D6E9F-094C-4C06-A6B6-65A4F21EEE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340D6E9F-094C-4C06-A6B6-65A4F21EEE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340D6E9F-094C-4C06-A6B6-65A4F21EEE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C31A6C7-2457-41D2-9761-85E41E64DB53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C31A6C7-2457-41D2-9761-85E41E64DB53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C31A6C7-2457-41D2-9761-85E41E64DB53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C31A6C7-2457-41D2-9761-85E41E64DB53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@ namespace TvPlus.Utility
 {
     public static class StaticVariables
     {
-        public const string SUPER_USER_ROLE_ID = "SADADSAD";
+        public const string SUPER_USER_ROLE_ID = "29bd76db-5835-406d-ad1d-7a0901448abd";
 
         public const string SUPER_USER_ID = "75625814-138e-4831-a1ea-bf58e211acmf";
 

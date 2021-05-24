@@ -44,8 +44,8 @@ namespace TvPlus.DataAccess
             );
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Id = StaticVariables.ADMIN_ROLE_ID, Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole { Id = StaticVariables.USER_ROLE_ID, Name = "User", NormalizedName = "USER" },
-                new IdentityRole { Id = StaticVariables.SUPER_USER_ROLE_ID, Name = "Superuser", NormalizedName = "SUPERUSER" }
+                new IdentityRole { Id = StaticVariables.USER_ROLE_ID, Name = "User", NormalizedName = "USER" }
+                //new IdentityRole { Id = StaticVariables.SUPER_USER_ROLE_ID, Name = "Superuser", NormalizedName = "SUPERUSER" }
             );
             //modelBuilder.Entity<NavigationMenu>().HasData(
             //new NavigationMenu()
