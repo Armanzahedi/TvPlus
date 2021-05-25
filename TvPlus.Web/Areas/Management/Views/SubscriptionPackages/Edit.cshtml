@@ -1,0 +1,65 @@
+﻿@using TvPlus.Utility.Enums
+@model TvPlus.Core.Models.SubscriptionPackage
+
+<input type="hidden" id="title" value="افزودن پکیج" />
+
+<form asp-action="Save" method="post" id="form" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="InsertDate" />
+    <input type="hidden" asp-for="InsertDate" />
+    <div class="form-group">
+        <label asp-for="Duration" class="control-label col-md-3"></label>
+        <div class="col-md-9">
+            <input asp-for="Duration" class="form-control" />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label col-md-3"></label>
+        <div class="col-md-9">
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="DiscountType" class="control-label col-md-3"></label>
+        <div class="col-md-9">
+            <select class="form-control" asp-for="DiscountType">
+
+                <option value="0" selected="@(Model.DiscountType == DiscountType.None)">بدون تخفیف</option>
+                <option value="1" selected="@(Model.DiscountType == DiscountType.Percentage)">درصد</option>
+                <option value="2" selected="@(Model.DiscountType == DiscountType.Amount)">میزان</option>
+            </select>
+        </div>
+        <span asp-validation-for="DiscountType" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Discount" class="control-label col-md-3"></label>
+        <div class="col-md-9">
+            <input asp-for="Discount" class="form-control" />
+            <span asp-validation-for="Discount" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div style="float:left">
+            <input type="submit" value="ثبت" class="btn btn-primary mr-2" />
+        </div>
+    </div>
+</form>
+<script>
+    $.validator.unobtrusive.parse("#form");
+    if ($("#DiscountType").val() === "0") {
+        $("#discount-container").hide();
+    } else {
+        $("#discount-container").show();
+    }
+    $("#DiscountType").change(function () {
+        var discountType = $(this).val();
+        if (discountType === "0") {
+            $("#discount-container").hide();
+        } else {
+            $("#discount-container").show();
+        }
+    });
+</script>

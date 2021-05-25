@@ -14,40 +14,40 @@ namespace TvPlus.DataAccess
         public static void Seed(this ModelBuilder modelBuilder)
         {
 
-            var admin = new User()
-            {
-                Id = StaticVariables.ADMIN_ID,
-                Avatar = "user-avatar.png",
-                FirstName = "Admin",
-                LastName = "Admin",
-                UserName = "Admin",
-                NormalizedUserName = "ADMIN",
-                Email = "Admin@Admin.com",
-                NormalizedEmail = "ADMIN@ADMIN.COM"
-            };
-            var superuser = new User()
-            {
-                Id = StaticVariables.SUPER_USER_ID,
-                Avatar = "user-avatar.png",
-                FirstName = "Superuser",
-                LastName = "Superuser",
-                UserName = "Superuser",
-                NormalizedUserName = "SUPERUSER",
-                Email = "Superuser@Superuser.com",
-                NormalizedEmail = "SUPERUSER@SUPERUSER.COM"
-            };
-            superuser.PasswordHash = GetHashedPassword(superuser, "Superuser");
+            //var admin = new User()
+            //{
+            //    Id = StaticVariables.ADMIN_ID,
+            //    Avatar = "user-avatar.png",
+            //    FirstName = "Admin",
+            //    LastName = "Admin",
+            //    UserName = "Admin",
+            //    NormalizedUserName = "ADMIN",
+            //    Email = "Admin@Admin.com",
+            //    NormalizedEmail = "ADMIN@ADMIN.COM"
+            //};
+            //var superuser = new User()
+            //{
+            //    Id = StaticVariables.SUPER_USER_ID,
+            //    Avatar = "user-avatar.png",
+            //    FirstName = "Superuser",
+            //    LastName = "Superuser",
+            //    UserName = "Superuser",
+            //    NormalizedUserName = "SUPERUSER",
+            //    Email = "Superuser@Superuser.com",
+            //    NormalizedEmail = "SUPERUSER@SUPERUSER.COM"
+            //};
+            //superuser.PasswordHash = GetHashedPassword(superuser, "Superuser");
 
-            modelBuilder.Entity<User>().HasData(
-                admin,
-                superuser
-            );
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole { Id = StaticVariables.ADMIN_ROLE_ID, Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole { Id = StaticVariables.USER_ROLE_ID, Name = "User", NormalizedName = "USER" }
-                //new IdentityRole { Id = StaticVariables.SUPER_USER_ROLE_ID, Name = "Superuser", NormalizedName = "SUPERUSER" }
-            );
-            //modelBuilder.Entity<NavigationMenu>().HasData(
+            //modelBuilder.Entity<User>().HasData(
+            //    admin,
+            //    superuser
+            //);
+            //modelBuilder.Entity<IdentityRole>().HasData(
+            //    new IdentityRole { Id = StaticVariables.ADMIN_ROLE_ID, Name = "Admin", NormalizedName = "ADMIN" },
+            //    new IdentityRole { Id = StaticVariables.USER_ROLE_ID, Name = "User", NormalizedName = "USER" }
+            //    //new IdentityRole { Id = StaticVariables.SUPER_USER_ROLE_ID, Name = "Superuser", NormalizedName = "SUPERUSER" }
+            //);
+            ////modelBuilder.Entity<NavigationMenu>().HasData(
             //new NavigationMenu()
             //{
             //    Id = new Guid("F704BDFD-D3EA-4A6F-9463-DA47ED3657AB"),

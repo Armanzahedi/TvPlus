@@ -23,7 +23,7 @@ namespace TvPlus.DataAccess.Repositories
 
         public ContactUsInfo GetFirst()
         {
-            return _context.ContactUsInfoes.FirstOrDefault();
+            return _context.ContactUsInfos.FirstOrDefault();
         }
     }
 }

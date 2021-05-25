@@ -10,8 +10,8 @@ using TvPlus.DataAccess;
 namespace TvPlus.DataAccess.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20210413103252_UpdatedVideoTable")]
-    partial class UpdatedVideoTable
+    [Migration("20210524131133_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,23 +51,16 @@ namespace TvPlus.DataAccess.Migrations
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901447c18",
-                            ConcurrencyStamp = "63a4300e-9900-4595-845c-b106dbc2856f",
+                            ConcurrencyStamp = "84533590-ebec-4492-a24d-7af56c064c51",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "d7be43da-622c-4cfe-98a9-5a5161120d24",
-                            ConcurrencyStamp = "eda2b9d0-81c3-4306-8977-b4bd5d58461b",
+                            ConcurrencyStamp = "ff4af91a-f86e-4dda-8d44-8a9b2af3e460",
                             Name = "User",
                             NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "29bd76db-5835-406d-ad1d-7a0901448abd",
-                            ConcurrencyStamp = "06a7a862-7b5f-4391-be2d-1c9089037c40",
-                            Name = "Superuser",
-                            NormalizedName = "SUPERUSER"
                         });
                 });
 
@@ -175,6 +168,115 @@ namespace TvPlus.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("TvPlus.Core.Models.AboutUs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AboutUs");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.AboutUsSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AboutUsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AboutUsId");
+
+                    b.ToTable("AboutUsSections");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Show")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("TvPlus.Core.Models.Center", b =>
                 {
                     b.Property<int>("Id")
@@ -200,6 +302,12 @@ namespace TvPlus.DataAccess.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsTopTen")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTrendTv")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ShortTitle")
                         .HasColumnType("nvarchar(max)");
 
@@ -222,6 +330,43 @@ namespace TvPlus.DataAccess.Migrations
                     b.ToTable("Centers");
                 });
 
+            modelBuilder.Entity("TvPlus.Core.Models.CenterCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CenterId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CenterId");
+
+                    b.ToTable("CenterCategories");
+                });
+
             modelBuilder.Entity("TvPlus.Core.Models.CenterType", b =>
                 {
                     b.Property<int>("Id")
@@ -241,6 +386,61 @@ namespace TvPlus.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CenterTypes");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CenterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DislikeCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LikeCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Show")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ZAgent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CenterId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.ContactUs", b =>
@@ -338,6 +538,112 @@ namespace TvPlus.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactUs");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.ContactUsInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Tel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Twitter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Youtube")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactUsInfo");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiscountType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsageCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsageLimit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ValidFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ValidTo")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Image", b =>
@@ -484,6 +790,255 @@ namespace TvPlus.DataAccess.Migrations
                     b.ToTable("AspNetNavigationMenu");
                 });
 
+            modelBuilder.Entity("TvPlus.Core.Models.PComments", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Agent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte>("CreatedAdminId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("DislikeNum")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LikeNum")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Parent")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
+
+                    b.Property<byte>("UpdatedAdminId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZComments");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.PTags", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZTags");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.PVideo_Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZVideo_Category");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.PVideo_Convert", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BitRate")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ErrorStep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Errors")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZVideo_Convert");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.PVideo_Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZVideo_Tag");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.PVideos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CategorySlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CommentLimit")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CommentRead")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CommentUnRead")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Converted")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedAdminId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FlagNum")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Length")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LikeNum")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PollId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Published")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SeoTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ShowInVarzesh3")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SocialSelected")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SocialShowInMain")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SocialUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedAdminId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UserSenderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Videolink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Videolinkconverted")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ViewNum")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZVideos");
+                });
+
             modelBuilder.Entity("TvPlus.Core.Models.RelationRule", b =>
                 {
                     b.Property<int>("Id")
@@ -581,6 +1136,84 @@ namespace TvPlus.DataAccess.Migrations
                     b.HasIndex("NavigationMenuId");
 
                     b.ToTable("AspNetRoleMenuPermission");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Slider", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Sliders");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.SubscriptionPackage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("Discount")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("DiscountType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubscriptionPackages");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.SystemParameter", b =>
@@ -687,6 +1320,9 @@ namespace TvPlus.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("ZuserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -705,7 +1341,7 @@ namespace TvPlus.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211adff",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "d479e82b-6d66-4612-9aeb-3e5b2179cbd6",
+                            ConcurrencyStamp = "738c7bca-51c9-409e-9cf1-de7c8e67eee3",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -714,16 +1350,17 @@ namespace TvPlus.DataAccess.Migrations
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c7109370-e4be-4547-819f-fd5d7bbc5664",
+                            SecurityStamp = "41b5ebca-9df2-4a46-a0f9-544c4c8d579d",
                             TwoFactorEnabled = false,
-                            UserName = "Admin"
+                            UserName = "Admin",
+                            ZuserId = 0
                         },
                         new
                         {
                             Id = "75625814-138e-4831-a1ea-bf58e211acmf",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "45f07337-0d27-4cef-99ba-18c746e1f7ab",
+                            ConcurrencyStamp = "19c1533d-c725-441e-bd3d-baf90a98a568",
                             Email = "Superuser@Superuser.com",
                             EmailConfirmed = false,
                             FirstName = "Superuser",
@@ -731,12 +1368,59 @@ namespace TvPlus.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERUSER@SUPERUSER.COM",
                             NormalizedUserName = "SUPERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAECtHkLwDaG3XpdtezS8DzYcq79qXF1GxSL60gKzFBt1Rq3JhsoJx4+bluR+t5/Vjzg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN/hnGolWCw0FEi3zm+uXxEShslkfznkvxFNz5O7PttuGjiwteMu8fjjAOYkc27yIA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3e98e5d0-2499-489f-a1da-3b48c6e50cb7",
+                            SecurityStamp = "a86fc3e2-d3ad-4c88-8291-bf6f361d2916",
                             TwoFactorEnabled = false,
-                            UserName = "Superuser"
+                            UserName = "Superuser",
+                            ZuserId = 0
                         });
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.UserSubscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubscriptionPackageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionPackageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSubscriptions");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Video", b =>
@@ -784,6 +1468,12 @@ namespace TvPlus.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
@@ -806,6 +1496,12 @@ namespace TvPlus.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VideoQuality")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZErrors")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ZStatus")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -841,11 +1537,44 @@ namespace TvPlus.DataAccess.Migrations
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsSpecialOffer")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LikeCount")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("ZCategorySlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ZCommentLimit")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZCommentRead")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZCommentUnRead")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZLength")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZSeoTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ZShowInVarzesh3")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZSocialShowInMain")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.ToTable("Centers_Posts");
                 });
@@ -866,6 +1595,9 @@ namespace TvPlus.DataAccess.Migrations
             modelBuilder.Entity("TvPlus.Core.Models.Tag", b =>
                 {
                     b.HasBaseType("TvPlus.Core.Models.Center");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
 
                     b.ToTable("Centers_Tags");
                 });
@@ -921,11 +1653,77 @@ namespace TvPlus.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TvPlus.Core.Models.AboutUsSection", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.AboutUs", "AboutUs")
+                        .WithMany("AboutUsSections")
+                        .HasForeignKey("AboutUsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AboutUs");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Category", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.Category", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
+                });
+
             modelBuilder.Entity("TvPlus.Core.Models.Center", b =>
                 {
                     b.HasOne("TvPlus.Core.Models.CenterType", null)
                         .WithMany("Centers")
                         .HasForeignKey("CenterTypeId1");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.CenterCategory", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.Category", "Category")
+                        .WithMany("CenterCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TvPlus.Core.Models.Center", "Center")
+                        .WithMany("CenterCategories")
+                        .HasForeignKey("CenterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Center");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Comment", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.Center", "Center")
+                        .WithMany()
+                        .HasForeignKey("CenterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TvPlus.Core.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Center");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Discount", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Image", b =>
@@ -1017,6 +1815,32 @@ namespace TvPlus.DataAccess.Migrations
                     b.Navigation("NavigationMenu");
                 });
 
+            modelBuilder.Entity("TvPlus.Core.Models.Slider", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.UserSubscription", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.SubscriptionPackage", "SubscriptionPackage")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionPackageId");
+
+                    b.HasOne("TvPlus.Core.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("SubscriptionPackage");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TvPlus.Core.Models.Video", b =>
                 {
                     b.HasOne("TvPlus.Core.Models.Center", "Center")
@@ -1075,8 +1899,20 @@ namespace TvPlus.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TvPlus.Core.Models.AboutUs", b =>
+                {
+                    b.Navigation("AboutUsSections");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Category", b =>
+                {
+                    b.Navigation("CenterCategories");
+                });
+
             modelBuilder.Entity("TvPlus.Core.Models.Center", b =>
                 {
+                    b.Navigation("CenterCategories");
+
                     b.Navigation("Members1");
 
                     b.Navigation("Members2");
@@ -1103,6 +1939,11 @@ namespace TvPlus.DataAccess.Migrations
                     b.Navigation("Members");
 
                     b.Navigation("RelationRules");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.User", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Video", b =>

@@ -44,22 +44,6 @@ namespace TvPlus.DataAccess.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "29bd76db-5835-406d-ad1d-7a0901447c18",
-                            ConcurrencyStamp = "ca4c3b03-ffb2-4c31-a76a-680302401949",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "d7be43da-622c-4cfe-98a9-5a5161120d24",
-                            ConcurrencyStamp = "4d24decc-8499-4e40-b0af-70cc3d1bd30b",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -586,6 +570,62 @@ namespace TvPlus.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactUsInfo");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiscountType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsageCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsageLimit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ValidFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ValidTo")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Image", b =>
@@ -1276,47 +1316,52 @@ namespace TvPlus.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "75625814-138e-4831-a1ea-bf58e211adff",
-                            AccessFailedCount = 0,
-                            Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "47433b6c-b4a9-45e1-83d6-a02598a3d71a",
-                            Email = "Admin@Admin.com",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "9321a915-cea7-48ba-8a32-58f6be128cdf",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin",
-                            ZuserId = 0
-                        },
-                        new
-                        {
-                            Id = "75625814-138e-4831-a1ea-bf58e211acmf",
-                            AccessFailedCount = 0,
-                            Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "c18a9a73-ae53-487c-9dcd-1794533e0bae",
-                            Email = "Superuser@Superuser.com",
-                            EmailConfirmed = false,
-                            FirstName = "Superuser",
-                            LastName = "Superuser",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SUPERUSER@SUPERUSER.COM",
-                            NormalizedUserName = "SUPERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOxbLq+X3eZ62/NazjP2aNimuAvhL5LNrYNU0XyX/OWpssZ69dZ1H/edlmK8rjj0Dg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "98049d6d-4ad4-4821-b2dd-d6baac7bf170",
-                            TwoFactorEnabled = false,
-                            UserName = "Superuser",
-                            ZuserId = 0
-                        });
+            modelBuilder.Entity("TvPlus.Core.Models.UserSubscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubscriptionPackageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionPackageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSubscriptions");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Video", b =>
@@ -1613,6 +1658,15 @@ namespace TvPlus.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TvPlus.Core.Models.Discount", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TvPlus.Core.Models.Image", b =>
                 {
                     b.HasOne("TvPlus.Core.Models.Center", "Center")
@@ -1711,6 +1765,21 @@ namespace TvPlus.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("TvPlus.Core.Models.UserSubscription", b =>
+                {
+                    b.HasOne("TvPlus.Core.Models.SubscriptionPackage", "SubscriptionPackage")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionPackageId");
+
+                    b.HasOne("TvPlus.Core.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("SubscriptionPackage");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TvPlus.Core.Models.Video", b =>

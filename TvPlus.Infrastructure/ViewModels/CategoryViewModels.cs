@@ -19,11 +19,6 @@ namespace TvPlus.Infrastructure.ViewModels
         public int Id { get; set; }
         [Display(Name = "عنوان")]
         public string Title { get; set; }
-        //[Display(Name = "نام خانوادگی")]
-        //public string LastName { get; set; }
-        //[Display(Name = "توضیحات")]
-        //public string Description { get; set; }
-        //public string ImageName { get; set; }
         [Display(Name = "دسته بندی")]
         public int? ParentId { get; set; }
         [Display(Name = "نمایش در منو سایت")]

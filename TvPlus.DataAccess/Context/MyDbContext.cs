@@ -35,9 +35,11 @@ namespace TvPlus.DataAccess
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<AboutUs> AboutUs { get; set; }
         public DbSet<AboutUsSection> AboutUsSections { get; set; }
-        public DbSet<ContactUsInfo> ContactUsInfoes { get; set; }
+        public DbSet<ContactUsInfo> ContactUsInfos { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<SubscriptionPackage> SubscriptionPackages { get; set; }
+        public DbSet<UserSubscription> UserSubscriptions { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
 
 
         public DbSet<PComments> ZComments { get; set; }

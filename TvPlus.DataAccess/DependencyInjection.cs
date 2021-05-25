@@ -33,6 +33,7 @@ namespace TvPlus.DataAccess
             services.AddScoped<IAboutUsSectionsRepository, AboutUsSectionsRepository>();
             services.AddScoped<IContactUsInfoRepository, ContactUsInfoRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ISubscriptionPackageRepository, SubscriptionPackageRepository>();
 
 
             #endregion
