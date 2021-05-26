@@ -508,3 +508,6 @@ dl dt,
 dl dd {
   color: white;
 }
+div#datatable_info {
+    color: white;
+}

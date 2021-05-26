@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using TvPlus.Core.Models;
 using TvPlus.Infrastructure.Services;
 using TvPlus.Infrastructure.ViewModels;
+using TvPlus.Web.Areas.Management.ViewModels;
 
 namespace TvPlus.Web.Areas.Management.Controllers
 {
@@ -21,7 +22,7 @@ namespace TvPlus.Web.Areas.Management.Controllers
         {
             _subscriptionPackageService = subscriptionPackageService;
         }
-
+        [Authorize("Permission")]
         public IActionResult Index(bool root = false)
         {
             ViewBag.Root = root;
@@ -31,18 +32,18 @@ namespace TvPlus.Web.Areas.Management.Controllers
         [AllowAnonymous]
         public string LoadGrid()
         {
-            var model = _subscriptionPackageService.GetDefaultQuery().AsQueryable();
+            var model = _subscriptionPackageService.GetDefaultQuery().Select(m=>new SubscriptionPackageGrid(m)).AsQueryable();
 
-            var parser = new Parser<SubscriptionPackage>(Request.Form, model);
+            var parser = new Parser<SubscriptionPackageGrid>(Request.Form, model);
             return JsonConvert.SerializeObject(parser.Parse());
         }
-        //[Authorize("Permission")]
+        [Authorize("Permission")]
         public IActionResult Create()
         {
             return PartialView();
         }
 
-        //[Authorize("Permission")]
+        [Authorize("Permission")]
         public IActionResult Edit(int id)
         {
             return PartialView(_subscriptionPackageService.GetById(id));
@@ -59,6 +60,19 @@ namespace TvPlus.Web.Areas.Management.Controllers
             var savedCategory = _subscriptionPackageService.AddOrUpdate(model);
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize("Permission")]
+        public ActionResult Delete(int id)
+        {
+            return PartialView(_subscriptionPackageService.GetById(id));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            _subscriptionPackageService.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

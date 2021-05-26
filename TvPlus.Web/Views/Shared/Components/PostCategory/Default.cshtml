@@ -1,4 +1,5 @@
-﻿@model TvPlus.Infrastructure.ViewModels.PostCategoryViewModel
+﻿@using TvPlus.Web.Helpers
+@model TvPlus.Infrastructure.ViewModels.PostCategoryViewModel
 <div class="content__head">
     <div class="container">
         <div class="row">
@@ -95,7 +96,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="card__cover">
                                         <img src="~/UploadedFiles/Images/@item.Image" alt="" />
-                                        <a href="/Post/@item.Id" class="card__play">
+                                        <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()" class="card__play">
                                             <i class="icon ion-ios-play"></i>
                                         </a>
                                     </div>
@@ -103,12 +104,12 @@
                                 <div class="col-12 col-sm-8">
                                     <div class="card__content">
                                         <h3 class="card__title">
-                                            <a href="/Post/@item.Id">
+                                            <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">
                                                 @item.ShortTitle
                                             </a>
                                         </h3>
                                         <span class="card__category">
-                                            <a href="/Post/@item.Id">@item.PublishDate</a>
+                                            <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">@item.PublishDate</a>
                                         </span>
 
                                         <div class="card__wrap">
@@ -145,13 +146,13 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="~/UploadedFiles/Images/@item.Image" alt="" />
-                                <a href="/Post/@item.Id" class="card__play">
+                                <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()" class="card__play">
                                     <i class="icon ion-ios-play"></i>
                                 </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title">
-                                    <a href="/Post/@item.Id">
+                                    <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">
                                         @item.ShortTitle
                                     </a>
                                 </h3>
@@ -177,19 +178,19 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="~/UploadedFiles/Images/@item.Image" alt="" />
-                                <a href="/Post/@item.Id" class="card__play">
+                                <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()" class="card__play">
                                     <i class="icon ion-ios-play"></i>
                                 </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title">
-                                    <a href="/Post/@item.Id">
+                                    <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">
                                         @item.ShortTitle
                                     </a>
                                 </h3>
                                 <span class="card__category">
                                     @*<a href="#">نیما اسلامی</a>*@
-                                    <a href="/Post/@item.Id">@item.PublishDate</a>
+                                    <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">@item.PublishDate</a>
                                 </span>
                                 <span class="card__rate">
                                     <i class="icon ion-ios-eye"></i>@item.ViewCount بازدید
@@ -209,19 +210,19 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="~/UploadedFiles/Images/@item.Image" alt="" />
-                                <a href="/Post/@item.Id" class="card__play">
+                                <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()" class="card__play">
                                     <i class="icon ion-ios-play"></i>
                                 </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title">
-                                    <a href="/Post/@item.Id">
+                                    <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">
                                         @item.ShortTitle
                                     </a>
                                 </h3>
                                 <span class="card__category">
                                     @*<a href="#">نیما اسلامی</a>*@
-                                    <a href="/Post/@item.Id">@item.PublishDate</a>
+                                    <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">@item.PublishDate</a>
                                 </span>
                                 <span class="card__rate">
                                     <i class="icon ion-ios-eye"></i>@item.ViewCount بازدید

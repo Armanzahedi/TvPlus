@@ -22,7 +22,7 @@ namespace TvPlus.Web.Controllers
             _commentService = commentService;
         }
 
-        [Route("Post/{id}")]
+        [Route("Post/{id}/{string}")]
         public IActionResult Details(int id)
         {
             var post = _postService.GetPostDetail(id);
@@ -30,7 +30,7 @@ namespace TvPlus.Web.Controllers
             return View(post);
         }
 
-        [Route("PostCategory/{id}")]
+        [Route("PostCategory/{id}/{string}")]
         public IActionResult PostCategory(int id)
         {
             var model = new PostsByCategoryViewModel();

@@ -1,4 +1,5 @@
-﻿@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
+﻿@using TvPlus.Utility
+@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
 @{
     ViewData["Title"] = "نقش ها";
 }
@@ -44,7 +45,7 @@
             var table = $('#datatable').DataTable({
                 ajax: {
                     url: '/Management/Roles/LoadGrid',
-                    type: "POST",
+                    type: "POST"
                 },
                 stateSave: true,
                 order: [0,"desc"], // descending order with first column witch is hidden id
@@ -66,28 +67,39 @@
                             @{
                                 if (await PermissionHelper.UserHasPermission("Roles", "Edit"))
                                 {
-                                    <text>var element = `\
+                                    <text>
+                                        if(row.Id !== "@StaticVariables.ADMIN_ROLE_ID" && row.Id !== "@StaticVariables.SUPER_USER_ROLE_ID"){
+                                            var element = `\
                                         <a class='btn btn-sm btn-clean btn-icon mr-2' onclick="openModal('/Management/Roles/Edit/${row.Id}')">\
                                         <i class='far fa-edit text-primary'></i>\
                                         </a>\
                                         `;
-                                    content += element;
+                                            content += element;
+                                        }
                                     </text>
                                 }
                                 if (await PermissionHelper.UserHasPermission("Roles", "Delete"))
                                 {
-                                    <text>var element = `\
+                                    <text>
+                                        if(row.Id !== "@StaticVariables.ADMIN_ROLE_ID" && row.Id !== "@StaticVariables.SUPER_USER_ROLE_ID"){
+                                            var element = `\
                                         <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Roles/Delete/${row.Id}')">\
                                         <i class='far fa-trash-alt text-danger'></i>\
                                         </a>\
                                         `;
-                                    content += element;
+                                            content += element;
+                                        }
                                     </text>
                                 }
                                 if (await PermissionHelper.UserHasPermission("Roles", "EditRolePermission"))
                                 {
-                                    <text>var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Roles/EditRolePermission/${row.Id}'>دسترسی</a>`;
-                                    content += element;
+                                    <text>
+                                        if(row.Id !== "@StaticVariables.SUPER_USER_ROLE_ID"){
+                                            var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Roles/EditRolePermission/${row.Id}'>دسترسی</a>`;
+                                            content += element;
+                                }
+                                        //var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Roles/EditRolePermission/${row.Id}'>دسترسی</a>`;
+                                        //content += element;
                                     </text>
                                 }
                              }

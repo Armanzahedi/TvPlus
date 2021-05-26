@@ -1,5 +1,6 @@
 ﻿@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
 @using TvPlus.Utility;
+@using TvPlus.Web.Helpers
 
 <div class="container container-style">
     <div class="container">
@@ -25,18 +26,18 @@
                         <div class="card card--big" style="margin-bottom: 5px">
                             <div class="card__cover">
                                 <img src="~/UploadedFiles/Images/@Model[i].Image" alt=""/>
-                                <a href="/Post/@Model[i].Id" class="card__play">
+                                <a href="/Post/@Model[i].Id/@Model[i].ShortTitle.SeoFriendlyString()" class="card__play">
                                     <i class="icon ion-ios-play"></i>
                                 </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title">
-                                    <a href="/Post/@Model[i].Id">
+                                    <a href="/Post/@Model[i].Id/@Model[i].ShortTitle.SeoFriendlyString()">
                                         @Model[i].ShortTitle
                                     </a>
                                 </h3>
                                 <span class="card__category">
-                                    <a href="/Post/@Model[i].Id">@Model[i].PublishDate</a>
+                                    <a href="/Post/@Model[i].Id/@Model[i].ShortTitle.SeoFriendlyString()">@Model[i].PublishDate</a>
                                 </span>
                                 <span class="card__rate">
                                     <i class="icon ion-ios-eye"></i>@Model[i].ViewCount بازدید
@@ -48,18 +49,18 @@
                             <div class="card card--big" style="margin-bottom: 5px">
                                 <div class="card__cover">
                                     <img src="~/UploadedFiles/Images/@Model[i+1].Image" alt=""/>
-                                    <a href="/Post/@Model[i+1].Id" class="card__play">
+                                    <a href="/Post/@Model[i+1].Id/@Model[i].ShortTitle.SeoFriendlyString()" class="card__play">
                                         <i class="icon ion-ios-play"></i>
                                     </a>
                                 </div>
                                 <div class="card__content">
                                     <h3 class="card__title">
-                                        <a href="/Post/@Model[i+1].Id">
+                                        <a href="/Post/@Model[i+1].Id/@Model[i].ShortTitle.SeoFriendlyString()">
                                             @Model[i+1].ShortTitle
                                         </a>
                                     </h3>
                                     <span class="card__category">
-                                        <a href="/Post/@Model[i+1].Id">@Model[i+1].PublishDate</a>
+                                        <a href="/Post/@Model[i+1].Id/@Model[i].ShortTitle.SeoFriendlyString()">@Model[i+1].PublishDate</a>
                                     </span>
                                     <span class="card__rate">
                                         <i class="icon ion-ios-eye"></i>@Model[i+1].ViewCount بازدید

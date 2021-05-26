@@ -1,4 +1,5 @@
 ﻿@using TvPlus.Utility
+@using TvPlus.Web.Helpers
 @model List<TvPlus.Infrastructure.ViewModels.SimilarPostViewModel>
 @if (Model.Any())
 {
@@ -24,13 +25,13 @@
                                 <div class="card card--big">
                                     <div class="card__cover">
                                         <img src="/UploadedFiles/Images/@item.ImageName" alt="@item.ShortTitle" />
-                                        <a href="/Post/@item.Id" class="card__play">
+                                        <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()" class="card__play">
                                             <i class="icon ion-ios-play"></i>
                                         </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title">
-                                            <a href="/Post/@item.Id">
+                                            <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">
                                                 @item.ShortTitle
                                             </a>
                                         </h3>

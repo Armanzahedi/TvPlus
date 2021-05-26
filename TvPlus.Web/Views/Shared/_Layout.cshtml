@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@{string siteName = "ASP.NET Core SEO Template";}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,7 +9,18 @@
         <link rel="stylesheet" href="~/css/site.css" />*@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    @if (ViewData["Title"] != null && !ViewData["Title"].Equals(""))
+    {
+        <title>@ViewData["Title"] - @siteName</title>
+    }
+    else
+    {
+        <title>@siteName</title>
+    }
+    @if (ViewData["MetaDescription"] != null && !ViewData["MetaDescription"].Equals(""))
+    {
+        <meta name="description" content="@ViewData["MetaDescription"]" />
+    }
     <!-- CSS -->
     <link rel="stylesheet" href="/Client/css/bootstrap-reboot.min.css" />
     <link rel="stylesheet" href="/Client/css/bootstrap-grid.min.css" />
@@ -53,7 +65,7 @@
                 <!-- end footer list -->
                 <!-- footer list -->
                 <div class="col-6 col-sm-4 col-md-4">
-                    <h6 class="footer__title"><a href="/AboutUs" style="color:inherit">درباره ما</a></h6>
+                    <h6 class="footer__title"><a href="/about-us" style="color:inherit">درباره ما</a></h6>
                     <ul class="footer__list">
                         <li><a href="#">بیوگرافی و تاریخچه شکل گیری</a></li>
                         <li><a href="#">واحد بازرگانی</a></li>

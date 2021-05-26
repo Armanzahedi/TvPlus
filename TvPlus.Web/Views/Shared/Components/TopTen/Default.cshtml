@@ -1,4 +1,5 @@
-﻿@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
+﻿@using TvPlus.Web.Helpers
+@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
 
 <div class="container">
     <div class="row">
@@ -15,7 +16,7 @@
                  style=" background-image : url(/UploadedFiles/Images/@item.Image)">
                 <div class="container">
                     <div class="row">
-                        <a href="/Post/@item.Id">
+                        <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()">
                             <h1 class="swipertitle">
                                 @item.ShortTitle
                             </h1>

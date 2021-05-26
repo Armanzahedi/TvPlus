@@ -1,4 +1,5 @@
-﻿@model List<TvPlus.Infrastructure.Dtos.Category.CategoryViewModel>
+﻿@using TvPlus.Web.Helpers
+@model List<TvPlus.Infrastructure.Dtos.Category.CategoryViewModel>
 
 <header class="header header-5">
     <div class="header-middle ">
@@ -27,7 +28,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <li>
-                                        <a href="/PostCategory/@item.Id" class="">@item.Title</a>
+                                        <a href="/PostCategory/@item.Id/@item.Title.SeoFriendlyString()" class="">@item.Title</a>
                                         @*<ul class="drop-back">
                                                   <li><a href="blog.html">تبلیغات</a></li>
                                                   <li><a href="blog.html">تبلیغات</a></li>
@@ -37,12 +38,12 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="/ContactUs">
+                            <a href="/contact-us">
                                 تماس با ما
                             </a>
                         </li>
                         <li>
-                            <a href="/AboutUs">
+                            <a href="/about-us">
                                 درباره ما
                             </a>
                         </li>
@@ -100,7 +101,7 @@
                             @foreach (var item in Model)
                             {
                                 <li>
-                                    <a href="/PostCategory/@item.Id" class="sf-with-ul">@item.Title</a>
+                                    <a href="/PostCategory/@item.Id/@item.Title.SeoFriendlyString()" class="sf-with-ul">@item.Title</a>
 
                                     @*<ul class="drop-back">
                                             <li><a href="blog.html">سینما</a></li>
@@ -111,12 +112,12 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/Contactus">
+                        <a href="/contact-us">
                             تماس با ما
                         </a>
                     </li>
                     <li>
-                        <a href="/AboutUs">
+                        <a href="/about-us">
                             درباره ما
                         </a>
                     </li>

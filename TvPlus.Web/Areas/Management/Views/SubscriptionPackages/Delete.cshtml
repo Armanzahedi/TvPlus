@@ -1,0 +1,47 @@
+﻿@using TvPlus.Utility.Enums
+@model TvPlus.Core.Models.SubscriptionPackage
+<input type="hidden" id="title" value="حذف دسته بندی" />
+
+<h4 class="card-label">
+    آیا مطمئن هستید که می خواهید این رکورد را حذف کنید؟
+</h4>
+<dl class="row" style="padding-top: 10px">
+    <dt class="col-sm-6">
+        @Html.DisplayNameFor(model => model.Duration)
+    </dt>
+    <dt class="col-sm-6">
+        @Html.DisplayFor(model => model.Duration) ماه
+    </dt>
+    <dt class="col-sm-6">
+        @Html.DisplayNameFor(model => model.Price)
+    </dt>
+    <dt class="col-sm-6">
+        @Model.PriceAfterDiscount().Value.ToString("##,###")
+        تومان
+    </dt>
+    @if (Model.DiscountType != DiscountType.None && Model.DiscountType != null)
+    {
+        <dt class="col-sm-6">
+            تخفیف
+        </dt>
+        if (Model.DiscountType == DiscountType.Percentage)
+        {
+            <dt class="col-sm-6">
+                @Model.Discount %
+            </dt>
+        }
+        else
+        {
+            <dt class="col-sm-6">
+                - @Model.Discount
+            </dt>
+        }
+    }
+</dl>
+<div style="float:left">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="حذف" class="btn btn-danger mr-2" />
+    }
+</div>

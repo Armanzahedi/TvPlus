@@ -1,4 +1,5 @@
-﻿@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
+﻿@using TvPlus.Web.Helpers
+@model List<TvPlus.Infrastructure.ViewModels.PostViewModel>
 
 @{
     var itemIndex = 0;
@@ -27,7 +28,7 @@
                                 <div class="card card--big">
                                     <div class="card__cover">
                                         <img class="slow-carousel-up" src="~/UploadedFiles/Images/@item.Image" alt="" />
-                                        <a href="/Post/@item.Id" class="card__play">
+                                        <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()" class="card__play">
                                             <i class="icon ion-ios-play"></i>
                                         </a>
                                     </div>
@@ -56,7 +57,7 @@
                                 <div class="card card--big">
                                     <div class="card__cover">
                                         <img class="slow-carousel-bottom" src="~/UploadedFiles/Images/@item.Image" alt="" />
-                                        <a href="/Post/@item.Id" class="card__play">
+                                        <a href="/Post/@item.Id/@item.ShortTitle.SeoFriendlyString()" class="card__play">
                                             <i class="icon ion-ios-play"></i>
                                         </a>
                                     </div>

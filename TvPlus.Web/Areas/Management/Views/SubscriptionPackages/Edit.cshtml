@@ -34,7 +34,7 @@
         </div>
         <span asp-validation-for="DiscountType" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="discount-container">
         <label asp-for="Discount" class="control-label col-md-3"></label>
         <div class="col-md-9">
             <input asp-for="Discount" class="form-control" />
@@ -49,11 +49,16 @@
 </form>
 <script>
     $.validator.unobtrusive.parse("#form");
-    if ($("#DiscountType").val() === "0") {
-        $("#discount-container").hide();
-    } else {
-        $("#discount-container").show();
-    }
+    $(document).ready(function () {
+        console.log($("#DiscountType").val());
+        if ($("#DiscountType").val() === "0") {
+        console.log($("#DiscountType").val());
+            $("#discount-container").hide();
+        } else {
+            $("#discount-container").show();
+        }
+    });
+
     $("#DiscountType").change(function () {
         var discountType = $(this).val();
         if (discountType === "0") {

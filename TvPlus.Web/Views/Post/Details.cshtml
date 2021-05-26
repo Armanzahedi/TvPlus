@@ -2,6 +2,7 @@
 @model TvPlus.Infrastructure.ViewModels.PostDetailsViewModel
 @using Microsoft.AspNetCore.Identity
 @using TvPlus.Core.Models
+@using TvPlus.Web.Helpers
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -44,7 +45,7 @@
                 <ul class="tag-list">
                     @foreach (var item in Model.Categories)
                     {
-                        <li><a href="/PostCategory/@item.Id">@item.Title</a></li>
+                        <li><a href="/PostCategory/@item.Id/@item.Title.SeoFriendlyString()">@item.Title</a></li>
                     }
                 </ul>
             </div>
@@ -57,7 +58,7 @@
                     @foreach (var item in Model.People)
                     {
                         <div class="actor-img">
-                            <a href="/People/@item.Id">
+                            <a href="/People/@item.Id/@($"{item.FirstName} {item.LastName}".SeoFriendlyString())">
                                 <img class="img" src="/UploadedFiles/Images/@item.ImageName" alt="@item.FirstName @item.LastName" />
                                 <div class="actor-details">
                                     <h4 class="actor-font actor-name">@item.FirstName @item.LastName</h4>

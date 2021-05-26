@@ -1,5 +1,6 @@
 ﻿@model List<TvPlus.Core.Models.Slider>
 @using TvPlus.Utility;
+@using TvPlus.Web.Helpers
 
 <div class="swiper-container swiper-container1">
     <div class="swiper-wrapper">
@@ -18,7 +19,7 @@
                         <div class="action-area">
                             <ul>
                                 <li class="item-btn-wrap">
-                                    <a href="/Post/@item.PostId">
+                                    <a href="/Post/@item.PostId/@item.Title.SeoFriendlyString()">
                                         ادامه مطلب<i class="icon ion-ios-arrow-back"></i>
                                     </a>
                                 </li>
