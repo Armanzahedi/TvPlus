@@ -27,6 +27,12 @@ namespace TvPlus.Web.Controllers
         {
             var post = _postService.GetPostDetail(id);
             _postService.UpdatePostViewCount(id);
+
+            #region SEO
+            ViewData["Title"] = post.Title;
+            ViewData["MetaDescription"] = post.Title;
+            #endregion
+
             return View(post);
         }
 
@@ -41,6 +47,10 @@ namespace TvPlus.Web.Controllers
             model.PostList = items;
             model.BestPosts = items.OrderByDescending(p => p.ViewCount).Take(6).ToList();
 
+            #region SEO
+            ViewData["Title"] = $"دسته ${model.CategoryTitle}";
+            ViewData["MetaDescription"] = $"دسته ${model.CategoryTitle}";
+            #endregion
             return View(model);
         }
 

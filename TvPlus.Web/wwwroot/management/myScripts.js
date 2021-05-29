@@ -145,3 +145,4 @@ Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "شما نمیتوان�
 //$(document).ajaxComplete(function () {
 //    $("#loading").hide();
 //});
+

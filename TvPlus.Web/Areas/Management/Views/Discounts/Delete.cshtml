@@ -1,0 +1,34 @@
+﻿@using TvPlus.Utility.Enums
+@model TvPlus.Core.Models.Discount
+<input type="hidden" id="title" value="حذف تخفیف" />
+
+<h4 class="card-label">
+    آیا مطمئن هستید که می خواهید این رکورد را حذف کنید؟
+</h4>
+<dl class="row" style="padding-top: 10px">
+    <dt class="col-sm-6">
+        کد
+    </dt>
+    <dt class="col-sm-6">
+       @Model.Code
+    </dt>
+    <dt class="col-sm-6">
+        معتبر از تاریخ
+    </dt>
+    <dt class="col-sm-6">
+        @ViewBag.PersianFrom
+    </dt>
+    <dt class="col-sm-6">
+        معتبر تا تاریخ
+    </dt>
+    <dt class="col-sm-6">
+        @ViewBag.PersianTo
+    </dt>
+</dl>
+<div style="float:left">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="حذف" class="btn btn-danger mr-2" />
+    }
+</div>

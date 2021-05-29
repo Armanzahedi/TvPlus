@@ -1,0 +1,148 @@
+﻿@inject TvPlus.Web.Helpers.IUserPermissionHelper PermissionHelper
+@{
+    ViewData["Title"] = "کد تخفیف";
+}
+<input type="hidden" id="nav_active" value="discounts">
+
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                @ViewData["Title"]
+                <span class="d-block text-muted pt-2 font-size-sm">ویرایش @ViewData["Title"]</span>
+            </h3>
+        </div>
+        <validate-permission asp-controller="Discounts" asp-action="Create">
+            <div class="card-toolbar">
+                <a onclick="openModal('/Management/Discounts/Create')" class="btn btn-success font-weight-bolder">
+                    <partial name="SvgIcons/_NewRecordIcon" />
+                </a>
+            </div>
+        </validate-permission>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-borderless" id="datatable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>تخفیف برای</th>
+                    <th>میزان</th>
+                    <th>مدت اعتبار</th>
+                    <th>میزان استفاده</th>
+                    <th>کد</th>
+                    <th>وضعیت</th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function toPrice(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
+    <script>
+        $(function () {
+            @if (ViewBag.Root != null && ViewBag.Root != false)
+            {
+                <text>
+                    localStorage.removeItem('DataTables_datatable_' + window.location.pathname);
+                </text>
+            }
+            var table = $('#datatable').DataTable({
+                ajax: {
+                    url: '/Management/Discounts/LoadGrid',
+                    type: "POST",
+                },
+                stateSave: true,
+                order: [0,"desc"], // descending order with first column witch is hidden id
+                columnDefs: [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                columns: [
+                    { data: "Id" },
+                    { data: "DiscountFor" },
+                    {
+                        data: "Amount",
+                        render: function (data, type, row) {
+                            var content = "";
+                            if (row.DiscountType !== 0 && row.DiscountType !== null) {
+                                if (row.DiscountType === 1) {
+                                    content += "<span class='label label-lg label-danger label-inline mr-2'>" + row.Amount + " %</span>";
+                                } else {
+                                    content += " <span class='label label-lg label-danger label-inline mr-2'>" + toPrice(row.Amount) + " تومان</span> ";
+                                }
+                            }
+
+                            return content;
+                        }
+                    },
+                    {
+                        data: "ValidFrom",
+                        render: function (data, type, row) {
+                            var content = "از " + row.ValidFrom + " تا " + row.ValidTo;
+                            return content;
+                        }
+                    },
+                    { data: "UsageStatus" },
+                    { data: "Code" },
+                    {
+                        data: "DiscountStatus",
+                        render: function (data, type, row) {
+                            var content = "";
+                            if (row.DiscountStatus === 1) {
+                                content = "<span class='label label-lg label-success label-inline mr-2'>معتبر</span>";
+                            }
+                            if (row.DiscountStatus === 2) {
+                                content = "<span class='label label-lg label-warning label-inline mr-2'>نا معتبر</span>";
+                            }
+                            if (row.DiscountStatus === 3) {
+                                content = "<span class='label label-lg label-danger label-inline mr-2'>غیر فعال</span>";
+                            }
+                            return content;
+                        }
+                    },
+                    {
+                        data: "Id",
+                        responsivePriority: -1,
+                        render: function (data, type, row) {
+                            var content = "";
+                            @{
+                                if (await PermissionHelper.UserHasPermission("Discounts", "Edit"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon mr-2' onclick="openModal('/Management/Discounts/Edit/${row.Id}')">\
+                                        <i class='far fa-edit text-primary'></i>\
+                                        </a>\
+                                        `;
+                                        content += element;
+                                    </text>
+                                }
+                                if (await PermissionHelper.UserHasPermission("Discounts", "Delete"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Discounts/Delete/${row.Id}')">\
+                                        <i class='far fa-trash-alt text-danger'></i>\
+                                        </a>\
+                                        `;
+                                        content += element;
+                                    </text>
+                                }
+                             }
+                            return content;
+                        },
+                        width:"200px",
+                        orderable: false
+                    },
+
+                ],
+            });
+        });
+    </script>
+}

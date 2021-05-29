@@ -16,6 +16,9 @@
     <link href="~/management/plugins/custom/datatables/datatables.bundle.rtl.css" rel="stylesheet" />
     <link href="~/management/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
 
+    <link href="~/persian-datepicker/css/persian-datepicker.min.css" rel="stylesheet" />
+    <link href="~/persian-datepicker/css/theme/persian-datepicker-dark.min.css" rel="stylesheet" />
+
     <link href="~/ckeditor/styles.css" rel="stylesheet" />
     @RenderSection("Header", required: false)
 
@@ -119,6 +122,8 @@
     <partial name="_ModalPartial" />
     <!-- Modal -->
     <!--begin::Global Config(global config for global JS scripts)-->
+    <script src="~/persian-datepicker/js/persian-date.min.js"></script>
+    <script src="~/persian-datepicker/js/persian-datepicker.min.js"></script>
     <script src="~/management/plugins/custom/datatables/datatables.bundle.js"></script>
     <script src="/management/myScripts.js"></script>
     <partial name="_ValidationScriptsPartial" />

@@ -44,6 +44,19 @@
         "sprites/solid.svg",
         "css/fontawesome.min.css"
       ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "persian-datepicker@1.2.0",
+      "destination": "wwwroot/persian-datepicker/",
+      "files": [
+        "dist/css/persian-datepicker.min.css",
+        "dist/css/theme/persian-datepicker-blue.min.css",
+        "dist/css/theme/persian-datepicker-cheerup.min.css",
+        "dist/css/theme/persian-datepicker-dark.min.css",
+        "dist/css/theme/persian-datepicker-redblack.min.css",
+        "dist/js/persian-datepicker.min.js"
+      ]
     }
   ]
 }

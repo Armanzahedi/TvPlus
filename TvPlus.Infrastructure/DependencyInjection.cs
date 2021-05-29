@@ -40,6 +40,7 @@ namespace TvPlus.Infrastructure
             services.AddScoped<IContactUsInfoService, ContactUsInfoService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ISubscriptionPackageService, SubscriptionPackageService>();
+            services.AddScoped<IDiscountService, DiscountService>();
 
             #endregion
 

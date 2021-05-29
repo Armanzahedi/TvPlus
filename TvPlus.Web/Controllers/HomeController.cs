@@ -31,12 +31,22 @@ namespace TvPlus.Web.Controllers
 
         public IActionResult Index()
         {
+            #region SEO
+            ViewData["Title"] = "خانه";
+            ViewData["MetaDescription"] = "خانه";
+            #endregion
+
             return View();
         }
 
         [Route("ContactUs")]
         public IActionResult ContactUs()
         {
+            #region SEO
+            ViewData["Title"] = "ارتباط با ما";
+            ViewData["MetaDescription"] = "ارتباط با ما";
+            #endregion
+
             var item = _contactUsInfoService.GetFirst();
             return View(item);
         }
@@ -44,6 +54,11 @@ namespace TvPlus.Web.Controllers
         [Route("AboutUs")]
         public IActionResult AboutUs()
         {
+            #region SEO
+            ViewData["Title"] = "درباره ما";
+            ViewData["MetaDescription"] = "درباره ما";
+            #endregion
+
             var aboutUs = _aboutUsService.GetAboutUs();
             var aboutUsSection = _aboutUsService.GetAboutUsSections();
 

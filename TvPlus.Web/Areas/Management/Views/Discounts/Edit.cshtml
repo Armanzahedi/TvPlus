@@ -1,0 +1,106 @@
+﻿@using TvPlus.Utility.Enums
+@model TvPlus.Web.Areas.Management.ViewModels.EditDiscountViewModel
+
+<input type="hidden" id="title" value="ویرایش تخفیف" />
+
+<form asp-action="Save" method="post" id="form" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Discount.Id" />
+    <input type="hidden" asp-for="Discount.Code" />
+    <input type="hidden" asp-for="Discount.InsertDate" />
+    <input type="hidden" asp-for="Discount.InsertUser" />
+    <input type="hidden" asp-for="Discount.UsageCount" />
+    <div class="form-group">
+        <label asp-for="Discount.UserId" class="control-label col-md-4">تخفیف برای</label>
+        <div class="col-md-9">
+            <select asp-for="Discount.UserId" class="form-control" asp-items="@ViewData["Users"] as List<SelectListItem>">
+                <option value="0" selected="@((string.IsNullOrEmpty(Model?.Discount?.UserId) || Model?.Discount?.UserId == "0")? "true" : "false")">برای همه</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Discount.UsageLimit" class="control-label col-md-4"></label>
+        <div class="col-md-9">
+            <input asp-for="Discount.UsageLimit" class="form-control" />
+            <span asp-validation-for="Discount.UsageLimit" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PersianValidFrom" class="control-label col-md-4"></label>
+        <div class="col-md-9">
+            <input id="PersianValidFrom" name="PersianValidFrom" class="form-control"/>
+            <span asp-validation-for="PersianValidFrom" autocomplete="off" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PersianValidTo" class="control-label col-md-4"></label>
+        <div class="col-md-9">
+            <input id="PersianValidTo" name="PersianValidTo" class="form-control" />
+            <span asp-validation-for="PersianValidTo" autocomplete="off" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Discount.DiscountType" class="control-label col-md-4"></label>
+        <div class="col-md-9">
+            <select class="form-control" asp-for="Discount.DiscountType">
+                <option value="1" selected="@(Model.Discount.DiscountType == DiscountType.Percentage)">درصد</option>
+                <option value="2" selected="@(Model.Discount.DiscountType == DiscountType.Amount)">میزان</option>
+            </select>
+            <span asp-validation-for="Discount.DiscountType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Discount.Amount" class="control-label col-md-4"></label>
+        <div class="col-md-9">
+            <input asp-for="Discount.Amount" class="form-control" />
+            <span asp-validation-for="Discount.Amount" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row" style="margin-right: 6px">
+        <label class="col-3 col-form-label" asp-for="Discount.IsActive"></label>
+        <div class="col-9 col-form-label">
+            <div class="checkbox-inline">
+                <label class="checkbox checkbox-success" asp-for="Discount.IsActive">
+                    <input type="checkbox" asp-for="Discount.IsActive" />
+                    <span></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div style="float:left">
+            <input type="submit" value="ثبت" class="btn btn-primary mr-2" />
+        </div>
+    </div>
+</form>
+<script>
+    $.validator.unobtrusive.parse("#form");
+    function toTimestamp(strDate){
+        var datum = Date.parse(strDate);
+        return datum/1000;
+    }
+    var vf = $('#PersianValidFrom').pDatepicker({
+        initialValue: false,
+        format: 'YYYY/MM/DD',
+    });
+    @if (Model.Discount.ValidFrom != null)
+    {
+        <text>
+            vf.setDate(toTimestamp("@Model.Discount.ValidFrom.Value.ToString()") * 1000);
+        </text>
+    }
+    var vt = $('#PersianValidTo').pDatepicker({
+        initialValue: false,
+        format: 'YYYY/MM/DD',
+    });
+    @if (Model.Discount.ValidTo != null)
+    {
+        <text>
+            vt.setDate(toTimestamp("@Model.Discount.ValidTo.Value.ToString()") * 1000);
+        </text>
+    }
+    $("#UserId").change(function () {
+        var discountFor = $(this).val();
+        console.log(discountFor);
+    });
+</script>
