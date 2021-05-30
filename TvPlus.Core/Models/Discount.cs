@@ -35,10 +35,19 @@ namespace TvPlus.Core.Models
 
         public bool IsValid()
         {
-            if (ValidTo < DateTime.Now || ValidFrom > DateTime.Now || UsageCount >= UsageLimit)
+            if (ValidTo != null)
+                if(ValidTo.Value.Date < DateTime.Now.Date)
+                    return false;
+
+            if (ValidFrom != null)
+                if (ValidFrom.Value.Date > DateTime.Now.Date)
+                    return false;
+
+            if (UsageCount >= UsageLimit)
                 return false;
-            else
-                return true;
+
+
+            return true;
         }
     }
 }
